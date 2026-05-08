@@ -7,7 +7,8 @@ export default function Projects() {
       title: "MediAssist AI",
       desc: "An AI-powered healthcare platform that automates patient communication. Translates complex medical reports into simple language and delivers them via automated voice calls.",
       tags: ["FastAPI", "Next.js", "AI", "Mako"],
-      link: "View MediAssist",
+      deployLink: "#", // User will add hosted link here
+      githubLink: "https://github.com/varadbarve/MediAssist",
       actionIcon: "clinical_notes"
     },
     {
@@ -15,7 +16,8 @@ export default function Projects() {
       title: "autoscroller Engine",
       desc: "A smart automation bot for YouTube Shorts and Instagram Reels. Features video-end detection and a real-time analytics dashboard for a hands-free viewing experience.",
       tags: ["Node.js", "Playwright", "CSS"],
-      link: "Explore Bot",
+      deployLink: "#",
+      githubLink: "https://github.com/varadbarve/autoscroller",
       actionIcon: "auto_mode"
     },
     {
@@ -23,7 +25,8 @@ export default function Projects() {
       title: "WhatsApp Direct",
       desc: "A high-performance web utility to send WhatsApp messages without saving contacts. Features QR code generation, message prefilling, and smart input parsing.",
       tags: ["React", "TypeScript", "Vite", "Tailwind"],
-      link: "Try Utility",
+      deployLink: "#",
+      githubLink: "https://github.com/varadbarve/whatsapp_direct",
       actionIcon: "chat"
     },
     {
@@ -31,7 +34,8 @@ export default function Projects() {
       title: "SRM Feedback Bot",
       desc: "Automation tool designed to streamline student feedback processes at SRM University. Uses Playwright to handle complex form submissions automatically.",
       tags: ["Python", "Playwright", "Automation"],
-      link: "View Repo",
+      deployLink: "#",
+      githubLink: "https://github.com/varadbarve/Feedback-Bot",
       actionIcon: "feedback"
     },
     {
@@ -39,7 +43,8 @@ export default function Projects() {
       title: "Traffic Detection",
       desc: "Real-time vehicle detection and tracking system using YOLOv8. Optimized for various weather conditions and high-density traffic scenarios.",
       tags: ["YOLOv8", "Computer Vision", "Python"],
-      link: "View Model",
+      deployLink: "#",
+      githubLink: "https://github.com/varadbarve/Traffic_Object_Detection_System",
       actionIcon: "analytics"
     }
   ];
@@ -51,7 +56,7 @@ export default function Projects() {
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="space-y-sm">
           <h1 className="font-h1 text-h1 text-on-surface">Technical Projects</h1>
           <p className="font-body-lg text-body-lg text-on-surface-variant max-w-2xl">
-            A selection of high-performance distributed systems, machine learning utilities, and modern web architectures. Built with a focus on absolute performance and zero-overhead execution.
+            A curated selection of intelligent systems, automation engines, and modern web architectures. Focused on high-performance execution and seamless user experiences.
           </p>
 
           <div className="mt-md flex flex-col md:flex-row gap-sm items-start md:items-center">
@@ -60,11 +65,6 @@ export default function Projects() {
               <span className="font-mono-label text-primary mr-xs opacity-70">grep -i "</span>
               <input className="bg-transparent border-none outline-none text-on-surface font-mono-label w-full focus:ring-0 p-0 placeholder-on-surface-variant/50" placeholder="Search architecture, language, or concept..." type="text"/>
               <span className="font-mono-label text-primary ml-xs opacity-70">" ./projects</span>
-            </div>
-            <div className="flex gap-xs flex-wrap">
-              {['Go', 'Rust', 'Kubernetes', 'React'].map(tag => (
-                <span key={tag} className="bg-[#121212] border border-primary/20 text-primary px-xs py-base rounded-DEFAULT font-mono-label text-caption cursor-pointer hover:bg-primary/10">#{tag}</span>
-              ))}
             </div>
           </div>
         </motion.div>
@@ -78,20 +78,27 @@ export default function Projects() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: i * 0.1 }}
               whileHover={{ borderColor: "rgba(16, 185, 129, 0.4)", boxShadow: "0 0 15px rgba(16, 185, 129, 0.1)" }}
-              className="glass-panel rounded-lg p-sm flex flex-col h-full transition-all duration-300"
+              className="glass-panel rounded-lg p-sm flex flex-col h-full transition-all duration-300 relative group"
             >
+              {/* GitHub Link Icon in Corner */}
+              <a 
+                href={proj.githubLink} 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="absolute top-3 right-3 w-8 h-8 rounded-full glass-panel flex items-center justify-center text-on-surface-variant hover:text-primary hover:border-primary/40 transition-all z-20"
+                title="View Source on GitHub"
+              >
+                <svg className="w-5 h-5 fill-current" viewBox="0 0 24 24">
+                  <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                </svg>
+              </a>
+
               <div className="flex justify-between items-start mb-sm">
                 <div className="w-10 h-10 rounded bg-surface border border-outline-variant flex items-center justify-center text-primary">
                   <span className="material-symbols-outlined" style={{ fontVariationSettings: "'FILL' 1" }}>{proj.icon}</span>
                 </div>
-                {i % 3 === 0 && (
-                  <span className="flex h-2 w-2 relative">
-                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
-                    <span className="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
-                  </span>
-                )}
               </div>
-              <h3 className="font-h3 text-h3 mb-xs">{proj.title}</h3>
+              <h3 className="font-h3 text-h3 mb-xs pr-8">{proj.title}</h3>
               <p className="font-body-md text-body-md text-on-surface-variant mb-md flex-grow">{proj.desc}</p>
               
               <div className="flex flex-wrap gap-xs mb-sm">
@@ -100,8 +107,13 @@ export default function Projects() {
                 ))}
               </div>
               <div className="pt-sm border-t border-outline-variant/30 flex justify-between items-center mt-auto">
-                <a className="font-mono-label text-caption text-primary hover:text-primary-fixed flex items-center gap-xs group" href="#">
-                  {proj.link} <span className="material-symbols-outlined text-sm group-hover:translate-x-1 transition-transform">arrow_forward</span>
+                <a 
+                  href={proj.deployLink} 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="font-mono-label text-caption text-primary hover:text-primary-fixed flex items-center gap-xs group"
+                >
+                  Live Deployment <span className="material-symbols-outlined text-sm group-hover:translate-x-1 transition-transform">arrow_forward</span>
                 </a>
                 <span className="material-symbols-outlined text-on-surface-variant hover:text-on-surface cursor-pointer">{proj.actionIcon}</span>
               </div>

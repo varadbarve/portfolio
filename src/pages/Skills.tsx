@@ -17,30 +17,30 @@ export default function Skills() {
         <div className="lg:col-span-8 space-y-lg">
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="glass-panel rounded-lg p-lg relative overflow-hidden group">
             <div className="absolute top-0 right-0 p-md opacity-20 group-hover:opacity-40 transition-opacity">
-              <span className="material-symbols-outlined text-[120px] text-surface-bright">code</span>
+              <span className="material-symbols-outlined text-[120px] text-surface-bright">neurology</span>
             </div>
             <div className="relative z-10 flex justify-between items-start mb-lg">
               <div>
                 <h2 className="font-h2 text-h2 text-on-surface flex items-center">
-                  Python Ecosystem
-                  <span className="ml-sm data-chip font-mono-label text-mono-label text-secondary px-sm py-xs rounded-DEFAULT text-[12px]">Expert</span>
+                  AI & Intelligent Systems
+                  <span className="ml-sm data-chip font-mono-label text-mono-label text-secondary px-sm py-xs rounded-DEFAULT text-[12px]">Advanced</span>
                 </h2>
-                <p className="font-body-md text-body-md text-on-surface-variant mt-xs">Machine learning models, computer vision, and backend scripting.</p>
+                <p className="font-body-md text-body-md text-on-surface-variant mt-xs">Architecting neural architectures and computer vision pipelines for production-grade automation.</p>
               </div>
               <div className="text-right">
-                <span className="font-h3 text-h3 text-primary block">95%</span>
-                <span className="font-mono-label text-mono-label text-on-surface-variant uppercase tracking-wider text-[10px]">Proficiency</span>
+                <span className="font-h3 text-h3 text-primary block">96%</span>
+                <span className="font-mono-label text-mono-label text-on-surface-variant uppercase tracking-wider text-[10px]">Execution Index</span>
               </div>
             </div>
             <div className="relative z-10">
               <div className="w-full bg-surface-container-highest rounded-full h-2 mb-md overflow-hidden">
-                <motion.div initial={{ width: 0 }} animate={{ width: "95%" }} transition={{ duration: 1, delay: 0.2 }} className="bg-primary h-2 rounded-full shadow-[0_0_10px_rgba(78,222,163,0.4)]"></motion.div>
+                <motion.div initial={{ width: 0 }} animate={{ width: "96%" }} transition={{ duration: 1, delay: 0.2 }} className="bg-primary h-2 rounded-full shadow-[0_0_10px_rgba(78,222,163,0.4)]"></motion.div>
               </div>
               <div className="grid grid-cols-2 md:grid-cols-4 gap-md border-t border-surface-container-highest pt-md">
-                {['TensorFlow', 'OpenCV', 'Scikit-learn', 'Pygame'].map((skill) => (
+                {['TensorFlow', 'YOLOv8', 'Scikit-Learn', 'Mako AI'].map((skill) => (
                   <div key={skill}>
                     <span className="block font-mono-label text-mono-label text-on-surface-variant mb-xs">{skill}</span>
-                    <span className="font-caption text-caption text-on-surface">Advanced</span>
+                    <span className="font-caption text-caption text-on-surface">Precision</span>
                   </div>
                 ))}
               </div>
@@ -50,21 +50,21 @@ export default function Skills() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-lg">
             <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }} className="glass-panel rounded-lg p-lg relative overflow-hidden group">
               <div className="absolute top-0 right-0 p-md opacity-20 group-hover:opacity-40 transition-opacity">
-                <span className="material-symbols-outlined text-[80px] text-surface-bright">web</span>
+                <span className="material-symbols-outlined text-[80px] text-surface-bright">precision_manufacturing</span>
               </div>
               <div className="relative z-10 mb-lg">
                 <div className="flex justify-between items-center mb-sm">
-                  <h2 className="font-h3 text-h3 text-on-surface">Frontend Development</h2>
-                  <span className="font-h3 text-h3 text-primary">88%</span>
+                  <h2 className="font-h3 text-h3 text-on-surface">Automation Engineering</h2>
+                  <span className="font-h3 text-h3 text-primary">94%</span>
                 </div>
-                <p className="font-caption text-caption text-on-surface-variant h-12">Building responsive web apps with React and Next.js.</p>
+                <p className="font-caption text-caption text-on-surface-variant h-12">Building resilient E2E automation engines and bot architectures using Playwright and Node.js.</p>
               </div>
               <div className="relative z-10">
                 <div className="w-full bg-surface-container-highest rounded-full h-2 mb-md overflow-hidden">
-                  <motion.div initial={{ width: 0 }} animate={{ width: "88%" }} transition={{ duration: 1, delay: 0.3 }} className="bg-primary h-2 rounded-full shadow-[0_0_10px_rgba(78,222,163,0.4)]"></motion.div>
+                  <motion.div initial={{ width: 0 }} animate={{ width: "94%" }} transition={{ duration: 1, delay: 0.3 }} className="bg-primary h-2 rounded-full shadow-[0_0_10px_rgba(78,222,163,0.4)]"></motion.div>
                 </div>
                 <div className="flex flex-wrap gap-xs">
-                  {['React', 'Next.js', 'Tailwind CSS'].map(t => (
+                  {['Playwright', 'Puppeteer', 'FastAPI', 'Node.js'].map(t => (
                     <span key={t} className="data-chip font-mono-label text-mono-label text-[11px] px-xs py-[2px] rounded">{t}</span>
                   ))}
                 </div>
@@ -73,21 +73,21 @@ export default function Skills() {
 
             <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }} className="glass-panel rounded-lg p-lg relative overflow-hidden group">
               <div className="absolute top-0 right-0 p-md opacity-20 group-hover:opacity-40 transition-opacity">
-                <span className="material-symbols-outlined text-[80px] text-surface-bright">terminal</span>
+                <span className="material-symbols-outlined text-[80px] text-surface-bright">layers</span>
               </div>
               <div className="relative z-10 mb-lg">
                 <div className="flex justify-between items-center mb-sm">
-                  <h2 className="font-h3 text-h3 text-on-surface">Languages</h2>
-                  <span className="font-h3 text-h3 text-primary">92%</span>
+                  <h2 className="font-h3 text-h3 text-on-surface">Full-Stack Synthesis</h2>
+                  <span className="font-h3 text-h3 text-primary">91%</span>
                 </div>
-                <p className="font-caption text-caption text-on-surface-variant h-12">Proficient in C++, Java, and SQL for competitive programming and databases.</p>
+                <p className="font-caption text-caption text-on-surface-variant h-12">Developing high-density data visualizations and reactive interfaces with React and TypeScript.</p>
               </div>
               <div className="relative z-10">
                 <div className="w-full bg-surface-container-highest rounded-full h-2 mb-md overflow-hidden">
-                  <motion.div initial={{ width: 0 }} animate={{ width: "92%" }} transition={{ duration: 1, delay: 0.4 }} className="bg-primary h-2 rounded-full shadow-[0_0_10px_rgba(78,222,163,0.4)]"></motion.div>
+                  <motion.div initial={{ width: 0 }} animate={{ width: "91%" }} transition={{ duration: 1, delay: 0.4 }} className="bg-primary h-2 rounded-full shadow-[0_0_10px_rgba(78,222,163,0.4)]"></motion.div>
                 </div>
                 <div className="flex flex-wrap gap-xs">
-                  {['C++', 'Java', 'SQL', 'JavaScript'].map(t => (
+                  {['React', 'Next.js', 'TypeScript', 'Tailwind'].map(t => (
                     <span key={t} className="data-chip font-mono-label text-mono-label text-[11px] px-xs py-[2px] rounded">{t}</span>
                   ))}
                 </div>
