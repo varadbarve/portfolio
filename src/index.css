@@ -2,6 +2,46 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ===== Dark Theme (Default) ===== */
+:root {
+  --c-background: #131313;
+  --c-on-background: #e5e2e1;
+  --c-surface: #131313;
+  --c-surface-dim: #131313;
+  --c-surface-bright: #393939;
+  --c-on-surface: #e5e2e1;
+  --c-on-surface-variant: #bbcabf;
+  --c-surface-variant: #353534;
+  --c-surface-container: #201f1f;
+  --c-surface-container-low: #1c1b1b;
+  --c-surface-container-lowest: #0e0e0e;
+  --c-surface-container-high: #2a2a2a;
+  --c-surface-container-highest: #353534;
+  --c-outline: #86948a;
+  --c-outline-variant: #3c4a42;
+  --c-on-tertiary-fixed: #1a1c1c;
+}
+
+/* ===== Light Theme ===== */
+html.light-mode {
+  --c-background: #f5f7f6;
+  --c-on-background: #1a1c1b;
+  --c-surface: #f5f7f6;
+  --c-surface-dim: #d6dbd8;
+  --c-surface-bright: #f5f7f6;
+  --c-on-surface: #1a1c1b;
+  --c-on-surface-variant: #404942;
+  --c-surface-variant: #dde5dd;
+  --c-surface-container: #e9ece9;
+  --c-surface-container-low: #eff2ef;
+  --c-surface-container-lowest: #ffffff;
+  --c-surface-container-high: #e3e7e4;
+  --c-surface-container-highest: #dde0dd;
+  --c-outline: #6f7972;
+  --c-outline-variant: #bfc9bf;
+  --c-on-tertiary-fixed: #1a1c1c;
+}
+
 @layer base {
   body {
     @apply bg-background text-on-background font-body-md text-body-md antialiased min-h-screen selection:bg-primary/30 selection:text-primary-fixed;
@@ -20,39 +60,32 @@
   }
 }
 
-/* Light Mode Theme Override (#11) */
-html.light-mode {
-  --md-sys-color-background: #f8fafb;
-  --md-sys-color-on-background: #1a1c1e;
-  --md-sys-color-surface: #f0f3f5;
-  --md-sys-color-surface-dim: #e0e3e5;
-  --md-sys-color-surface-bright: #6b7280;
-  --md-sys-color-on-surface: #1a1c1e;
-  --md-sys-color-on-surface-variant: #44474f;
-  --md-sys-color-surface-container-lowest: #ffffff;
-  --md-sys-color-surface-container-low: #f5f7f9;
-  --md-sys-color-surface-container: #eef1f3;
-  --md-sys-color-surface-container-high: #e8ebee;
-  --md-sys-color-surface-container-highest: #d0d4d8;
-  --md-sys-color-outline: #74777f;
-  --md-sys-color-outline-variant: #c4c6d0;
-}
-
+/* Light mode glass overrides */
 html.light-mode .glass-panel {
-  background-color: rgba(255, 255, 255, 0.6);
-  backdrop-filter: blur(12px);
+  background-color: rgba(255, 255, 255, 0.65);
   border: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
 }
 
 html.light-mode .data-chip {
-  background-color: rgba(0, 0, 0, 0.04);
+  background-color: rgba(0, 50, 30, 0.06);
   border: 1px solid rgba(0, 0, 0, 0.1);
 }
 
-/* Smooth theme transition */
-html {
-  transition: background-color 0.3s ease, color 0.3s ease;
+/* Light mode fix for hardcoded dark backgrounds */
+html.light-mode input,
+html.light-mode textarea {
+  background-color: #ffffff !important;
+  border-color: var(--c-outline-variant) !important;
+  color: var(--c-on-surface) !important;
 }
-html * {
-  transition: background-color 0.3s ease, border-color 0.3s ease;
+
+html.light-mode input::placeholder,
+html.light-mode textarea::placeholder {
+  color: var(--c-outline) !important;
+}
+
+/* Smooth theme transition */
+html, html * {
+  transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
 }
