@@ -75,17 +75,19 @@ export default function Projects() {
             </p>
 
             <div className="mt-md flex flex-col md:flex-row gap-sm items-start md:items-center">
-              <div className="flex-grow w-full md:w-auto relative glass-panel rounded-lg flex items-center px-sm py-xs transition-colors duration-200 focus-within:border-primary focus-within:bg-[#0a0a0a]">
-                <span className="material-symbols-outlined text-on-surface-variant mr-xs">search</span>
-                <span className="font-mono-label text-primary mr-xs opacity-70">grep -i "</span>
-                <input
-                  className="bg-transparent border-none outline-none text-on-surface font-mono-label w-full focus:ring-0 p-0 placeholder-on-surface-variant/50"
-                  placeholder="Search architecture, language, or concept..."
-                  type="text"
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                />
-                <span className="font-mono-label text-primary ml-xs opacity-70">" ./projects</span>
+              <div className="flex-grow w-full md:w-auto relative glass-panel rounded-lg flex items-center px-sm py-md transition-colors duration-200 focus-within:border-primary focus-within:bg-[#0a0a0a] overflow-hidden">
+                <span className="material-symbols-outlined text-on-surface-variant mr-xs flex-shrink-0">search</span>
+                <div className="flex items-center flex-grow min-w-0">
+                  <span className="font-mono-label text-primary mr-xs opacity-70 whitespace-nowrap flex-shrink-0">grep -i "</span>
+                  <input
+                    className="bg-transparent border-none outline-none text-on-surface font-mono-label flex-grow min-w-0 focus:ring-0 p-0 placeholder-on-surface-variant/40"
+                    placeholder="Search architecture, language, or concept..."
+                    type="text"
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                  />
+                  <span className="font-mono-label text-primary ml-xs opacity-70 whitespace-nowrap flex-shrink-0">" ./projects</span>
+                </div>
               </div>
             </div>
 
