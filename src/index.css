@@ -1,0 +1,21 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-background text-on-background font-body-md text-body-md antialiased min-h-screen selection:bg-primary/30 selection:text-primary-fixed;
+  }
+}
+
+@layer utilities {
+  .glass-panel {
+    background-color: rgba(32, 31, 31, 0.4);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+  }
+  .data-chip {
+    background-color: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+}
