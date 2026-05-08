@@ -1,13 +1,16 @@
 import { motion } from "framer-motion";
+import { useState } from "react";
 
 export default function Projects() {
+  const [searchQuery, setSearchQuery] = useState("");
+
   const projects = [
     {
       icon: "medical_services",
       title: "MediAssist AI",
       desc: "An AI-powered healthcare platform that automates patient communication. Translates complex medical reports into simple language and delivers them via automated voice calls.",
       tags: ["FastAPI", "Next.js", "AI", "Mako"],
-      deployLink: "#", // User will add hosted link here
+      deployLink: "#",
       githubLink: "https://github.com/varadbarve/MediAssist",
       actionIcon: "clinical_notes"
     },
@@ -49,6 +52,17 @@ export default function Projects() {
     }
   ];
 
+  // Functional search: filter by title, description, or tags
+  const filteredProjects = projects.filter((proj) => {
+    if (!searchQuery.trim()) return true;
+    const q = searchQuery.toLowerCase();
+    return (
+      proj.title.toLowerCase().includes(q) ||
+      proj.desc.toLowerCase().includes(q) ||
+      proj.tags.some((tag) => tag.toLowerCase().includes(q))
+    );
+  });
+
   return (
     <main className="flex-grow pt-[100px] pb-xl px-md mt-lg max-w-[1120px] mx-auto w-full">
       <div className="space-y-lg">
@@ -63,26 +77,52 @@ export default function Projects() {
             <div className="flex-grow w-full md:w-auto relative glass-panel rounded-DEFAULT flex items-center px-sm py-xs transition-colors duration-200 focus-within:border-primary focus-within:bg-[#0a0a0a]">
               <span className="material-symbols-outlined text-on-surface-variant mr-xs">search</span>
               <span className="font-mono-label text-primary mr-xs opacity-70">grep -i "</span>
-              <input className="bg-transparent border-none outline-none text-on-surface font-mono-label w-full focus:ring-0 p-0 placeholder-on-surface-variant/50" placeholder="Search architecture, language, or concept..." type="text"/>
+              <input
+                className="bg-transparent border-none outline-none text-on-surface font-mono-label w-full focus:ring-0 p-0 placeholder-on-surface-variant/50"
+                placeholder="Search architecture, language, or concept..."
+                type="text"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+              />
               <span className="font-mono-label text-primary ml-xs opacity-70">" ./projects</span>
             </div>
           </div>
+
+          {/* Active filter tags */}
+          {searchQuery && (
+            <motion.div
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: "auto" }}
+              className="flex items-center gap-sm"
+            >
+              <span className="font-mono-label text-[11px] text-on-surface-variant">
+                {filteredProjects.length} result{filteredProjects.length !== 1 ? "s" : ""} for
+              </span>
+              <span className="bg-primary/10 border border-primary/30 text-primary px-xs py-[2px] rounded font-mono-label text-[11px] flex items-center gap-xs">
+                "{searchQuery}"
+                <button onClick={() => setSearchQuery("")} className="hover:text-red-400 transition-colors">
+                  <span className="material-symbols-outlined text-[14px]">close</span>
+                </button>
+              </span>
+            </motion.div>
+          )}
         </motion.div>
 
         {/* Grid Layout */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-md">
-          {projects.map((proj, i) => (
-            <motion.div 
+          {filteredProjects.map((proj, i) => (
+            <motion.div
               key={proj.title}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: i * 0.1 }}
+              transition={{ delay: i * 0.08 }}
+              layout
               className="glass-panel rounded-lg p-sm flex flex-col h-full transition-all duration-200 relative group hover:border-primary/40 hover:shadow-[0_0_20px_rgba(16,185,129,0.1)]"
             >
               {/* GitHub Link Icon in Corner */}
-              <a 
-                href={proj.githubLink} 
-                target="_blank" 
+              <a
+                href={proj.githubLink}
+                target="_blank"
                 rel="noopener noreferrer"
                 className="absolute top-3 right-3 w-8 h-8 rounded-full glass-panel flex items-center justify-center text-on-surface-variant hover:text-primary hover:border-primary/40 transition-all z-20"
                 title="View Source on GitHub"
@@ -99,16 +139,22 @@ export default function Projects() {
               </div>
               <h3 className="font-h3 text-h3 mb-xs pr-8">{proj.title}</h3>
               <p className="font-body-md text-body-md text-on-surface-variant mb-md flex-grow">{proj.desc}</p>
-              
+
               <div className="flex flex-wrap gap-xs mb-sm">
                 {proj.tags.map(tag => (
-                  <span key={tag} className="bg-[#121212] border border-primary/20 text-on-surface px-xs py-base rounded-DEFAULT font-mono-label text-[11px]">{tag}</span>
+                  <button
+                    key={tag}
+                    onClick={() => setSearchQuery(tag)}
+                    className="bg-[#121212] border border-primary/20 text-on-surface px-xs py-base rounded-DEFAULT font-mono-label text-[11px] hover:border-primary/50 hover:text-primary transition-colors cursor-pointer"
+                  >
+                    {tag}
+                  </button>
                 ))}
               </div>
               <div className="pt-sm border-t border-outline-variant/30 flex justify-between items-center mt-auto">
-                <a 
-                  href={proj.deployLink} 
-                  target="_blank" 
+                <a
+                  href={proj.deployLink}
+                  target="_blank"
                   rel="noopener noreferrer"
                   className="font-mono-label text-caption text-primary hover:text-primary-fixed flex items-center gap-xs group"
                 >
@@ -119,6 +165,26 @@ export default function Projects() {
             </motion.div>
           ))}
         </div>
+
+        {/* No results state */}
+        {filteredProjects.length === 0 && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            className="glass-panel rounded-lg p-xl text-center space-y-md"
+          >
+            <span className="material-symbols-outlined text-[48px] text-on-surface-variant/50">search_off</span>
+            <p className="font-mono-label text-mono-label text-on-surface-variant">
+              No projects match "<span className="text-primary">{searchQuery}</span>"
+            </p>
+            <button
+              onClick={() => setSearchQuery("")}
+              className="font-mono-label text-caption text-primary hover:underline"
+            >
+              Clear search
+            </button>
+          </motion.div>
+        )}
       </div>
     </main>
   );
