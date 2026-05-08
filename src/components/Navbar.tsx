@@ -21,9 +21,9 @@ export default function Navbar() {
         <Link to="/resume" className={getLinkClass("/resume")}>Resume</Link>
         <a href="mailto:varadvbarve@gmail.com" className={getLinkClass("/contact")}>Contact</a>
       </div>
-      <button className="hidden md:flex items-center justify-center px-lg py-sm bg-primary-container text-[#0f172a] rounded-DEFAULT font-mono-label text-mono-label hover:opacity-90 transition-opacity">
-        Download CV
-      </button>
+        <Link to="/resume" className="hidden md:flex items-center justify-center px-lg py-sm bg-primary-container text-[#0f172a] rounded-DEFAULT font-mono-label text-mono-label hover:opacity-90 transition-opacity">
+          Download CV
+        </Link>
       <button className="md:hidden flex items-center justify-center text-on-surface">
         <span className="material-symbols-outlined">menu</span>
       </button>

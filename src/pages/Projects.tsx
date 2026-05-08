@@ -77,8 +77,7 @@ export default function Projects() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: i * 0.1 }}
-              whileHover={{ borderColor: "rgba(16, 185, 129, 0.4)", boxShadow: "0 0 15px rgba(16, 185, 129, 0.1)" }}
-              className="glass-panel rounded-lg p-sm flex flex-col h-full transition-all duration-300 relative group"
+              className="glass-panel rounded-lg p-sm flex flex-col h-full transition-all duration-200 relative group hover:border-primary/40 hover:shadow-[0_0_20px_rgba(16,185,129,0.1)]"
             >
               {/* GitHub Link Icon in Corner */}
               <a 

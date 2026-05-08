@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 
 export default function Home() {
   return (
@@ -23,21 +24,25 @@ export default function Home() {
             Engineering intelligent systems and modern web applications. Specialized in machine learning models and scalable full-stack architectures.
           </p>
           <div className="flex gap-md pt-sm">
-            <motion.button 
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="bg-primary hover:bg-surface-tint text-on-primary-container font-mono-label text-mono-label px-lg py-md rounded-DEFAULT transition-all"
-            >
-              Deploy Protocol
-            </motion.button>
-            <motion.button 
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="glass-panel text-on-surface font-mono-label text-mono-label px-lg py-md rounded-DEFAULT hover:bg-white/5 transition-all flex items-center gap-sm"
-            >
-              <span className="material-symbols-outlined text-[18px]">terminal</span>
-              View Logs
-            </motion.button>
+            <Link to="/projects">
+              <motion.button 
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="bg-primary hover:bg-surface-tint text-on-primary-container font-mono-label text-mono-label px-lg py-md rounded-DEFAULT transition-all"
+              >
+                Deploy Protocol
+              </motion.button>
+            </Link>
+            <Link to="/resume">
+              <motion.button 
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="glass-panel text-on-surface font-mono-label text-mono-label px-lg py-md rounded-DEFAULT hover:bg-white/5 transition-all flex items-center gap-sm"
+              >
+                <span className="material-symbols-outlined text-[18px]">terminal</span>
+                View Logs
+              </motion.button>
+            </Link>
           </div>
         </motion.div>
 
@@ -176,6 +181,7 @@ export default function Home() {
                 <motion.button 
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
+                  onClick={() => window.location.href = 'mailto:varadvbarve@gmail.com'}
                   className="bg-primary hover:bg-surface-tint text-on-primary-container font-mono-label text-mono-label px-lg py-md rounded-DEFAULT transition-all flex items-center gap-sm" type="button"
                 >
                   Transmit Data <span className="material-symbols-outlined text-[18px]">send</span>
