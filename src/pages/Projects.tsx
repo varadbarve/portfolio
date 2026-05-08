@@ -3,52 +3,28 @@ import { motion } from "framer-motion";
 export default function Projects() {
   const projects = [
     {
-      icon: "hub",
-      title: "Distributed Mesh Engine",
-      desc: "A highly concurrent, zero-trust service mesh designed for ephemeral containerized environments. Handles automatic TLS rotation and localized payload routing.",
-      tags: ["Go", "Docker", "Kubernetes"],
-      link: "View Source",
+      icon: "psychology",
+      title: "Text Classification System",
+      desc: "An intelligent text analysis engine using SVM and CountVectorizer. Achieved 98% accuracy in classifying complex datasets into distinct categories.",
+      tags: ["Python", "Scikit-Learn", "SVM"],
+      link: "View Implementation",
       actionIcon: "code"
     },
     {
-      icon: "psychology",
-      title: "Neural Task Scheduler",
-      desc: "An predictive orchestration engine that leverages historical load data to pre-warm serverless functions. Reduces cold start latency by 85% in high-variance workloads.",
-      tags: ["Rust", "Python", "TensorFlow"],
-      link: "View Architecture",
+      icon: "traffic",
+      title: "Traffic Object Detection",
+      desc: "Real-time traffic monitoring system powered by YOLOv8. Detects and tracks multiple vehicle classes with high precision in varying conditions.",
+      tags: ["YOLOv8", "Computer Vision", "Python"],
+      link: "View Model",
       actionIcon: "analytics"
     },
     {
-      icon: "dashboard",
-      title: "Nexus Analytics UI",
-      desc: "A real-time, high-density data visualization dashboard for monitoring distributed cluster health. Features WebGL-accelerated charting and sub-millisecond state updates.",
-      tags: ["React", "Tailwind", "TypeScript"],
-      link: "Live Demo",
-      actionIcon: "open_in_new"
-    },
-    {
-      icon: "api",
-      title: "Synapse GraphQL API",
-      desc: "A federated GraphQL gateway layer resolving complex entity relationships across 14 microservices. Implements aggressive query caching and depth-limiting for protection.",
-      tags: ["GraphQL", "Go", "Postgres"],
-      link: "View Schema",
-      actionIcon: "database"
-    },
-    {
-      icon: "terminal",
-      title: "Warp CLI Tool",
-      desc: "A blazingly fast developer toolkit for instantiating isolated cloud development environments. Bypasses standard provisioning overhead by utilizing pre-baked AMI snapshots.",
-      tags: ["Rust", "Docker", "AWS"],
-      link: "Download Binaries",
-      actionIcon: "download"
-    },
-    {
-      icon: "memory",
-      title: "Orbital Cache Layer",
-      desc: "An edge-deployed caching mechanism utilizing distributed Redis nodes via K8s StatefulSets. Designed to provide sub-10ms read times for globally distributed client payloads.",
-      tags: ["Redis", "Go", "Kubernetes"],
-      link: "Read Case Study",
-      actionIcon: "description"
+      icon: "sports_esports",
+      title: "Galga Lite",
+      desc: "A custom retro arcade game built with Python and Pygame. Features dynamic enemy AI, sprite animations, and progressive difficulty levels.",
+      tags: ["Python", "Pygame", "Game Dev"],
+      link: "Play Demo",
+      actionIcon: "videogame_asset"
     }
   ];
 

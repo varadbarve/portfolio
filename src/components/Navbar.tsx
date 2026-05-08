@@ -13,13 +13,13 @@ export default function Navbar() {
   return (
     <nav className="fixed top-0 w-full z-50 flex justify-between items-center px-gutter py-sm max-w-[1440px] mx-auto bg-surface/80 dark:bg-surface-dim/80 backdrop-blur-md border-b border-white/10 flat no shadows">
       <Link to="/" className="font-h3 text-h3 font-bold text-on-surface dark:text-surface-bright">
-        DevPortfolio v1.0
+        Varad Barve
       </Link>
       <div className="hidden md:flex items-center space-x-lg">
         <Link to="/projects" className={getLinkClass("/projects")}>Projects</Link>
         <Link to="/skills" className={getLinkClass("/skills")}>Skills</Link>
         <Link to="/resume" className={getLinkClass("/resume")}>Resume</Link>
-        <a href="mailto:hello@devportfolio.sys" className={getLinkClass("/contact")}>Contact</a>
+        <a href="mailto:varadvbarve@gmail.com" className={getLinkClass("/contact")}>Contact</a>
       </div>
       <button className="hidden md:flex items-center justify-center px-lg py-sm bg-primary-container text-[#0f172a] rounded-DEFAULT font-mono-label text-mono-label hover:opacity-90 transition-opacity">
         Download CV

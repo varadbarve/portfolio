@@ -16,11 +16,11 @@ export default function Home() {
             SYS_STATUS: ONLINE
           </div>
           <h1 className="font-h1 text-h1 text-on-surface leading-tight">
-            Full-Stack Engineer <br/>
-            <span className="text-surface-variant">&amp;</span> Problem Solver
+            AI Developer <br/>
+            <span className="text-surface-variant">&amp;</span> Full-Stack Engineer
           </h1>
           <p className="font-body-lg text-body-lg text-on-surface-variant max-w-xl">
-            Architecting high-performance systems and intuitive interfaces. Specializing in scalable backend infrastructure and reactive frontend ecosystems.
+            Engineering intelligent systems and modern web applications. Specialized in machine learning models and scalable full-stack architectures.
           </p>
           <div className="flex gap-md pt-sm">
             <motion.button 
@@ -112,7 +112,7 @@ export default function Home() {
                 </div>
                 <div>
                   <div className="font-mono-label text-[11px] text-outline uppercase">Protocol</div>
-                  <div className="font-mono-label text-mono-label text-on-surface">hello@devportfolio.sys</div>
+                  <div className="font-mono-label text-mono-label text-on-surface">varadvbarve@gmail.com</div>
                 </div>
               </div>
               <div className="flex items-center gap-md">
@@ -121,7 +121,7 @@ export default function Home() {
                 </div>
                 <div>
                   <div className="font-mono-label text-[11px] text-outline uppercase">Node</div>
-                  <div className="font-mono-label text-mono-label text-on-surface">San Francisco, CA (UTC-8)</div>
+                  <div className="font-mono-label text-mono-label text-on-surface">Chennai, India (UTC+5:30)</div>
                 </div>
               </div>
             </div>
