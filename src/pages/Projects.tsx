@@ -3,28 +3,44 @@ import { motion } from "framer-motion";
 export default function Projects() {
   const projects = [
     {
-      icon: "psychology",
-      title: "Text Classification System",
-      desc: "An intelligent text analysis engine using SVM and CountVectorizer. Achieved 98% accuracy in classifying complex datasets into distinct categories.",
-      tags: ["Python", "Scikit-Learn", "SVM"],
-      link: "View Implementation",
-      actionIcon: "code"
+      icon: "medical_services",
+      title: "MediAssist AI",
+      desc: "An AI-powered healthcare platform that automates patient communication. Translates complex medical reports into simple language and delivers them via automated voice calls.",
+      tags: ["FastAPI", "Next.js", "AI", "Mako"],
+      link: "View MediAssist",
+      actionIcon: "clinical_notes"
+    },
+    {
+      icon: "smart_display",
+      title: "autoscroller Engine",
+      desc: "A smart automation bot for YouTube Shorts and Instagram Reels. Features video-end detection and a real-time analytics dashboard for a hands-free viewing experience.",
+      tags: ["Node.js", "Playwright", "CSS"],
+      link: "Explore Bot",
+      actionIcon: "auto_mode"
+    },
+    {
+      icon: "qr_code_2",
+      title: "WhatsApp Direct",
+      desc: "A high-performance web utility to send WhatsApp messages without saving contacts. Features QR code generation, message prefilling, and smart input parsing.",
+      tags: ["React", "TypeScript", "Vite", "Tailwind"],
+      link: "Try Utility",
+      actionIcon: "chat"
+    },
+    {
+      icon: "robot",
+      title: "SRM Feedback Bot",
+      desc: "Automation tool designed to streamline student feedback processes at SRM University. Uses Playwright to handle complex form submissions automatically.",
+      tags: ["Python", "Playwright", "Automation"],
+      link: "View Repo",
+      actionIcon: "feedback"
     },
     {
       icon: "traffic",
-      title: "Traffic Object Detection",
-      desc: "Real-time traffic monitoring system powered by YOLOv8. Detects and tracks multiple vehicle classes with high precision in varying conditions.",
+      title: "Traffic Detection",
+      desc: "Real-time vehicle detection and tracking system using YOLOv8. Optimized for various weather conditions and high-density traffic scenarios.",
       tags: ["YOLOv8", "Computer Vision", "Python"],
       link: "View Model",
       actionIcon: "analytics"
-    },
-    {
-      icon: "sports_esports",
-      title: "Galga Lite",
-      desc: "A custom retro arcade game built with Python and Pygame. Features dynamic enemy AI, sprite animations, and progressive difficulty levels.",
-      tags: ["Python", "Pygame", "Game Dev"],
-      link: "Play Demo",
-      actionIcon: "videogame_asset"
     }
   ];
 

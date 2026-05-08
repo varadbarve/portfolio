@@ -55,25 +55,25 @@ export default function Home() {
             className="glass-panel rounded-lg p-lg col-span-2 relative z-10 flex flex-col justify-between group cursor-pointer"
           >
             <div className="flex justify-between items-start mb-lg">
-              <div className="font-mono-label text-mono-label text-on-surface-variant uppercase tracking-widest">Core.Architecture</div>
-              <span className="material-symbols-outlined text-primary group-hover:scale-110 transition-transform">schema</span>
+              <div className="font-mono-label text-mono-label text-on-surface-variant uppercase tracking-widest">Featured.Project</div>
+              <span className="material-symbols-outlined text-primary group-hover:scale-110 transition-transform">medical_services</span>
             </div>
             <div>
-              <h3 className="font-h3 text-h3 text-on-surface mb-xs">Distributed Systems</h3>
-              <p className="font-caption text-caption text-on-surface-variant">Designing resilient microservices with event-driven architectures and high-availability patterns.</p>
+              <h3 className="font-h3 text-h3 text-on-surface mb-xs">MediAssist AI</h3>
+              <p className="font-caption text-caption text-on-surface-variant">Automating patient communication with AI voice assistants and simplified medical reporting.</p>
             </div>
           </motion.div>
 
           <motion.div whileHover={{ y: -5 }} className="glass-panel rounded-lg p-md relative z-10 hover:border-primary/50 transition-colors cursor-pointer">
-            <span className="material-symbols-outlined text-secondary-fixed mb-md">code_blocks</span>
-            <div className="font-mono-label text-mono-label text-on-surface">Frontend.Dev</div>
-            <div className="text-xs text-on-surface-variant mt-xs opacity-70">React, Vue, WebGL</div>
+            <span className="material-symbols-outlined text-secondary-fixed mb-md">smart_display</span>
+            <div className="font-mono-label text-mono-label text-on-surface">autoscroller</div>
+            <div className="text-xs text-on-surface-variant mt-xs opacity-70">Automation Engine</div>
           </motion.div>
 
           <motion.div whileHover={{ y: -5 }} className="glass-panel rounded-lg p-md relative z-10 hover:border-primary/50 transition-colors cursor-pointer">
-            <span className="material-symbols-outlined text-tertiary-fixed mb-md">database</span>
-            <div className="font-mono-label text-mono-label text-on-surface">Data.Ops</div>
-            <div className="text-xs text-on-surface-variant mt-xs opacity-70">PostgreSQL, Redis, Kafka</div>
+            <span className="material-symbols-outlined text-tertiary-fixed mb-md">chat</span>
+            <div className="font-mono-label text-mono-label text-on-surface">WA Direct</div>
+            <div className="text-xs text-on-surface-variant mt-xs opacity-70">React Utility</div>
           </motion.div>
         </motion.div>
       </section>
