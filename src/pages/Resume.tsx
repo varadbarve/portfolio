@@ -10,7 +10,7 @@ export default function Resume() {
           <div className="flex flex-wrap gap-sm">
             <span className="data-chip font-mono-label text-mono-label text-primary px-sm py-xs rounded-DEFAULT">B.Tech CSE</span>
             <span className="data-chip font-mono-label text-mono-label text-secondary px-sm py-xs rounded-DEFAULT">Location: Chennai</span>
-            <span className="data-chip font-mono-label text-mono-label text-secondary px-sm py-xs rounded-DEFAULT">Status: Seeking Internships</span>
+            <span className="data-chip font-mono-label text-mono-label text-secondary px-sm py-xs rounded-DEFAULT">Status: Open to Opportunities</span>
           </div>
           <p className="font-body-lg text-body-lg text-on-surface-variant max-w-3xl mt-md">
             Passionate AI Developer and Computer Science student at SRM IST. Specialized in machine learning, computer vision, and full-stack development. Dedicated to building intelligent solutions that solve real-world problems through data-driven approaches.
@@ -21,51 +21,88 @@ export default function Resume() {
           <a className="font-caption text-caption text-secondary hover:text-primary flex items-center gap-xs" href="mailto:varadvbarve@gmail.com">
             <span className="material-symbols-outlined text-[16px]">mail</span> varadvbarve@gmail.com
           </a>
-          <a className="font-caption text-caption text-secondary hover:text-primary flex items-center gap-xs" href="#">
-            <span className="material-symbols-outlined text-[16px]">link</span> github.com/sys-arch
+          <a className="font-caption text-caption text-secondary hover:text-primary flex items-center gap-xs" href="tel:+918320952448">
+            <span className="material-symbols-outlined text-[16px]">phone</span> +91 8320952448
+          </a>
+          <a className="font-caption text-caption text-secondary hover:text-primary flex items-center gap-xs" href="https://github.com/varadbarve" target="_blank" rel="noopener noreferrer">
+            <span className="material-symbols-outlined text-[16px]">link</span> github.com/varadbarve
+          </a>
+          <a className="font-caption text-caption text-secondary hover:text-primary flex items-center gap-xs" href="https://linkedin.com/in/varad-barve-143761280" target="_blank" rel="noopener noreferrer">
+            <span className="material-symbols-outlined text-[16px]">link</span> linkedin.com/in/varad-barve
           </a>
         </motion.div>
       </section>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-lg">
-        {/* Main Content Area: Experience */}
+        {/* Main Content Area: Experience + Projects */}
         <div className="lg:col-span-2 space-y-lg">
+
+          {/* Experience */}
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="glass-panel p-lg rounded-xl">
             <h2 className="font-h2 text-h2 text-primary mb-lg border-b border-[#334155] pb-sm flex items-center gap-sm">
               <span className="material-symbols-outlined text-primary">work</span> Experience
             </h2>
-            
-            <div className="relative pl-lg border-l border-[#334155] pb-lg mb-md">
+
+            <div className="relative pl-lg border-l border-[#334155]">
               <div className="absolute w-3 h-3 bg-primary rounded-full -left-[6px] top-1 shadow-[0_0_8px_rgba(34,197,94,0.6)]"></div>
               <div className="flex flex-col md:flex-row md:justify-between md:items-baseline mb-sm">
-                <h3 className="font-h3 text-h3 text-on-surface">AI/ML Internship</h3>
-                <span className="font-mono-label text-mono-label text-primary mt-xs md:mt-0">Jan 2024 - Feb 2024</span>
+                <h3 className="font-h3 text-h3 text-on-surface">AI Developer Intern</h3>
+                <span className="font-mono-label text-mono-label text-primary mt-xs md:mt-0">May 2025 – June 2025</span>
               </div>
-              <h4 className="font-mono-label text-mono-label text-secondary uppercase mb-md">1Stop AI</h4>
+              <h4 className="font-mono-label text-mono-label text-secondary uppercase mb-md">1Stop AI (Personifwy)</h4>
               <ul className="list-disc list-inside space-y-sm font-body-md text-body-md text-on-surface-variant ml-xs marker:text-primary">
-                <li>Developed a high-accuracy text classification system using SVM and CountVectorizer.</li>
-                <li>Conducted extensive data preprocessing and feature engineering on complex text datasets.</li>
-                <li>Achieved a final model accuracy of 98% through rigorous hyperparameter tuning and validation.</li>
+                <li>Developed 3 machine learning models using TensorFlow for classification and detection tasks.</li>
+                <li>Performed data preprocessing, feature engineering, and model evaluation.</li>
+                <li>Improved model performance through hyperparameter tuning.</li>
               </ul>
             </div>
+          </motion.div>
 
-            <div className="relative pl-lg border-l border-[#334155] pb-lg">
-              <div className="absolute w-3 h-3 bg-surface-variant border border-primary rounded-full -left-[6px] top-1"></div>
-              <div className="flex flex-col md:flex-row md:justify-between md:items-baseline mb-sm">
-                <h3 className="font-h3 text-h3 text-on-surface">Senior Backend Engineer</h3>
-                <span className="font-mono-label text-mono-label text-secondary mt-xs md:mt-0">2018 - 2021</span>
+          {/* Projects */}
+          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }} className="glass-panel p-lg rounded-xl">
+            <h2 className="font-h2 text-h2 text-primary mb-lg border-b border-[#334155] pb-sm flex items-center gap-sm">
+              <span className="material-symbols-outlined text-primary">folder_code</span> Projects
+            </h2>
+            <div className="space-y-lg">
+              <div className="relative pl-lg border-l border-[#334155]">
+                <div className="absolute w-3 h-3 bg-primary rounded-full -left-[6px] top-1 shadow-[0_0_8px_rgba(34,197,94,0.4)]"></div>
+                <div className="flex flex-col md:flex-row md:justify-between md:items-baseline mb-sm">
+                  <h3 className="font-h3 text-h3 text-on-surface">Text Classification System</h3>
+                  <span className="font-mono-label text-[11px] text-primary/70 mt-xs md:mt-0">Python · TensorFlow</span>
+                </div>
+                <ul className="list-disc list-inside space-y-xs font-body-md text-body-md text-on-surface-variant ml-xs marker:text-primary">
+                  <li>Built a sentiment analysis model for text data using deep learning.</li>
+                  <li>Achieved 93% accuracy across 18K review dataset.</li>
+                  <li>Extended the architecture to support multi-category text classification.</li>
+                </ul>
               </div>
-              <h4 className="font-mono-label text-mono-label text-secondary uppercase mb-md">DataStream Inc.</h4>
-              <ul className="list-disc list-inside space-y-sm font-body-md text-body-md text-on-surface-variant ml-xs marker:text-primary">
-                <li>Developed high-throughput data ingestion pipelines using Apache Kafka and Go.</li>
-                <li>Optimized PostgreSQL query performance, reducing average latency by 40%.</li>
-                <li>Implemented comprehensive CI/CD pipelines reducing deployment times from hours to minutes.</li>
-              </ul>
+              <div className="relative pl-lg border-l border-[#334155]">
+                <div className="absolute w-3 h-3 bg-surface-variant border border-primary rounded-full -left-[6px] top-1"></div>
+                <div className="flex flex-col md:flex-row md:justify-between md:items-baseline mb-sm">
+                  <h3 className="font-h3 text-h3 text-on-surface">Traffic Object Detection System</h3>
+                  <span className="font-mono-label text-[11px] text-primary/70 mt-xs md:mt-0">Python · TensorFlow</span>
+                </div>
+                <ul className="list-disc list-inside space-y-xs font-body-md text-body-md text-on-surface-variant ml-xs marker:text-primary">
+                  <li>Improved detection efficiency tested over 10K different datasets with an average accuracy improvement of 7%.</li>
+                  <li>Working on real-time data integration.</li>
+                </ul>
+              </div>
+              <div className="relative pl-lg border-l border-[#334155]">
+                <div className="absolute w-3 h-3 bg-surface-variant border border-primary rounded-full -left-[6px] top-1"></div>
+                <div className="flex flex-col md:flex-row md:justify-between md:items-baseline mb-sm">
+                  <h3 className="font-h3 text-h3 text-on-surface">Galga Lite</h3>
+                  <span className="font-mono-label text-[11px] text-primary/70 mt-xs md:mt-0">Python · JavaScript · Vercel</span>
+                </div>
+                <ul className="list-disc list-inside space-y-xs font-body-md text-body-md text-on-surface-variant ml-xs marker:text-primary">
+                  <li>Built and deployed an interactive web application.</li>
+                  <li>Structured modular and scalable codebase.</li>
+                </ul>
+              </div>
             </div>
           </motion.div>
         </div>
 
-        {/* Sidebar: Skills & Education */}
+        {/* Sidebar: Skills, Education, Languages */}
         <div className="space-y-lg">
           <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.1 }} className="glass-panel p-lg rounded-xl">
             <h2 className="font-h2 text-h2 text-primary mb-md border-b border-[#334155] pb-sm flex items-center gap-sm">
@@ -75,23 +112,31 @@ export default function Resume() {
               <div>
                 <h4 className="font-mono-label text-mono-label text-surface-tint uppercase mb-sm">Languages</h4>
                 <div className="flex flex-wrap gap-xs">
-                  {['Go', 'Python', 'Rust', 'TypeScript'].map(t => (
+                  {['Python', 'C++', 'Java', 'JavaScript', 'TypeScript'].map(t => (
                     <span key={t} className="data-chip font-mono-label text-mono-label text-on-surface px-sm py-xs rounded-DEFAULT">{t}</span>
                   ))}
                 </div>
               </div>
               <div>
-                <h4 className="font-mono-label text-mono-label text-surface-tint uppercase mb-sm">Infrastructure</h4>
+                <h4 className="font-mono-label text-mono-label text-surface-tint uppercase mb-sm">Frontend</h4>
                 <div className="flex flex-wrap gap-xs">
-                  {['Kubernetes', 'Docker', 'Terraform', 'AWS'].map(t => (
+                  {['HTML', 'CSS', 'React.js', 'Next.js'].map(t => (
                     <span key={t} className="data-chip font-mono-label text-mono-label text-on-surface px-sm py-xs rounded-DEFAULT">{t}</span>
                   ))}
                 </div>
               </div>
               <div>
-                <h4 className="font-mono-label text-mono-label text-surface-tint uppercase mb-sm">Databases</h4>
+                <h4 className="font-mono-label text-mono-label text-surface-tint uppercase mb-sm">Backend & DB</h4>
                 <div className="flex flex-wrap gap-xs">
-                  {['PostgreSQL', 'Redis', 'Cassandra'].map(t => (
+                  {['Node.js', 'MongoDB', 'MySQL', 'Firebase'].map(t => (
+                    <span key={t} className="data-chip font-mono-label text-mono-label text-on-surface px-sm py-xs rounded-DEFAULT">{t}</span>
+                  ))}
+                </div>
+              </div>
+              <div>
+                <h4 className="font-mono-label text-mono-label text-surface-tint uppercase mb-sm">AI / ML & Tools</h4>
+                <div className="flex flex-wrap gap-xs">
+                  {['TensorFlow', 'Git', 'Vercel', 'Docker'].map(t => (
                     <span key={t} className="data-chip font-mono-label text-mono-label text-on-surface px-sm py-xs rounded-DEFAULT">{t}</span>
                   ))}
                 </div>
@@ -107,16 +152,29 @@ export default function Resume() {
               <div>
                 <h3 className="font-h3 text-h3 text-on-surface">B.Tech in CSE</h3>
                 <p className="font-mono-label text-mono-label text-secondary uppercase my-xs">SRM Institute of Science and Technology</p>
-                <p className="font-mono-label text-mono-label text-on-surface-variant">2022 - 2026 | CGPA: 9.24</p>
+                <p className="font-mono-label text-mono-label text-on-surface-variant">2023 – 2027 | CGPA: 8.28</p>
               </div>
               <div className="pt-sm border-t border-[#334155]">
                 <h4 className="font-mono-label text-mono-label text-surface-tint uppercase mb-sm">Certifications</h4>
                 <ul className="space-y-xs font-caption text-caption text-on-surface-variant">
-                  <li className="flex items-center gap-xs"><span className="material-symbols-outlined text-[14px] text-primary">verified</span> AI-ML Certification (SRM IST)</li>
-                  <li className="flex items-center gap-xs"><span className="material-symbols-outlined text-[14px] text-primary">verified</span> Python Programming (Udemy)</li>
+                  <li className="flex items-start gap-xs"><span className="material-symbols-outlined text-[14px] text-primary mt-[2px] flex-shrink-0">verified</span> Artificial Intelligence – IIT Guwahati (Alcheringa)</li>
+                  <li className="flex items-start gap-xs"><span className="material-symbols-outlined text-[14px] text-primary mt-[2px] flex-shrink-0">verified</span> 30 Days DSA Bootcamp – Unstop</li>
+                  <li className="flex items-start gap-xs"><span className="material-symbols-outlined text-[14px] text-primary mt-[2px] flex-shrink-0">verified</span> Basic Statistical Data Analysis Using SPSS – SRM College</li>
+                  <li className="flex items-start gap-xs"><span className="material-symbols-outlined text-[14px] text-primary mt-[2px] flex-shrink-0">verified</span> Python Programming – Udemy</li>
                 </ul>
               </div>
             </div>
+          </motion.div>
+
+          <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.3 }} className="glass-panel p-lg rounded-xl">
+            <h2 className="font-h2 text-h2 text-primary mb-md border-b border-[#334155] pb-sm flex items-center gap-sm">
+              <span className="material-symbols-outlined text-primary">translate</span> Languages
+            </h2>
+            <ul className="space-y-xs font-caption text-caption text-on-surface-variant">
+              <li className="flex justify-between"><span>English</span><span className="text-primary/70">Professional Proficiency</span></li>
+              <li className="flex justify-between"><span>Hindi</span><span className="text-primary/70">Native</span></li>
+              <li className="flex justify-between"><span>Japanese</span><span className="text-primary/70">Elementary</span></li>
+            </ul>
           </motion.div>
         </div>
       </div>
