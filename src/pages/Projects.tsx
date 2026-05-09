@@ -10,9 +10,18 @@ export default function Projects() {
       title: "MediAssist AI",
       desc: "An AI-powered healthcare platform that automates patient communication. Translates complex medical reports into simple language and delivers them via automated voice calls.",
       tags: ["FastAPI", "Next.js", "AI", "Mako"],
-      deployLink: "#",
+      deployLink: "https://medi-assist-01.vercel.app",
       githubLink: "https://github.com/varadbarve/MediAssist",
       actionIcon: "clinical_notes"
+    },
+    {
+      icon: "rocket_launch",
+      title: "Galga Lite",
+      desc: "A high-performance interactive web application built for seamless user engagement. Features a modular architecture and is optimized for cloud deployment.",
+      tags: ["Python", "JavaScript", "Vercel", "Web App"],
+      deployLink: "https://galgalite.vercel.app",
+      githubLink: "https://github.com/varadbarve/galgalite",
+      actionIcon: "public"
     },
     {
       icon: "smart_display",
