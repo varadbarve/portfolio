@@ -19,7 +19,7 @@ export default function Projects() {
       title: "Galga Lite",
       desc: "A high-performance interactive web application built for seamless user engagement. Features a modular architecture and is optimized for cloud deployment.",
       tags: ["Python", "JavaScript", "Vercel", "Web App"],
-      deployLink: "https://galgalite-git-main-varad-barves-projects.vercel.app",
+      deployLink: "https://galgalite.vercel.app",
       githubLink: "https://github.com/varadbarve/galgalite",
       actionIcon: "public"
     },
