@@ -17,7 +17,7 @@ export default function Resume() {
           </p>
         </motion.div>
         <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} className="w-full md:w-64 glass-panel p-md rounded-lg flex flex-col space-y-sm">
-          <h3 className="font-mono-label text-mono-label text-surface-tint uppercase mb-xs border-b border-[#334155] pb-xs">Quick Contact</h3>
+          <h3 className="font-mono-label text-mono-label text-surface-tint uppercase mb-xs border-b border-outline-variant pb-xs">Quick Contact</h3>
           <a className="font-caption text-caption text-secondary hover:text-primary flex items-center gap-xs" href="mailto:varadvbarve@gmail.com">
             <span className="material-symbols-outlined text-[16px]">mail</span> varadvbarve@gmail.com
           </a>
@@ -39,11 +39,11 @@ export default function Resume() {
 
           {/* Experience */}
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="glass-panel p-lg rounded-xl">
-            <h2 className="font-h2 text-h2 text-primary mb-lg border-b border-[#334155] pb-sm flex items-center gap-sm">
+            <h2 className="font-h2 text-h2 text-primary mb-lg border-b border-outline-variant pb-sm flex items-center gap-sm">
               <span className="material-symbols-outlined text-primary">work</span> Experience
             </h2>
 
-            <div className="relative pl-lg border-l border-[#334155]">
+            <div className="relative pl-lg border-l border-outline-variant">
               <div className="absolute w-3 h-3 bg-primary rounded-full -left-[6px] top-1 shadow-[0_0_8px_rgba(34,197,94,0.6)]"></div>
               <div className="flex flex-col md:flex-row md:justify-between md:items-baseline mb-sm">
                 <h3 className="font-h3 text-h3 text-on-surface">AI Developer Intern</h3>
@@ -60,11 +60,11 @@ export default function Resume() {
 
           {/* Projects */}
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }} className="glass-panel p-lg rounded-xl">
-            <h2 className="font-h2 text-h2 text-primary mb-lg border-b border-[#334155] pb-sm flex items-center gap-sm">
+            <h2 className="font-h2 text-h2 text-primary mb-lg border-b border-outline-variant pb-sm flex items-center gap-sm">
               <span className="material-symbols-outlined text-primary">folder_code</span> Projects
             </h2>
             <div className="space-y-lg">
-              <div className="relative pl-lg border-l border-[#334155]">
+              <div className="relative pl-lg border-l border-outline-variant">
                 <div className="absolute w-3 h-3 bg-primary rounded-full -left-[6px] top-1 shadow-[0_0_8px_rgba(34,197,94,0.4)]"></div>
                 <div className="flex flex-col md:flex-row md:justify-between md:items-baseline mb-sm">
                   <h3 className="font-h3 text-h3 text-on-surface">Text Classification System</h3>
@@ -76,7 +76,7 @@ export default function Resume() {
                   <li>Extended the architecture to support multi-category text classification.</li>
                 </ul>
               </div>
-              <div className="relative pl-lg border-l border-[#334155]">
+              <div className="relative pl-lg border-l border-outline-variant">
                 <div className="absolute w-3 h-3 bg-surface-variant border border-primary rounded-full -left-[6px] top-1"></div>
                 <div className="flex flex-col md:flex-row md:justify-between md:items-baseline mb-sm">
                   <h3 className="font-h3 text-h3 text-on-surface">Traffic Object Detection System</h3>
@@ -87,7 +87,7 @@ export default function Resume() {
                   <li>Working on real-time data integration.</li>
                 </ul>
               </div>
-              <div className="relative pl-lg border-l border-[#334155]">
+              <div className="relative pl-lg border-l border-outline-variant">
                 <div className="absolute w-3 h-3 bg-surface-variant border border-primary rounded-full -left-[6px] top-1"></div>
                 <div className="flex flex-col md:flex-row md:justify-between md:items-baseline mb-sm">
                   <h3 className="font-h3 text-h3 text-on-surface">Galga Lite</h3>
@@ -105,7 +105,7 @@ export default function Resume() {
         {/* Sidebar: Skills, Education, Languages */}
         <div className="space-y-lg">
           <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.1 }} className="glass-panel p-lg rounded-xl">
-            <h2 className="font-h2 text-h2 text-primary mb-md border-b border-[#334155] pb-sm flex items-center gap-sm">
+            <h2 className="font-h2 text-h2 text-primary mb-md border-b border-outline-variant pb-sm flex items-center gap-sm">
               <span className="material-symbols-outlined text-primary">terminal</span> Core Skills
             </h2>
             <div className="space-y-md">
@@ -145,7 +145,7 @@ export default function Resume() {
           </motion.div>
 
           <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.2 }} className="glass-panel p-lg rounded-xl">
-            <h2 className="font-h2 text-h2 text-primary mb-md border-b border-[#334155] pb-sm flex items-center gap-sm">
+            <h2 className="font-h2 text-h2 text-primary mb-md border-b border-outline-variant pb-sm flex items-center gap-sm">
               <span className="material-symbols-outlined text-primary">school</span> Education
             </h2>
             <div className="space-y-md">
@@ -154,7 +154,7 @@ export default function Resume() {
                 <p className="font-mono-label text-mono-label text-secondary uppercase my-xs">SRM Institute of Science and Technology</p>
                 <p className="font-mono-label text-mono-label text-on-surface-variant">2023 – 2027 | CGPA: 8.28</p>
               </div>
-              <div className="pt-sm border-t border-[#334155]">
+              <div className="pt-sm border-t border-outline-variant">
                 <h4 className="font-mono-label text-mono-label text-surface-tint uppercase mb-sm">Certifications</h4>
                 <ul className="space-y-xs font-caption text-caption text-on-surface-variant">
                   <li className="flex items-start gap-xs"><span className="material-symbols-outlined text-[14px] text-primary mt-[2px] flex-shrink-0">verified</span> Artificial Intelligence – IIT Guwahati (Alcheringa)</li>
@@ -167,7 +167,7 @@ export default function Resume() {
           </motion.div>
 
           <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.3 }} className="glass-panel p-lg rounded-xl">
-            <h2 className="font-h2 text-h2 text-primary mb-md border-b border-[#334155] pb-sm flex items-center gap-sm">
+            <h2 className="font-h2 text-h2 text-primary mb-md border-b border-outline-variant pb-sm flex items-center gap-sm">
               <span className="material-symbols-outlined text-primary">translate</span> Languages
             </h2>
             <ul className="space-y-xs font-caption text-caption text-on-surface-variant">

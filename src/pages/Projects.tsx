@@ -1,6 +1,18 @@
 import { motion } from "framer-motion";
 import { useState } from "react";
 
+const highlightText = (text: string, query: string) => {
+  if (!query.trim()) return text;
+  const parts = text.split(new RegExp(`(${query})`, 'gi'));
+  return parts.map((part, index) =>
+    part.toLowerCase() === query.toLowerCase() ? (
+      <span key={index} className="bg-primary/20 text-primary rounded-sm px-0.5">{part}</span>
+    ) : (
+      part
+    )
+  );
+};
+
 export default function Projects() {
   const [searchQuery, setSearchQuery] = useState("");
 
@@ -37,7 +49,7 @@ export default function Projects() {
       title: "WhatsApp Direct",
       desc: "A high-performance web utility to send WhatsApp messages without saving contacts. Features QR code generation, message prefilling, and smart input parsing.",
       tags: ["React", "TypeScript", "Vite", "Tailwind"],
-      deployLink: "#",
+      deployLink: "https://whatsapp-direct.vercel.app",
       githubLink: "https://github.com/varadbarve/whatsapp_direct",
       actionIcon: "chat"
     },
@@ -84,7 +96,7 @@ export default function Projects() {
             </p>
 
             <div className="mt-md flex flex-col md:flex-row gap-sm items-start md:items-center">
-              <div className="flex-grow w-full md:w-auto relative glass-panel rounded-lg flex items-center px-sm py-md transition-colors duration-200 focus-within:border-primary focus-within:bg-[#0a0a0a] overflow-hidden">
+              <div className="flex-grow w-full md:w-auto relative glass-panel rounded-lg flex items-center px-sm py-md transition-colors duration-200 focus-within:border-primary focus-within:bg-surface-container-high overflow-hidden">
                 <span className="material-symbols-outlined text-on-surface-variant mr-xs flex-shrink-0">search</span>
                 <div className="flex items-center flex-grow min-w-0">
                   <span className="font-mono-label text-primary mr-xs opacity-70 whitespace-nowrap flex-shrink-0">grep -i "</span>
@@ -121,7 +133,7 @@ export default function Projects() {
           </motion.div>
 
           {/* Grid Layout */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-md">
+          <div className={`${filteredProjects.length < 3 ? 'flex justify-center flex-wrap' : 'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3'} gap-md`}>
             {filteredProjects.map((proj, i) => (
               <motion.div
                 key={proj.title}
@@ -129,7 +141,7 @@ export default function Projects() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: i * 0.08 }}
                 layout
-                className="glass-panel rounded-xl p-sm flex flex-col h-full transition-all duration-200 relative group hover:border-primary/40 hover:shadow-[0_0_20px_rgba(16,185,129,0.1)]"
+                className={`glass-panel rounded-xl p-sm flex flex-col h-full transition-all duration-200 relative group hover:border-primary/40 hover:shadow-[0_0_20px_rgba(16,185,129,0.1)] ${filteredProjects.length < 3 ? 'w-full max-w-[400px]' : ''}`}
               >
                 {/* GitHub Link Icon in Corner */}
                 <a
@@ -149,18 +161,20 @@ export default function Projects() {
                     <span className="material-symbols-outlined" style={{ fontVariationSettings: "'FILL' 1" }}>{proj.icon}</span>
                   </div>
                 </div>
-                <h3 className="font-h3 text-h3 mb-xs pr-8 leading-snug">{proj.title}</h3>
-                <p className="font-body-md text-body-md text-on-surface-variant mb-md flex-grow leading-relaxed">{proj.desc}</p>
+                <h3 className="font-h3 text-h3 mb-xs pr-8 leading-snug">{highlightText(proj.title, searchQuery)}</h3>
+                <p className="font-body-md text-body-md text-on-surface-variant mb-md flex-grow leading-relaxed">{highlightText(proj.desc, searchQuery)}</p>
 
                 <div className="flex flex-wrap gap-xs mb-sm">
                   {proj.tags.map(tag => (
-                    <button
+                    <motion.button
                       key={tag}
                       onClick={() => setSearchQuery(tag)}
-                      className="bg-[#121212] border border-primary/20 text-on-surface px-xs py-base rounded-DEFAULT font-mono-label text-[11px] hover:border-primary/50 hover:text-primary transition-colors cursor-pointer"
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                      className="bg-surface-container border border-primary/20 text-on-surface px-xs py-base rounded-DEFAULT font-mono-label text-[11px] hover:border-primary/50 hover:text-primary transition-colors cursor-pointer"
                     >
-                      {tag}
-                    </button>
+                      {highlightText(tag, searchQuery)}
+                    </motion.button>
                   ))}
                 </div>
                 <div className="pt-sm border-t border-outline-variant/30 flex justify-between items-center mt-auto">
@@ -172,7 +186,12 @@ export default function Projects() {
                   >
                     Live Deployment <span className="material-symbols-outlined text-sm group-hover:translate-x-1 transition-transform">arrow_forward</span>
                   </a>
-                  <span className="material-symbols-outlined text-on-surface-variant hover:text-on-surface cursor-pointer text-[20px]">{proj.actionIcon}</span>
+                  <motion.span 
+                    whileHover={{ scale: 1.2, rotate: 15 }}
+                    className="material-symbols-outlined text-on-surface-variant hover:text-on-surface cursor-pointer text-[20px]"
+                  >
+                    {proj.actionIcon}
+                  </motion.span>
                 </div>
               </motion.div>
             ))}

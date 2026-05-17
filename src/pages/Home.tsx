@@ -62,7 +62,7 @@ export default function Home() {
                 <motion.button
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  className="glass-panel text-on-surface font-mono-label text-mono-label px-lg py-md rounded-DEFAULT hover:bg-white/5 transition-all flex items-center gap-sm"
+                  className="glass-panel text-on-surface font-mono-label text-mono-label px-lg py-md rounded-DEFAULT hover:bg-primary/10 transition-all flex items-center gap-sm"
                 >
                   <span className="material-symbols-outlined text-[18px]">description</span>
                   View Resume

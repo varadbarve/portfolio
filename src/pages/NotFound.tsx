@@ -12,7 +12,7 @@ export default function NotFound() {
       >
         {/* Glitch-style 404 */}
         <div className="relative">
-          <h1 className="text-[150px] md:text-[200px] font-bold leading-none text-transparent bg-clip-text bg-gradient-to-b from-primary/80 to-primary/10 select-none">
+          <h1 className="text-[150px] md:text-[200px] font-bold leading-none text-transparent bg-clip-text bg-gradient-to-b from-primary/80 to-primary/40 select-none">
             404
           </h1>
           <div className="absolute inset-0 flex items-center justify-center">
@@ -60,7 +60,7 @@ export default function NotFound() {
             <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              className="glass-panel text-on-surface font-mono-label text-mono-label px-lg py-md rounded-DEFAULT hover:bg-white/5 transition-all"
+              className="glass-panel text-on-surface font-mono-label text-mono-label px-lg py-md rounded-DEFAULT hover:bg-primary/10 transition-all"
             >
               View Projects
             </motion.button>
