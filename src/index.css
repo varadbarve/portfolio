@@ -20,15 +20,17 @@
   --c-outline: #86948a;
   --c-outline-variant: #3c4a42;
   --c-on-tertiary-fixed: #1a1c1c;
+  --c-primary: #4edea3;
+  --c-selection-bg: rgba(78, 222, 163, 0.3);
 }
 
 /* ===== Light Theme ===== */
 html.light-mode {
-  --c-background: #f5f7f6;
+  --c-background: #f0f4f1;
   --c-on-background: #1a1c1b;
-  --c-surface: #f5f7f6;
+  --c-surface: #f0f4f1;
   --c-surface-dim: #d6dbd8;
-  --c-surface-bright: #f5f7f6;
+  --c-surface-bright: #ffffff;
   --c-on-surface: #1a1c1b;
   --c-on-surface-variant: #404942;
   --c-surface-variant: #dde5dd;
@@ -40,11 +42,16 @@ html.light-mode {
   --c-outline: #6f7972;
   --c-outline-variant: #bfc9bf;
   --c-on-tertiary-fixed: #1a1c1c;
+  --c-primary: #006c49;
+  --c-selection-bg: rgba(0, 108, 73, 0.3);
 }
 
 @layer base {
   body {
-    @apply bg-background text-on-background font-body-md text-body-md antialiased min-h-screen selection:bg-primary/30 selection:text-primary-fixed;
+    @apply bg-background text-on-background font-body-md text-body-md antialiased min-h-screen;
+  }
+  ::selection {
+    background-color: var(--c-selection-bg);
   }
 }
 
