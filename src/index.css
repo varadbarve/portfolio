@@ -59,7 +59,8 @@ html.light-mode {
     @apply bg-background text-on-background font-body-md text-body-md antialiased min-h-screen;
   }
   ::selection {
-    background-color: var(--c-selection-bg);
+    background-color: var(--c-primary);
+    color: var(--c-background);
   }
 }
 
