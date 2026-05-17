@@ -49,7 +49,7 @@ export default {
         "on-secondary-fixed": "#1c1b1b",
         "on-secondary-fixed-variant": "#474646",
         "primary-fixed-dim": "#4edea3",
-        "primary": "#4edea3",
+        "primary": "var(--c-primary)",
         "on-primary-fixed": "#002113",
         "surface-container-lowest": "var(--c-surface-container-lowest)",
         "background": "var(--c-background)",
