@@ -77,7 +77,7 @@ export default function Resume() {
                 </ul>
               </div>
               <div className="relative pl-lg border-l border-outline-variant">
-                <div className="absolute w-3 h-3 bg-surface-variant border border-primary rounded-full -left-[6px] top-1"></div>
+                <div className="absolute w-3 h-3 bg-primary rounded-full -left-[6px] top-1 shadow-[0_0_8px_rgba(34,197,94,0.4)]"></div>
                 <div className="flex flex-col md:flex-row md:justify-between md:items-baseline mb-sm">
                   <h3 className="font-h3 text-h3 text-on-surface">Traffic Object Detection System</h3>
                   <span className="font-mono-label text-[11px] text-primary/70 mt-xs md:mt-0">Python · TensorFlow</span>
@@ -88,7 +88,7 @@ export default function Resume() {
                 </ul>
               </div>
               <div className="relative pl-lg border-l border-outline-variant">
-                <div className="absolute w-3 h-3 bg-surface-variant border border-primary rounded-full -left-[6px] top-1"></div>
+                <div className="absolute w-3 h-3 bg-primary rounded-full -left-[6px] top-1 shadow-[0_0_8px_rgba(34,197,94,0.4)]"></div>
                 <div className="flex flex-col md:flex-row md:justify-between md:items-baseline mb-sm">
                   <h3 className="font-h3 text-h3 text-on-surface">Galga Lite</h3>
                   <span className="font-mono-label text-[11px] text-primary/70 mt-xs md:mt-0">Python · JavaScript · Vercel</span>
