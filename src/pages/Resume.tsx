@@ -17,7 +17,7 @@ export default function Resume() {
           </p>
         </motion.div>
         <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} className="w-full md:w-64 glass-panel p-md rounded-lg flex flex-col space-y-sm">
-          <h3 className="font-mono-label text-mono-label text-surface-tint uppercase mb-xs border-b border-outline-variant pb-xs">Quick Contact</h3>
+          <h3 className="font-mono-label text-mono-label text-primary uppercase mb-xs border-b border-outline-variant pb-xs">Quick Contact</h3>
           <a className="font-caption text-caption text-secondary hover:text-primary flex items-center gap-xs" href="mailto:varadvbarve@gmail.com">
             <span className="material-symbols-outlined text-[16px]">mail</span> varadvbarve@gmail.com
           </a>
@@ -110,7 +110,7 @@ export default function Resume() {
             </h2>
             <div className="space-y-md">
               <div>
-                <h4 className="font-mono-label text-mono-label text-surface-tint uppercase mb-sm">Languages</h4>
+                <h4 className="font-mono-label text-mono-label text-primary uppercase mb-sm">Languages</h4>
                 <div className="flex flex-wrap gap-xs">
                   {['Python', 'C++', 'Java', 'JavaScript', 'TypeScript'].map(t => (
                     <span key={t} className="data-chip font-mono-label text-mono-label text-on-surface px-sm py-xs rounded-DEFAULT">{t}</span>
@@ -118,7 +118,7 @@ export default function Resume() {
                 </div>
               </div>
               <div>
-                <h4 className="font-mono-label text-mono-label text-surface-tint uppercase mb-sm">Frontend</h4>
+                <h4 className="font-mono-label text-mono-label text-primary uppercase mb-sm">Frontend</h4>
                 <div className="flex flex-wrap gap-xs">
                   {['HTML', 'CSS', 'React.js', 'Next.js'].map(t => (
                     <span key={t} className="data-chip font-mono-label text-mono-label text-on-surface px-sm py-xs rounded-DEFAULT">{t}</span>
@@ -126,7 +126,7 @@ export default function Resume() {
                 </div>
               </div>
               <div>
-                <h4 className="font-mono-label text-mono-label text-surface-tint uppercase mb-sm">Backend & DB</h4>
+                <h4 className="font-mono-label text-mono-label text-primary uppercase mb-sm">Backend & DB</h4>
                 <div className="flex flex-wrap gap-xs">
                   {['Node.js', 'MongoDB', 'MySQL', 'Firebase'].map(t => (
                     <span key={t} className="data-chip font-mono-label text-mono-label text-on-surface px-sm py-xs rounded-DEFAULT">{t}</span>
@@ -134,7 +134,7 @@ export default function Resume() {
                 </div>
               </div>
               <div>
-                <h4 className="font-mono-label text-mono-label text-surface-tint uppercase mb-sm">AI / ML & Tools</h4>
+                <h4 className="font-mono-label text-mono-label text-primary uppercase mb-sm">AI / ML & Tools</h4>
                 <div className="flex flex-wrap gap-xs">
                   {['TensorFlow', 'Git', 'Vercel', 'Docker'].map(t => (
                     <span key={t} className="data-chip font-mono-label text-mono-label text-on-surface px-sm py-xs rounded-DEFAULT">{t}</span>
@@ -155,7 +155,7 @@ export default function Resume() {
                 <p className="font-mono-label text-mono-label text-on-surface-variant">2023 – 2027 | CGPA: 8.28</p>
               </div>
               <div className="pt-sm border-t border-outline-variant">
-                <h4 className="font-mono-label text-mono-label text-surface-tint uppercase mb-sm">Certifications</h4>
+                <h4 className="font-mono-label text-mono-label text-primary uppercase mb-sm">Certifications</h4>
                 <ul className="space-y-xs font-caption text-caption text-on-surface-variant">
                   <li className="flex items-start gap-xs"><span className="material-symbols-outlined text-[14px] text-primary mt-[2px] flex-shrink-0">verified</span> Artificial Intelligence – IIT Guwahati (Alcheringa)</li>
                   <li className="flex items-start gap-xs"><span className="material-symbols-outlined text-[14px] text-primary mt-[2px] flex-shrink-0">verified</span> 30 Days DSA Bootcamp – Unstop</li>

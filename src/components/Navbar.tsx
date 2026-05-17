@@ -52,7 +52,7 @@ export default function Navbar() {
                 {isDark ? "light_mode" : "dark_mode"}
               </span>
             </button>
-            <Link to="/resume" className="flex items-center justify-center px-lg py-sm bg-primary-container text-[#0f172a] rounded-DEFAULT font-mono-label text-mono-label hover:opacity-90 transition-opacity">
+            <Link to="/resume" className="flex items-center justify-center px-lg py-sm bg-primary text-[#0f172a] rounded-DEFAULT font-mono-label text-mono-label hover:opacity-90 transition-opacity">
               Download CV
             </Link>
           </div>
@@ -87,7 +87,7 @@ export default function Navbar() {
             <Link to="/resume" className="font-h3 text-h3 text-on-surface hover:text-primary transition-colors">Resume</Link>
             <a href="mailto:varadvbarve@gmail.com" className="font-h3 text-h3 text-on-surface hover:text-primary transition-colors">Contact</a>
             <div className="pt-md border-t border-outline-variant/30">
-              <Link to="/resume" className="inline-flex items-center justify-center px-lg py-md bg-primary-container text-[#0f172a] rounded-DEFAULT font-mono-label text-mono-label">
+              <Link to="/resume" className="inline-flex items-center justify-center px-lg py-md bg-primary text-[#0f172a] rounded-DEFAULT font-mono-label text-mono-label">
                 Download CV
               </Link>
             </div>
