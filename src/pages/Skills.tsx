@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import AnimatedCounter from "../components/AnimatedCounter";
 
 export default function Skills() {
   return (
@@ -15,7 +16,7 @@ export default function Skills() {
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-lg">
         {/* Left Column */}
         <div className="lg:col-span-8 space-y-lg">
-          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="glass-panel rounded-lg p-lg relative overflow-hidden group">
+          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="glass-panel glass-glow rounded-lg p-lg relative overflow-hidden group">
             <div className="absolute top-0 right-0 p-md opacity-20 group-hover:opacity-40 transition-opacity">
               <span className="material-symbols-outlined text-[120px] text-surface-bright">neurology</span>
             </div>
@@ -28,7 +29,7 @@ export default function Skills() {
                 <p className="font-body-md text-body-md text-on-surface-variant mt-xs">Architecting neural architectures and computer vision pipelines for production-grade automation.</p>
               </div>
               <div className="text-right">
-                <span className="font-h3 text-h3 text-primary block">96%</span>
+                <AnimatedCounter target={96} className="font-h3 text-h3 text-primary block" />
                 <span className="font-mono-label text-mono-label text-on-surface-variant uppercase tracking-wider text-[10px]">Execution Index</span>
               </div>
             </div>
@@ -48,14 +49,14 @@ export default function Skills() {
           </motion.div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-lg">
-            <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }} className="glass-panel rounded-lg p-lg relative overflow-hidden group">
+            <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.1 }} className="glass-panel glass-glow rounded-lg p-lg relative overflow-hidden group">
               <div className="absolute top-0 right-0 p-md opacity-20 group-hover:opacity-40 transition-opacity">
                 <span className="material-symbols-outlined text-[80px] text-surface-bright">precision_manufacturing</span>
               </div>
               <div className="relative z-10 mb-lg">
                 <div className="flex justify-between items-center mb-sm">
                   <h2 className="font-h3 text-h3 text-on-surface">Automation Engineering</h2>
-                  <span className="font-h3 text-h3 text-primary">94%</span>
+                  <AnimatedCounter target={94} className="font-h3 text-h3 text-primary" />
                 </div>
                 <p className="font-caption text-caption text-on-surface-variant h-12">Building resilient E2E automation engines and bot architectures using Playwright and Node.js.</p>
               </div>
@@ -71,14 +72,14 @@ export default function Skills() {
               </div>
             </motion.div>
 
-            <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }} className="glass-panel rounded-lg p-lg relative overflow-hidden group">
+            <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.2 }} className="glass-panel glass-glow rounded-lg p-lg relative overflow-hidden group">
               <div className="absolute top-0 right-0 p-md opacity-20 group-hover:opacity-40 transition-opacity">
                 <span className="material-symbols-outlined text-[80px] text-surface-bright">layers</span>
               </div>
               <div className="relative z-10 mb-lg">
                 <div className="flex justify-between items-center mb-sm">
                   <h2 className="font-h3 text-h3 text-on-surface">Full-Stack Synthesis</h2>
-                  <span className="font-h3 text-h3 text-primary">91%</span>
+                  <AnimatedCounter target={91} className="font-h3 text-h3 text-primary" />
                 </div>
                 <p className="font-caption text-caption text-on-surface-variant h-12">Developing high-density data visualizations and reactive interfaces with React and TypeScript.</p>
               </div>
@@ -98,7 +99,7 @@ export default function Skills() {
 
         {/* Right Column */}
         <div className="lg:col-span-4 space-y-lg">
-          <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} className="glass-panel rounded-lg p-lg flex flex-col justify-center items-center h-[300px] relative overflow-hidden">
+          <motion.div initial={{ opacity: 0, x: 20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} className="glass-panel rounded-lg p-lg flex flex-col justify-center items-center h-[300px] relative overflow-hidden">
             <span className="font-mono-label text-mono-label text-on-surface-variant absolute top-md left-md uppercase">Competency Distribution</span>
             <div className="relative w-[180px] h-[180px] border border-surface-container-highest rounded-full flex items-center justify-center">
               <div className="absolute w-[140px] h-[140px] border border-surface-container-highest rounded-full"></div>
@@ -116,13 +117,13 @@ export default function Skills() {
             </div>
           </motion.div>
 
-          <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.2 }} className="glass-panel rounded-lg p-lg">
+          <motion.div initial={{ opacity: 0, x: 20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ delay: 0.2 }} className="glass-panel rounded-lg p-lg">
             <h3 className="font-mono-label text-mono-label text-on-surface-variant uppercase tracking-wider mb-md border-b border-surface-container-highest pb-xs">Infrastructure & Tools</h3>
             <div className="space-y-md">
               {[
                 { icon: "terminal", title: "GitHub / Git", level: "Expert" },
-                { icon: "cloud", title: "Google Colab", level: "Advanced" },
-                { icon: "computer", title: "Linux / OS", level: "Advanced" },
+                { icon: "api", title: "Postman", level: "Expert" },
+                { icon: "cloud_upload", title: "Netlify", level: "Advanced" },
                 { icon: "code", title: "VS Code", level: "Expert" },
               ].map(t => (
                 <div key={t.title} className="flex items-center justify-between">

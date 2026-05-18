@@ -1,5 +1,6 @@
 import { Link, useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
+import MagneticButton from "./MagneticButton";
 
 export default function Navbar() {
   const location = useLocation();
@@ -57,9 +58,11 @@ export default function Navbar() {
                 {isDark ? "light_mode" : "dark_mode"}
               </span>
             </button>
-            <Link to="/resume" className="flex items-center justify-center px-lg py-sm bg-primary text-[#0f172a] rounded-DEFAULT font-mono-label text-mono-label hover:opacity-90 transition-opacity">
-              Download CV
-            </Link>
+            <MagneticButton>
+              <Link to="/resume" className="flex items-center justify-center px-lg py-sm bg-primary text-[#0f172a] rounded-DEFAULT font-mono-label text-mono-label hover:opacity-90 transition-opacity">
+                Download CV
+              </Link>
+            </MagneticButton>
           </div>
           {/* Mobile menu button */}
           <div className="md:hidden flex items-center gap-xs">

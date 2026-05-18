@@ -1,5 +1,8 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
+import ParticleGrid from "../components/ParticleGrid";
+import TypewriterText from "../components/TypewriterText";
+import MagneticButton from "../components/MagneticButton";
 
 const techStack = [
   { name: "Python", icon: "code", color: "#3776AB" },
@@ -18,7 +21,10 @@ export default function Home() {
       {/* Content Wrapper to handle centering without "black margins" */}
       <div className="max-w-[1440px] mx-auto px-gutter w-full">
         {/* Hero Section */}
-        <section className="py-xl lg:py-[120px] grid grid-cols-1 lg:grid-cols-2 gap-xl items-center">
+        <section className="py-xl lg:py-[120px] grid grid-cols-1 lg:grid-cols-2 gap-xl items-center relative overflow-hidden">
+          {/* Particle Background */}
+          <ParticleGrid />
+
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -43,31 +49,38 @@ export default function Home() {
 
             <h1 className="font-h1 text-h1 text-on-surface leading-tight">
               Engineering <br />
-              Intelligent <span className="text-primary">Systems</span>
+              <TypewriterText
+                phrases={["Intelligent Systems", "AI Pipelines", "Web Architectures", "Smart Solutions"]}
+                className="text-primary"
+              />
             </h1>
             <p className="font-body-lg text-body-lg text-on-surface-variant max-w-xl">
               AI Developer &amp; Full-Stack Engineer specializing in high-performance machine learning models and fluid, modern web architectures.
             </p>
             <div className="flex gap-md pt-sm">
-              <Link to="/projects">
-                <motion.button
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  className="bg-primary hover:bg-surface-tint text-on-primary-container font-mono-label text-mono-label px-lg py-md rounded-DEFAULT transition-all"
-                >
-                  View Projects
-                </motion.button>
-              </Link>
-              <Link to="/resume">
-                <motion.button
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  className="glass-panel text-on-surface font-mono-label text-mono-label px-lg py-md rounded-DEFAULT hover:bg-primary/10 transition-all flex items-center gap-sm"
-                >
-                  <span className="material-symbols-outlined text-[18px]">description</span>
-                  View Resume
-                </motion.button>
-              </Link>
+              <MagneticButton>
+                <Link to="/projects">
+                  <motion.button
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    className="bg-primary hover:bg-surface-tint text-on-primary-container font-mono-label text-mono-label px-lg py-md rounded-DEFAULT transition-all"
+                  >
+                    View Projects
+                  </motion.button>
+                </Link>
+              </MagneticButton>
+              <MagneticButton>
+                <Link to="/resume">
+                  <motion.button
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    className="glass-panel text-on-surface font-mono-label text-mono-label px-lg py-md rounded-DEFAULT hover:bg-primary/10 transition-all flex items-center gap-sm"
+                  >
+                    <span className="material-symbols-outlined text-[18px]">description</span>
+                    View Resume
+                  </motion.button>
+                </Link>
+              </MagneticButton>
             </div>
           </motion.div>
 
@@ -76,13 +89,13 @@ export default function Home() {
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5, delay: 0.2 }}
-            className="grid grid-cols-2 gap-sm relative"
+            className="grid grid-cols-2 gap-sm relative z-10"
           >
             <div className="absolute inset-0 blur-[100px] rounded-full z-0 pointer-events-none bg-primary/10"></div>
 
             <motion.div
               whileHover={{ y: -5 }}
-              className="glass-panel rounded-lg p-lg col-span-2 relative z-10 flex flex-col justify-between group cursor-pointer"
+              className="glass-panel glass-glow rounded-lg p-lg col-span-2 relative z-10 flex flex-col justify-between group cursor-pointer"
               onClick={() => window.open('https://github.com/varadbarve/MediAssist', '_blank')}
             >
               <a
@@ -108,7 +121,7 @@ export default function Home() {
 
             <motion.div
               whileHover={{ y: -5 }}
-              className="glass-panel rounded-lg p-md relative z-10 hover:border-primary/50 transition-colors cursor-pointer group"
+              className="glass-panel glass-glow rounded-lg p-md relative z-10 hover:border-primary/50 transition-colors cursor-pointer group"
               onClick={() => window.open('https://github.com/varadbarve/autoscroller', '_blank')}
             >
               <a
@@ -129,7 +142,7 @@ export default function Home() {
 
             <motion.div
               whileHover={{ y: -5 }}
-              className="glass-panel rounded-lg p-md relative z-10 hover:border-primary/50 transition-colors cursor-pointer group"
+              className="glass-panel glass-glow rounded-lg p-md relative z-10 hover:border-primary/50 transition-colors cursor-pointer group"
               onClick={() => window.open('https://github.com/varadbarve/whatsapp_direct', '_blank')}
             >
               <a
@@ -150,7 +163,7 @@ export default function Home() {
           </motion.div>
         </section>
 
-        {/* Tech Stack Orbital (#9) */}
+        {/* Tech Stack Orbital (#9) — scroll-triggered */}
         <section className="py-xl">
           <motion.div
             initial={{ opacity: 0 }}
@@ -166,7 +179,7 @@ export default function Home() {
               <motion.div
                 key={tech.name}
                 initial={{ opacity: 0, scale: 0.5 }}
-                whileInView={{ opacity: 1, scale: 1, transition: { delay: i * 0.01, type: "spring", stiffness: 10 } }}
+                whileInView={{ opacity: 1, scale: 1, transition: { delay: i * 0.06, type: "spring", stiffness: 120 } }}
                 viewport={{ once: true }}
                 whileHover={{ y: -8, boxShadow: `0 8px 30px ${tech.color}50` }}
                 className="glass-panel rounded-lg px-md py-sm flex items-center gap-sm cursor-default hover:border-primary/50 transition-colors duration-200"
@@ -183,12 +196,13 @@ export default function Home() {
           </div>
         </section>
 
-        {/* GitHub Activity Widget (#12) */}
+        {/* GitHub Activity Widget (#12) — scroll-triggered */}
         <section className="py-xl">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
             className="glass-panel rounded-xl p-lg max-w-4xl mx-auto"
           >
             <div className="flex items-center justify-between mb-md">
@@ -230,12 +244,13 @@ export default function Home() {
           </div>
         </motion.div>
 
-        {/* Contact Section */}
+        {/* Contact Section — scroll-triggered */}
         <section className="py-xl mb-xl" id="contact">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
             className="glass-panel rounded-xl p-lg lg:p-[48px] max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-5 gap-xl"
           >
             <div className="md:col-span-2 space-y-lg">
@@ -294,14 +309,16 @@ export default function Home() {
                   <textarea className="w-full bg-surface-container-low border border-surface-container-highest rounded-DEFAULT px-md py-sm text-on-surface font-mono-label text-mono-label focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all placeholder:text-surface-bright resize-none" placeholder="Tell me about your project..." rows={4}></textarea>
                 </div>
                 <div className="pt-sm flex justify-end">
-                  <motion.button
-                    whileHover={{ scale: 1.02 }}
-                    whileTap={{ scale: 0.98 }}
-                    onClick={() => window.location.href = 'mailto:varadvbarve@gmail.com'}
-                    className="bg-primary hover:bg-surface-tint text-on-primary-container font-mono-label text-mono-label px-lg py-md rounded-DEFAULT transition-all flex items-center gap-sm" type="button"
-                  >
-                    Send Message <span className="material-symbols-outlined text-[18px]">send</span>
-                  </motion.button>
+                  <MagneticButton>
+                    <motion.button
+                      whileHover={{ scale: 1.02 }}
+                      whileTap={{ scale: 0.98 }}
+                      onClick={() => window.location.href = 'mailto:varadvbarve@gmail.com'}
+                      className="bg-primary hover:bg-surface-tint text-on-primary-container font-mono-label text-mono-label px-lg py-md rounded-DEFAULT transition-all flex items-center gap-sm" type="button"
+                    >
+                      Send Message <span className="material-symbols-outlined text-[18px]">send</span>
+                    </motion.button>
+                  </MagneticButton>
                 </div>
               </form>
             </div>

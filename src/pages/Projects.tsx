@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { useState } from "react";
+import TiltCard from "../components/TiltCard";
 
 const highlightText = (text: string, query: string) => {
   if (!query.trim()) return text;
@@ -90,7 +91,7 @@ export default function Projects() {
         <div className="space-y-lg mt-lg">
           {/* Header & Search */}
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="space-y-sm">
-            <h1 className="font-h1 text-h1 text-on-surface">Technical Projects</h1>
+            <motion.h1 initial={{ opacity: 0, y: 10 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="font-h1 text-h1 text-on-surface">Technical Projects</motion.h1>
             <p className="font-body-lg text-body-lg text-on-surface-variant max-w-2xl leading-relaxed">
               A curated selection of intelligent systems, automation engines, and modern web architectures. Focused on high-performance execution and seamless user experiences.
             </p>
@@ -135,13 +136,14 @@ export default function Projects() {
           {/* Grid Layout */}
           <div className={`${filteredProjects.length < 3 ? 'flex justify-center flex-wrap' : 'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3'} gap-md`}>
             {filteredProjects.map((proj, i) => (
+              <TiltCard key={proj.title} className={filteredProjects.length < 3 ? 'w-full max-w-[400px]' : ''}>
               <motion.div
-                key={proj.title}
                 initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
                 transition={{ delay: i * 0.08 }}
                 layout
-                className={`glass-panel rounded-xl p-sm flex flex-col h-full transition-all duration-200 relative group hover:border-primary/40 hover:shadow-[0_0_20px_rgba(16,185,129,0.1)] ${filteredProjects.length < 3 ? 'w-full max-w-[400px]' : ''}`}
+                className={`glass-panel glass-glow rounded-xl p-sm flex flex-col h-full transition-all duration-200 relative group hover:shadow-[0_0_20px_rgba(16,185,129,0.1)]`}
               >
                 {/* GitHub Link Icon in Corner */}
                 <a
@@ -194,6 +196,7 @@ export default function Projects() {
                   </motion.span>
                 </div>
               </motion.div>
+              </TiltCard>
             ))}
           </div>
 
