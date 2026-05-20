@@ -4,7 +4,8 @@ import TiltCard from "../components/TiltCard";
 
 const highlightText = (text: string, query: string) => {
   if (!query.trim()) return text;
-  const parts = text.split(new RegExp(`(${query})`, 'gi'));
+  const safeQuery = query.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  const parts = text.split(new RegExp(`(${safeQuery})`, "gi"));
   return parts.map((part, index) =>
     part.toLowerCase() === query.toLowerCase() ? (
       <span key={index} className="bg-primary/20 text-primary rounded-sm px-0.5">{part}</span>
@@ -134,14 +135,27 @@ export default function Projects() {
           </motion.div>
 
           {/* Grid Layout */}
-          <div className={`${filteredProjects.length < 3 ? 'flex justify-center flex-wrap' : 'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3'} gap-md`}>
-            {filteredProjects.map((proj, i) => (
+          <motion.div
+            initial="hidden"
+            animate="visible"
+            variants={{
+              hidden: {},
+              visible: {
+                transition: {
+                  staggerChildren: 0.08,
+                },
+              },
+            }}
+            className={`${filteredProjects.length < 3 ? 'flex justify-center flex-wrap' : 'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3'} gap-md`}
+          >
+            {filteredProjects.map((proj) => (
               <TiltCard key={proj.title} className={filteredProjects.length < 3 ? 'w-full max-w-[400px]' : ''}>
               <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.08 }}
+                variants={{
+                  hidden: { opacity: 0, y: 16 },
+                  visible: { opacity: 1, y: 0 },
+                }}
+                transition={{ duration: 0.28, ease: "easeOut" }}
                 layout
                 className={`glass-panel glass-glow rounded-xl p-sm flex flex-col h-full transition-all duration-200 relative group hover:shadow-[0_0_20px_rgba(16,185,129,0.1)]`}
               >
@@ -198,7 +212,7 @@ export default function Projects() {
               </motion.div>
               </TiltCard>
             ))}
-          </div>
+          </motion.div>
 
           {/* No results state */}
           {filteredProjects.length === 0 && (
