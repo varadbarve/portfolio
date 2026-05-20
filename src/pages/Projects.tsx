@@ -50,7 +50,7 @@ export default function Projects() {
       title: "WhatsApp Direct",
       desc: "A high-performance web utility to send WhatsApp messages without saving contacts. Features QR code generation, message prefilling, and smart input parsing.",
       tags: ["React", "TypeScript", "Vite", "Tailwind"],
-      deployLink: "https://whatsapp-direct.vercel.app",
+      deployLink: "https://whtsppdrct.netlify.app/",
       githubLink: "https://github.com/varadbarve/whatsapp_direct",
       actionIcon: "chat"
     },
