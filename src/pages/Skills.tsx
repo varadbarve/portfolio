@@ -2,6 +2,29 @@ import { motion } from "framer-motion";
 import AnimatedCounter from "../components/AnimatedCounter";
 import TiltCard from "../components/TiltCard";
 
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1,
+    },
+  },
+} as const;
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      type: "spring",
+      stiffness: 90,
+      damping: 15,
+    },
+  },
+} as const;
+
 export default function Skills() {
   return (
     <main className="flex-grow pt-[100px] pb-xl px-gutter max-w-[1440px] mx-auto w-full">
@@ -14,10 +37,16 @@ export default function Skills() {
         <p className="font-body-lg text-body-lg text-on-surface-variant max-w-2xl">Quantitative analysis of core competencies across backend engineering, systems programming, and modern web development architectures.</p>
       </header>
 
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-lg">
+      <motion.div
+        variants={containerVariants}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true }}
+        className="grid grid-cols-1 lg:grid-cols-12 gap-lg"
+      >
         {/* Left Column */}
         <div className="lg:col-span-8 space-y-lg">
-          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
+          <motion.div variants={itemVariants}>
             <TiltCard className="h-full">
               <div className="glass-panel glass-glow rounded-lg p-lg relative overflow-hidden group h-full">
                 <div className="absolute top-0 right-0 p-md opacity-20 group-hover:opacity-40 transition-opacity">
@@ -54,7 +83,7 @@ export default function Skills() {
           </motion.div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-lg">
-            <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.1 }}>
+            <motion.div variants={itemVariants}>
               <TiltCard className="h-full">
                 <div className="glass-panel glass-glow rounded-lg p-lg relative overflow-hidden group h-full">
                   <div className="absolute top-0 right-0 p-md opacity-20 group-hover:opacity-40 transition-opacity">
@@ -81,7 +110,7 @@ export default function Skills() {
               </TiltCard>
             </motion.div>
 
-            <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.2 }}>
+            <motion.div variants={itemVariants}>
               <TiltCard className="h-full">
                 <div className="glass-panel glass-glow rounded-lg p-lg relative overflow-hidden group h-full">
                   <div className="absolute top-0 right-0 p-md opacity-20 group-hover:opacity-40 transition-opacity">
@@ -112,7 +141,7 @@ export default function Skills() {
 
         {/* Right Column */}
         <div className="lg:col-span-4 space-y-lg">
-          <motion.div initial={{ opacity: 0, x: 20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }}>
+          <motion.div variants={itemVariants}>
             <TiltCard className="h-full">
               <div className="glass-panel rounded-lg p-lg flex flex-col justify-center items-center h-[300px] relative overflow-hidden w-full">
                 <span className="font-mono-label text-mono-label text-on-surface-variant absolute top-md left-md uppercase">Competency Distribution</span>
@@ -134,7 +163,7 @@ export default function Skills() {
             </TiltCard>
           </motion.div>
 
-          <motion.div initial={{ opacity: 0, x: 20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ delay: 0.2 }}>
+          <motion.div variants={itemVariants}>
             <TiltCard className="h-full">
               <div className="glass-panel rounded-lg p-lg h-full">
                 <h3 className="font-mono-label text-mono-label text-on-surface-variant uppercase tracking-wider mb-md border-b border-surface-container-highest pb-xs">Infrastructure & Tools</h3>
@@ -158,7 +187,7 @@ export default function Skills() {
             </TiltCard>
           </motion.div>
         </div>
-      </div>
+      </motion.div>
     </main>
   );
 }

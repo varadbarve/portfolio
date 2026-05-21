@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { useState } from "react";
 import TiltCard from "../components/TiltCard";
+import { containerVariants, itemVariants } from "../animation/variants";
 
 const highlightText = (text: string, query: string) => {
   if (!query.trim()) return text;
@@ -136,26 +137,15 @@ export default function Projects() {
 
           {/* Grid Layout */}
           <motion.div
-            initial="hidden"
-            animate="visible"
-            variants={{
-              hidden: {},
-              visible: {
-                transition: {
-                  staggerChildren: 0.08,
-                },
-              },
-            }}
-            className={`${filteredProjects.length < 3 ? 'flex justify-center flex-wrap' : 'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3'} gap-md`}
-          >
+          initial="hidden"
+          animate="visible"
+          variants={containerVariants}
+          className={`${filteredProjects.length < 3 ? 'flex justify-center flex-wrap' : 'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3'} gap-md`}
+        >
             {filteredProjects.map((proj) => (
               <motion.div
                 key={proj.title}
-                variants={{
-                  hidden: { opacity: 0, y: 16 },
-                  visible: { opacity: 1, y: 0 },
-                }}
-                transition={{ duration: 0.28, ease: "easeOut" }}
+                variants={itemVariants}
                 layout
                 className={filteredProjects.length < 3 ? 'w-full max-w-[400px]' : ''}
               >

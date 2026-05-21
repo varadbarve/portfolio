@@ -16,6 +16,30 @@ const techStack = [
   { name: "YOLOv8", icon: "visibility", color: "#FF4081" },
 ];
 
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1,
+      delayChildren: 0.2,
+    },
+  },
+} as const;
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      type: "spring",
+      stiffness: 90,
+      damping: 15,
+    },
+  },
+} as const;
+
 export default function Home() {
   return (
     <main className="flex-grow pt-[100px] w-full bg-background">
@@ -87,17 +111,15 @@ export default function Home() {
 
           {/* Glassmorphism Bento Grid */}
           <motion.div
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.5, delay: 0.2 }}
+            variants={containerVariants}
+            initial="hidden"
+            animate="visible"
             className="grid grid-cols-2 gap-sm relative z-10"
           >
             <div className="absolute inset-0 blur-[100px] rounded-full z-0 pointer-events-none bg-primary/10"></div>
 
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.4, delay: 0.3 }}
+              variants={itemVariants}
               className="col-span-2"
             >
               <TiltCard className="h-full">
@@ -129,9 +151,7 @@ export default function Home() {
             </motion.div>
 
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.4, delay: 0.4 }}
+              variants={itemVariants}
             >
               <TiltCard className="h-full">
                 <div
@@ -157,9 +177,7 @@ export default function Home() {
             </motion.div>
 
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.4, delay: 0.5 }}
+              variants={itemVariants}
             >
               <TiltCard className="h-full">
                 <div
@@ -197,13 +215,24 @@ export default function Home() {
             <h2 className="font-mono-label text-mono-label text-outline uppercase tracking-widest mb-sm">Technology Stack</h2>
           </motion.div>
 
-          <div className="flex flex-wrap justify-center gap-md max-w-3xl mx-auto">
-            {techStack.map((tech, i) => (
+          <motion.div
+            variants={containerVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            className="flex flex-wrap justify-center gap-md max-w-3xl mx-auto"
+          >
+            {techStack.map((tech) => (
               <motion.div
                 key={tech.name}
-                initial={{ opacity: 0, scale: 0.5 }}
-                whileInView={{ opacity: 1, scale: 1, transition: { delay: i * 0.06, type: "spring", stiffness: 120 } }}
-                viewport={{ once: true }}
+                variants={{
+                  hidden: { opacity: 0, scale: 0.5 },
+                  visible: {
+                    opacity: 1,
+                    scale: 1,
+                    transition: { type: "spring", stiffness: 120 }
+                  }
+                }}
                 whileHover={{ y: -8, boxShadow: `0 8px 30px ${tech.color}50` }}
                 className="glass-panel rounded-lg px-md py-sm flex items-center gap-sm cursor-default hover:border-primary/50 transition-colors duration-200"
               >
@@ -216,7 +245,7 @@ export default function Home() {
                 <span className="font-mono-label text-mono-label text-on-surface">{tech.name}</span>
               </motion.div>
             ))}
-          </div>
+          </motion.div>
         </section>
 
         {/* GitHub Activity Widget (#12) — scroll-triggered */}
