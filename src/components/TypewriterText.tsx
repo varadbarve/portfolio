@@ -29,6 +29,7 @@ export default function TypewriterText({
     }
 
     if (isDeleting && charIndex === 0) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setIsDeleting(false);
       setPhraseIndex((p) => (p + 1) % phrases.length);
       return;
