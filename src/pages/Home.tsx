@@ -42,13 +42,12 @@ const itemVariants = {
 
 export default function Home() {
   return (
-    <main className="flex-grow pt-[100px] w-full bg-background">
+    <main className="flex-grow pt-[100px] w-full bg-background relative">
+      <ParticleGrid />
       {/* Content Wrapper to handle centering without "black margins" */}
       <div className="max-w-[1440px] mx-auto px-gutter w-full">
         {/* Hero Section */}
         <section className="py-xl lg:py-[120px] grid grid-cols-1 lg:grid-cols-2 gap-md lg:gap-xl items-center relative overflow-hidden">
-          {/* Particle Background */}
-          <ParticleGrid />
 
           <motion.div
             initial={{ opacity: 0, y: 20 }}
