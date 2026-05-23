@@ -56,19 +56,40 @@ export default function Home() {
             transition={{ duration: 0.5 }}
             className="space-y-lg relative z-10"
           >
-            {/* Profile Avatar (#1) */}
-            <div className="flex items-center gap-md">
+            {/* Profile Avatar */}
+            <div className="flex items-center gap-4 w-fit">
               <motion.div
                 initial={{ scale: 0 }}
                 animate={{ scale: 1 }}
                 transition={{ type: "spring", stiffness: 200, delay: 0.2 }}
-                className="w-16 h-16 rounded-full bg-gradient-to-br from-primary via-primary/70 to-emerald-700 flex items-center justify-center ring-2 ring-primary/30 ring-offset-2 ring-offset-background shadow-[0_0_30px_rgba(16,185,129,0.25)]"
+                className="w-16 h-16 rounded-full bg-gradient-to-br
+               from-primary via-primary/70 to-emerald-700
+               flex items-center justify-center
+               ring-2 ring-primary/30
+               ring-offset-2 ring-offset-background
+               shadow-[0_0_30px_rgba(16,185,129,0.25)]
+               flex-shrink-0"
               >
-                <span className="text-2xl font-bold text-[#0f172a] select-none">VB</span>
+                <span className="text-2xl font-bold text-[#0f172a] select-none">
+                  VB
+                </span>
               </motion.div>
-              <div className="data-chip inline-flex items-center rounded-full px-sm py-xs font-mono-label text-mono-label text-primary">
-                <span className="w-2 h-2 rounded-full bg-primary animate-pulse mr-sm flex-shrink-0"></span>
-                <span className="leading-none mt-[1px]">SYS_STATUS: ONLINE</span>
+
+              <div className="inline-flex items-center rounded-full
+                  px-4 py-2
+                  bg-zinc-900
+                  font-mono text-sm
+                  text-primary
+                  whitespace-nowrap">
+
+                <span className="w-2 h-2 rounded-full
+                    bg-primary animate-pulse
+                    mr-2 flex-shrink-0">
+                </span>
+
+                <span className="leading-none">
+                  SYS_STATUS: ONLINE
+                </span>
               </div>
             </div>
 
