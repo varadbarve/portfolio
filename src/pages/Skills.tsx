@@ -30,8 +30,8 @@ export default function Skills() {
     <main className="flex-grow pt-[100px] pb-xl px-gutter max-w-[1440px] mx-auto w-full">
       <header className="mb-xl">
         <div className="data-chip font-mono-label text-mono-label text-primary inline-flex items-center px-sm py-xs rounded-DEFAULT mb-md">
-          <span className="material-symbols-outlined text-[16px] mr-xs">terminal</span>
-          SYS.SKILLS_MATRIX.INIT()
+          <span className="material-symbols-outlined text-[16px] mr-xs flex-shrink-0">terminal</span>
+          <span className="leading-none mt-[1px]">SYS.SKILLS_MATRIX.INIT()</span>
         </div>
         <h1 className="font-h1 text-h1 text-on-surface mb-sm">Technical Proficiency</h1>
         <p className="font-body-lg text-body-lg text-on-surface-variant max-w-2xl">Quantitative analysis of core competencies across backend engineering, systems programming, and modern web development architectures.</p>

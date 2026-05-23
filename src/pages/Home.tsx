@@ -67,8 +67,8 @@ export default function Home() {
                 <span className="text-2xl font-bold text-[#0f172a] select-none">VB</span>
               </motion.div>
               <div className="data-chip inline-flex items-center rounded-full px-sm py-xs font-mono-label text-mono-label text-primary">
-                <span className="w-2 h-2 rounded-full bg-primary animate-pulse mr-sm"></span>
-                SYS_STATUS: ONLINE
+                <span className="w-2 h-2 rounded-full bg-primary animate-pulse mr-sm flex-shrink-0"></span>
+                <span className="leading-none mt-[1px]">SYS_STATUS: ONLINE</span>
               </div>
             </div>
 
