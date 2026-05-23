@@ -48,19 +48,19 @@ export default function Skills() {
         <div className="lg:col-span-8 space-y-lg">
           <motion.div variants={itemVariants}>
             <TiltCard className="h-full">
-              <div className="glass-panel glass-glow rounded-lg p-lg relative overflow-hidden group h-full">
-                <div className="absolute top-0 right-0 p-md opacity-20 group-hover:opacity-40 transition-opacity">
+              <div className="glass-panel glass-glow rounded-lg p-md sm:p-lg relative overflow-hidden group h-full">
+                <div className="absolute top-0 right-0 p-md opacity-20 group-hover:opacity-40 transition-opacity pointer-events-none">
                   <span className="material-symbols-outlined text-[120px] text-surface-bright">neurology</span>
                 </div>
-                <div className="relative z-10 flex justify-between items-start mb-lg">
+                <div className="relative z-10 flex flex-col sm:flex-row justify-between items-start gap-md sm:gap-none mb-lg">
                   <div>
-                    <h2 className="font-h2 text-h2 text-on-surface flex items-center">
+                    <h2 className="font-h2 text-h2 text-on-surface flex flex-wrap items-center gap-xs">
                       AI & Intelligent Systems
-                      <span className="ml-sm data-chip font-mono-label text-mono-label text-secondary px-sm py-xs rounded-DEFAULT text-[12px]">Advanced</span>
+                      <span className="data-chip font-mono-label text-mono-label text-secondary px-sm py-xs rounded-DEFAULT text-[12px]">Advanced</span>
                     </h2>
                     <p className="font-body-md text-body-md text-on-surface-variant mt-xs">Architecting neural architectures and computer vision pipelines for production-grade automation.</p>
                   </div>
-                  <div className="text-right">
+                  <div className="text-left sm:text-right flex-shrink-0">
                     <AnimatedCounter target={96} className="font-h3 text-h3 text-primary block" />
                     <span className="font-mono-label text-mono-label text-on-surface-variant uppercase tracking-wider text-[10px]">Execution Index</span>
                   </div>
@@ -85,12 +85,12 @@ export default function Skills() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-lg">
             <motion.div variants={itemVariants}>
               <TiltCard className="h-full">
-                <div className="glass-panel glass-glow rounded-lg p-lg relative overflow-hidden group h-full">
-                  <div className="absolute top-0 right-0 p-md opacity-20 group-hover:opacity-40 transition-opacity">
+                <div className="glass-panel glass-glow rounded-lg p-md sm:p-lg relative overflow-hidden group h-full">
+                  <div className="absolute top-0 right-0 p-md opacity-20 group-hover:opacity-40 transition-opacity pointer-events-none">
                     <span className="material-symbols-outlined text-[80px] text-surface-bright">precision_manufacturing</span>
                   </div>
                   <div className="relative z-10 mb-lg">
-                    <div className="flex justify-between items-center mb-sm">
+                    <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-xs sm:gap-none mb-sm">
                       <h2 className="font-h3 text-h3 text-on-surface">Automation Engineering</h2>
                       <AnimatedCounter target={94} className="font-h3 text-h3 text-primary" />
                     </div>
@@ -112,12 +112,12 @@ export default function Skills() {
 
             <motion.div variants={itemVariants}>
               <TiltCard className="h-full">
-                <div className="glass-panel glass-glow rounded-lg p-lg relative overflow-hidden group h-full">
-                  <div className="absolute top-0 right-0 p-md opacity-20 group-hover:opacity-40 transition-opacity">
+                <div className="glass-panel glass-glow rounded-lg p-md sm:p-lg relative overflow-hidden group h-full">
+                  <div className="absolute top-0 right-0 p-md opacity-20 group-hover:opacity-40 transition-opacity pointer-events-none">
                     <span className="material-symbols-outlined text-[80px] text-surface-bright">layers</span>
                   </div>
                   <div className="relative z-10 mb-lg">
-                    <div className="flex justify-between items-center mb-sm">
+                    <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-xs sm:gap-none mb-sm">
                       <h2 className="font-h3 text-h3 text-on-surface">Full-Stack Synthesis</h2>
                       <AnimatedCounter target={91} className="font-h3 text-h3 text-primary" />
                     </div>
@@ -143,8 +143,8 @@ export default function Skills() {
         <div className="lg:col-span-4 space-y-lg">
           <motion.div variants={itemVariants}>
             <TiltCard className="h-full">
-              <div className="glass-panel rounded-lg p-lg flex flex-col justify-center items-center h-[300px] relative overflow-hidden w-full">
-                <span className="font-mono-label text-mono-label text-on-surface-variant absolute top-md left-md uppercase">Competency Distribution</span>
+              <div className="glass-panel rounded-lg p-sm sm:p-lg flex flex-col justify-center items-center h-[300px] relative overflow-hidden w-full">
+                <span className="font-mono-label text-mono-label text-on-surface-variant absolute top-sm sm:top-md left-sm sm:left-md uppercase">Competency Distribution</span>
                 <div className="relative w-[180px] h-[180px] border border-surface-container-highest rounded-full flex items-center justify-center">
                   <div className="absolute w-[140px] h-[140px] border border-surface-container-highest rounded-full"></div>
                   <div className="absolute w-[100px] h-[100px] border border-surface-container-highest rounded-full"></div>
@@ -165,7 +165,7 @@ export default function Skills() {
 
           <motion.div variants={itemVariants}>
             <TiltCard className="h-full">
-              <div className="glass-panel rounded-lg p-lg h-full">
+              <div className="glass-panel rounded-lg p-md sm:p-lg h-full">
                 <h3 className="font-mono-label text-mono-label text-on-surface-variant uppercase tracking-wider mb-md border-b border-surface-container-highest pb-xs">Infrastructure & Tools</h3>
                 <div className="space-y-md">
                   {[

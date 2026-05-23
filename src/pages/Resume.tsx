@@ -28,7 +28,7 @@ export default function Resume() {
   return (
     <main className="flex-grow w-full max-w-7xl mx-auto px-gutter py-xl flex flex-col space-y-xl pt-[100px]">
       {/* Header / Summary */}
-      <section className="flex flex-col md:flex-row gap-xl items-start justify-between">
+      <section className="flex flex-col md:flex-row gap-md md:gap-xl items-start justify-between">
         <motion.div initial={{ opacity: 0, x: -20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} className="flex-1 space-y-md">
           <h1 className="font-h1 text-h1 text-primary">AI Developer</h1>
           <div className="flex flex-wrap gap-sm">
@@ -79,7 +79,7 @@ export default function Resume() {
                   <span className="material-symbols-outlined text-primary">work</span> Experience
                 </h2>
 
-                <div className="relative pl-lg border-l border-outline-variant">
+                <div className="relative pl-sm sm:pl-md md:pl-lg border-l border-outline-variant">
                   <div className="absolute w-3 h-3 bg-primary rounded-full -left-[6px] top-1 shadow-[0_0_8px_rgba(34,197,94,0.6)]"></div>
                   <div className="flex flex-col md:flex-row md:justify-between md:items-baseline mb-sm">
                     <h3 className="font-h3 text-h3 text-on-surface">AI Developer Intern</h3>
@@ -106,7 +106,7 @@ export default function Resume() {
                   <span className="material-symbols-outlined text-primary">folder_code</span> Projects
                 </h2>
                 <div className="space-y-lg">
-                  <div className="relative pl-lg border-l border-outline-variant">
+                  <div className="relative pl-sm sm:pl-md md:pl-lg border-l border-outline-variant">
                     <div className="absolute w-3 h-3 bg-primary rounded-full -left-[6px] top-1 shadow-[0_0_8px_rgba(34,197,94,0.4)]"></div>
                     <div className="flex flex-col md:flex-row md:justify-between md:items-baseline mb-sm">
                       <h3 className="font-h3 text-h3 text-on-surface">MediAssist AI</h3>
@@ -122,7 +122,7 @@ export default function Resume() {
                       <li>Focused on scalability, maintainability, and healthcare safety constraints.</li>
                     </ul>
                   </div>
-                  <div className="relative pl-lg border-l border-outline-variant">
+                  <div className="relative pl-sm sm:pl-md md:pl-lg border-l border-outline-variant">
                     <div className="absolute w-3 h-3 bg-primary rounded-full -left-[6px] top-1 shadow-[0_0_8px_rgba(34,197,94,0.4)]"></div>
                     <div className="flex flex-col md:flex-row md:justify-between md:items-baseline mb-sm">
                       <h3 className="font-h3 text-h3 text-on-surface">WhatsApp Direct Messaging App</h3>
@@ -135,7 +135,7 @@ export default function Resume() {
                       <li>Applied modular development practices and structured code organization.</li>
                     </ul>
                   </div>
-                  <div className="relative pl-lg border-l border-outline-variant">
+                  <div className="relative pl-sm sm:pl-md md:pl-lg border-l border-outline-variant">
                     <div className="absolute w-3 h-3 bg-primary rounded-full -left-[6px] top-1 shadow-[0_0_8px_rgba(34,197,94,0.4)]"></div>
                     <div className="flex flex-col md:flex-row md:justify-between md:items-baseline mb-sm">
                       <h3 className="font-h3 text-h3 text-on-surface">Text Classification System</h3>
@@ -147,7 +147,7 @@ export default function Resume() {
                       <li>Extended the architecture to support multi-category text classification.</li>
                     </ul>
                   </div>
-                  <div className="relative pl-lg border-l border-outline-variant">
+                  <div className="relative pl-sm sm:pl-md md:pl-lg border-l border-outline-variant">
                     <div className="absolute w-3 h-3 bg-primary rounded-full -left-[6px] top-1 shadow-[0_0_8px_rgba(34,197,94,0.4)]"></div>
                     <div className="flex flex-col md:flex-row md:justify-between md:items-baseline mb-sm">
                       <h3 className="font-h3 text-h3 text-on-surface">Traffic Object Detection System</h3>
@@ -158,7 +158,7 @@ export default function Resume() {
                       <li>Working on real-time data integration.</li>
                     </ul>
                   </div>
-                  <div className="relative pl-lg border-l border-outline-variant">
+                  <div className="relative pl-sm sm:pl-md md:pl-lg border-l border-outline-variant">
                     <div className="absolute w-3 h-3 bg-primary rounded-full -left-[6px] top-1 shadow-[0_0_8px_rgba(34,197,94,0.4)]"></div>
                     <div className="flex flex-col md:flex-row md:justify-between md:items-baseline mb-sm">
                       <h3 className="font-h3 text-h3 text-on-surface">Galga Lite</h3>

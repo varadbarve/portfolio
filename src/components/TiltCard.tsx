@@ -13,6 +13,7 @@ export default function TiltCard({ children, className = "", tiltDegree = 8 }: T
   const [glare, setGlare] = useState({ x: 50, y: 50, opacity: 0 });
 
   const handleMouseMove = (e: React.MouseEvent) => {
+    if (window.matchMedia("(pointer: coarse)").matches) return;
     if (!cardRef.current) return;
     const rect = cardRef.current.getBoundingClientRect();
     const x = (e.clientX - rect.left) / rect.width;

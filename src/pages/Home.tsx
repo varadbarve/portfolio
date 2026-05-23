@@ -46,7 +46,7 @@ export default function Home() {
       {/* Content Wrapper to handle centering without "black margins" */}
       <div className="max-w-[1440px] mx-auto px-gutter w-full">
         {/* Hero Section */}
-        <section className="py-xl lg:py-[120px] grid grid-cols-1 lg:grid-cols-2 gap-xl items-center relative overflow-hidden">
+        <section className="py-xl lg:py-[120px] grid grid-cols-1 lg:grid-cols-2 gap-md lg:gap-xl items-center relative overflow-hidden">
           {/* Particle Background */}
           <ParticleGrid />
 
@@ -82,24 +82,24 @@ export default function Home() {
             <p className="font-body-lg text-body-lg text-on-surface-variant max-w-xl">
               AI Developer &amp; Full-Stack Engineer specializing in high-performance machine learning models and fluid, modern web architectures.
             </p>
-            <div className="flex gap-md pt-sm">
-              <MagneticButton>
-                <Link to="/projects">
+            <div className="flex flex-col sm:flex-row gap-sm sm:gap-md pt-sm">
+              <MagneticButton className="w-full sm:w-auto">
+                <Link to="/projects" className="w-full block">
                   <motion.button
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
-                    className="bg-primary hover:bg-surface-tint text-on-primary-container font-mono-label text-mono-label px-lg py-md rounded-DEFAULT transition-all"
+                    className="w-full bg-primary hover:bg-surface-tint text-on-primary-container font-mono-label text-mono-label px-lg py-md rounded-DEFAULT transition-all"
                   >
                     View Projects
                   </motion.button>
                 </Link>
               </MagneticButton>
-              <MagneticButton>
-                <Link to="/resume">
+              <MagneticButton className="w-full sm:w-auto">
+                <Link to="/resume" className="w-full block">
                   <motion.button
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
-                    className="glass-panel text-on-surface font-mono-label text-mono-label px-lg py-md rounded-DEFAULT hover:bg-primary/10 transition-all flex items-center gap-sm"
+                    className="w-full glass-panel text-on-surface font-mono-label text-mono-label px-lg py-md rounded-DEFAULT hover:bg-primary/10 transition-all flex items-center justify-center gap-sm"
                   >
                     <span className="material-symbols-outlined text-[18px]">description</span>
                     View Resume
@@ -114,17 +114,17 @@ export default function Home() {
             variants={containerVariants}
             initial="hidden"
             animate="visible"
-            className="grid grid-cols-2 gap-sm relative z-10"
+            className="grid grid-cols-1 sm:grid-cols-2 gap-sm relative z-10"
           >
             <div className="absolute inset-0 blur-[100px] rounded-full z-0 pointer-events-none bg-primary/10"></div>
 
             <motion.div
               variants={itemVariants}
-              className="col-span-2"
+              className="col-span-1 sm:col-span-2"
             >
               <TiltCard className="h-full">
                 <div
-                  className="glass-panel glass-glow rounded-lg p-lg relative z-10 flex flex-col justify-between group cursor-pointer h-full"
+                  className="glass-panel glass-glow rounded-lg p-md sm:p-lg relative z-10 flex flex-col justify-between group cursor-pointer h-full"
                   onClick={() => window.open('https://github.com/varadbarve/MediAssist', '_blank')}
                 >
                   <a
@@ -255,7 +255,7 @@ export default function Home() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="glass-panel rounded-xl p-lg max-w-4xl mx-auto"
+            className="glass-panel rounded-xl p-md sm:p-lg max-w-4xl mx-auto"
           >
             <div className="flex items-center justify-between mb-md">
               <div className="flex items-center gap-sm">
@@ -303,7 +303,7 @@ export default function Home() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="glass-panel rounded-xl p-lg lg:p-[48px] max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-5 gap-xl"
+            className="glass-panel rounded-xl p-md sm:p-lg md:p-xl max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-5 gap-md md:gap-xl"
           >
             <div className="md:col-span-2 space-y-lg">
               <div>
@@ -349,16 +349,16 @@ export default function Home() {
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-md">
                   <div className="space-y-xs">
                     <label className="font-mono-label text-mono-label text-on-surface-variant block">Name</label>
-                    <input className="w-full bg-surface-container-low border border-surface-container-highest rounded-DEFAULT px-md py-sm text-on-surface font-mono-label text-mono-label focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all placeholder:text-surface-bright" placeholder="Your name" type="text" />
+                    <input className="w-full bg-surface-container-low border border-surface-container-highest rounded-DEFAULT px-sm py-xs md:px-md md:py-sm text-on-surface font-mono-label text-mono-label focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all placeholder:text-surface-bright" placeholder="Your name" type="text" />
                   </div>
                   <div className="space-y-xs">
                     <label className="font-mono-label text-mono-label text-on-surface-variant block">Email</label>
-                    <input className="w-full bg-surface-container-low border border-surface-container-highest rounded-DEFAULT px-md py-sm text-on-surface font-mono-label text-mono-label focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all placeholder:text-surface-bright" placeholder="name@domain.com" type="email" />
+                    <input className="w-full bg-surface-container-low border border-surface-container-highest rounded-DEFAULT px-sm py-xs md:px-md md:py-sm text-on-surface font-mono-label text-mono-label focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all placeholder:text-surface-bright" placeholder="name@domain.com" type="email" />
                   </div>
                 </div>
                 <div className="space-y-xs">
                   <label className="font-mono-label text-mono-label text-on-surface-variant block">Message</label>
-                  <textarea className="w-full bg-surface-container-low border border-surface-container-highest rounded-DEFAULT px-md py-sm text-on-surface font-mono-label text-mono-label focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all placeholder:text-surface-bright resize-none" placeholder="Tell me about your project..." rows={4}></textarea>
+                  <textarea className="w-full bg-surface-container-low border border-surface-container-highest rounded-DEFAULT px-sm py-xs md:px-md md:py-sm text-on-surface font-mono-label text-mono-label focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all placeholder:text-surface-bright resize-none" placeholder="Tell me about your project..." rows={4}></textarea>
                 </div>
                 <div className="pt-sm flex justify-end">
                   <MagneticButton>

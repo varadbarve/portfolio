@@ -46,21 +46,21 @@ export default function NotFound() {
           </div>
         </div>
 
-        <div className="flex gap-md justify-center pt-md">
-          <Link to="/">
+        <div className="flex flex-col sm:flex-row gap-sm sm:gap-md justify-center pt-md px-sm sm:px-none">
+          <Link to="/" className="w-full sm:w-auto">
             <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              className="bg-primary hover:bg-surface-tint text-on-primary-container font-mono-label text-mono-label px-lg py-md rounded-DEFAULT transition-all"
+              className="w-full bg-primary hover:bg-surface-tint text-on-primary-container font-mono-label text-mono-label px-lg py-md rounded-DEFAULT transition-all"
             >
               Return to Home
             </motion.button>
           </Link>
-          <Link to="/projects">
+          <Link to="/projects" className="w-full sm:w-auto">
             <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              className="glass-panel text-on-surface font-mono-label text-mono-label px-lg py-md rounded-DEFAULT hover:bg-primary/10 transition-all"
+              className="w-full glass-panel text-on-surface font-mono-label text-mono-label px-lg py-md rounded-DEFAULT hover:bg-primary/10 transition-all"
             >
               View Projects
             </motion.button>

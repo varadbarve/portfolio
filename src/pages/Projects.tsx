@@ -102,7 +102,7 @@ export default function Projects() {
               <div className="flex-grow w-full md:w-auto relative glass-panel rounded-lg flex items-center px-sm py-md transition-colors duration-200 focus-within:border-primary focus-within:bg-surface-container-high overflow-hidden">
                 <span className="material-symbols-outlined text-on-surface-variant mr-xs flex-shrink-0">search</span>
                 <div className="flex items-center flex-grow min-w-0">
-                  <span className="font-mono-label text-primary mr-xs opacity-70 whitespace-nowrap flex-shrink-0">grep -i "</span>
+                  <span className="hidden sm:inline font-mono-label text-primary mr-xs opacity-70 whitespace-nowrap flex-shrink-0">grep -i "</span>
                   <input
                     className="bg-transparent border-none outline-none text-on-surface font-mono-label flex-grow min-w-0 focus:ring-0 p-0 placeholder-on-surface-variant/40"
                     placeholder="Search architecture, language, or concept..."
@@ -110,7 +110,7 @@ export default function Projects() {
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
                   />
-                  <span className="font-mono-label text-primary ml-xs opacity-70 whitespace-nowrap flex-shrink-0">" ./projects</span>
+                  <span className="hidden sm:inline font-mono-label text-primary ml-xs opacity-70 whitespace-nowrap flex-shrink-0">" ./projects</span>
                 </div>
               </div>
             </div>

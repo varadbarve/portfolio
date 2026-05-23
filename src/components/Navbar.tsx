@@ -28,6 +28,18 @@ export default function Navbar() {
     setMobileMenuOpen(false);
   }, [location.pathname]);
 
+  // Block body scroll when mobile menu is open
+  useEffect(() => {
+    if (mobileMenuOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [mobileMenuOpen]);
+
   const getLinkClass = (path: string) => {
     const isActive = location.pathname === path;
     return isActive
@@ -91,12 +103,12 @@ export default function Navbar() {
       {mobileMenuOpen && (
         <div className="fixed inset-0 z-40 bg-background/95 backdrop-blur-sm pt-[80px] px-gutter md:hidden">
           <div className="flex flex-col space-y-lg py-xl">
-            <Link to="/projects" className="font-h3 text-h3 text-on-surface hover:text-primary transition-colors">Projects</Link>
-            <Link to="/skills" className="font-h3 text-h3 text-on-surface hover:text-primary transition-colors">Skills</Link>
-            <Link to="/resume" className="font-h3 text-h3 text-on-surface hover:text-primary transition-colors">Resume</Link>
-            <a href="mailto:varadvbarve@gmail.com" className="font-h3 text-h3 text-on-surface hover:text-primary transition-colors">Contact</a>
+            <Link to="/projects" onClick={() => setMobileMenuOpen(false)} className="font-h3 text-h3 text-on-surface hover:text-primary transition-colors">Projects</Link>
+            <Link to="/skills" onClick={() => setMobileMenuOpen(false)} className="font-h3 text-h3 text-on-surface hover:text-primary transition-colors">Skills</Link>
+            <Link to="/resume" onClick={() => setMobileMenuOpen(false)} className="font-h3 text-h3 text-on-surface hover:text-primary transition-colors">Resume</Link>
+            <a href="mailto:varadvbarve@gmail.com" onClick={() => setMobileMenuOpen(false)} className="font-h3 text-h3 text-on-surface hover:text-primary transition-colors">Contact</a>
             <div className="pt-md border-t border-outline-variant/30">
-              <Link to="/resume" className="inline-flex items-center justify-center px-lg py-md bg-primary text-[#0f172a] rounded-DEFAULT font-mono-label text-mono-label">
+              <Link to="/resume" onClick={() => setMobileMenuOpen(false)} className="inline-flex items-center justify-center px-lg py-md bg-primary text-[#0f172a] rounded-DEFAULT font-mono-label text-mono-label">
                 Download CV
               </Link>
             </div>
