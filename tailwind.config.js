@@ -68,7 +68,7 @@ export default {
       fontSize: {
         "body-lg": ["18px", { "lineHeight": "1.6", "fontWeight": "400" }],
         "body-md": ["16px", { "lineHeight": "1.6", "fontWeight": "400" }],
-        "mono-label": ["13px", { "lineHeight": "1.0", "letterSpacing": "0.05em", "fontWeight": "500" }],
+        "mono-label": ["13px", { "lineHeight": "1.4", "letterSpacing": "0.05em", "fontWeight": "500" }],
         "h2": ["32px", { "lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "600" }],
         "caption": ["14px", { "lineHeight": "1.4", "fontWeight": "400" }],
         "h3": ["24px", { "lineHeight": "1.3", "fontWeight": "600" }],
