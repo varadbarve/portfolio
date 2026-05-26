@@ -106,8 +106,13 @@ export default function Home() {
               <MagneticButton className="w-full sm:w-auto">
                 <Link to="/projects" className="w-full block">
                   <motion.button
-                    whileHover={{ scale: 1.05 }}
+                    whileHover={{ scale: 1.03 }}
                     whileTap={{ scale: 0.95 }}
+                    transition={{
+                      type: "spring",
+                      stiffness: 400,
+                      damping: 12
+                    }}
                     className="w-full bg-primary hover:bg-surface-tint text-on-primary-container font-mono-label text-mono-label px-lg py-md rounded-DEFAULT transition-all"
                   >
                     View Projects
@@ -117,8 +122,13 @@ export default function Home() {
               <MagneticButton className="w-full sm:w-auto">
                 <Link to="/resume" className="w-full block">
                   <motion.button
-                    whileHover={{ scale: 1.05 }}
+                    whileHover={{ scale: 1.03 }}
                     whileTap={{ scale: 0.95 }}
+                    transition={{
+                      type: "spring",
+                      stiffness: 400,
+                      damping: 12
+                    }}
                     className="w-full glass-panel text-on-surface font-mono-label text-mono-label px-lg py-md rounded-DEFAULT hover:bg-primary/10 transition-all flex items-center justify-center gap-sm"
                   >
                     <span className="material-symbols-outlined text-[18px]">description</span>
@@ -383,8 +393,13 @@ export default function Home() {
                 <div className="pt-sm flex justify-end">
                   <MagneticButton>
                     <motion.button
-                      whileHover={{ scale: 1.02 }}
-                      whileTap={{ scale: 0.98 }}
+                      whileHover={{ scale: 1.03 }}
+                      whileTap={{ scale: 0.95 }}
+                      transition={{
+                        type: "spring",
+                        stiffness: 400,
+                        damping: 12
+                      }}
                       onClick={() => window.location.href = 'mailto:varadvbarve@gmail.com'}
                       className="bg-primary hover:bg-surface-tint text-on-primary-container font-mono-label text-mono-label px-lg py-md rounded-DEFAULT transition-all flex items-center gap-sm" type="button"
                     >

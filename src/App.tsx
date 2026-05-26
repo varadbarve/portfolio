@@ -3,6 +3,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { lazy, Suspense, useEffect } from "react";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
+import Dock from "./components/Dock";
 
 // Lazy load pages for performance (#15)
 const Home = lazy(() => import("./pages/Home"));
@@ -288,6 +289,7 @@ export default function App() {
         <Navbar />
         <AnimatedRoutes />
         <Footer />
+        <Dock />
       </div>
     </Router>
   );

@@ -1,6 +1,7 @@
 import { Link, useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
 import MagneticButton from "./MagneticButton";
+import TextScramble from "./TextScramble";
 
 export default function Navbar() {
   const location = useLocation();
@@ -52,13 +53,13 @@ export default function Navbar() {
       <nav className="fixed top-0 left-0 right-0 z-50 bg-surface/80 dark:bg-surface-dim/80 backdrop-blur-md border-b border-white/10">
         <div className="max-w-[1440px] mx-auto w-full flex justify-between items-center px-gutter py-sm">
           <Link to="/" className="font-h3 text-h3 font-bold text-on-surface dark:text-surface-bright">
-            Varad Barve
+            <TextScramble text="Varad Barve" />
           </Link>
           <div className="hidden md:flex items-center space-x-lg">
-            <Link to="/projects" className={getLinkClass("/projects")}>Projects</Link>
-            <Link to="/skills" className={getLinkClass("/skills")}>Skills</Link>
-            <Link to="/resume" className={getLinkClass("/resume")}>Resume</Link>
-            <a href="mailto:varadvbarve@gmail.com" className={getLinkClass("/contact")}>Contact</a>
+            <Link to="/projects" className={getLinkClass("/projects")}><TextScramble text="Projects" /></Link>
+            <Link to="/skills" className={getLinkClass("/skills")}><TextScramble text="Skills" /></Link>
+            <Link to="/resume" className={getLinkClass("/resume")}><TextScramble text="Resume" /></Link>
+            <a href="mailto:varadvbarve@gmail.com" className={getLinkClass("/contact")}><TextScramble text="Contact" /></a>
           </div>
           <div className="hidden md:flex items-center gap-sm">
             {/* Dark/Light Toggle */}
@@ -103,10 +104,10 @@ export default function Navbar() {
       {mobileMenuOpen && (
         <div className="fixed inset-0 z-40 bg-background/95 backdrop-blur-sm pt-[80px] px-gutter md:hidden">
           <div className="flex flex-col space-y-lg py-xl">
-            <Link to="/projects" onClick={() => setMobileMenuOpen(false)} className="font-h3 text-h3 text-on-surface hover:text-primary transition-colors">Projects</Link>
-            <Link to="/skills" onClick={() => setMobileMenuOpen(false)} className="font-h3 text-h3 text-on-surface hover:text-primary transition-colors">Skills</Link>
-            <Link to="/resume" onClick={() => setMobileMenuOpen(false)} className="font-h3 text-h3 text-on-surface hover:text-primary transition-colors">Resume</Link>
-            <a href="mailto:varadvbarve@gmail.com" onClick={() => setMobileMenuOpen(false)} className="font-h3 text-h3 text-on-surface hover:text-primary transition-colors">Contact</a>
+            <Link to="/projects" onClick={() => setMobileMenuOpen(false)} className="font-h3 text-h3 text-on-surface hover:text-primary transition-colors"><TextScramble text="Projects" /></Link>
+            <Link to="/skills" onClick={() => setMobileMenuOpen(false)} className="font-h3 text-h3 text-on-surface hover:text-primary transition-colors"><TextScramble text="Skills" /></Link>
+            <Link to="/resume" onClick={() => setMobileMenuOpen(false)} className="font-h3 text-h3 text-on-surface hover:text-primary transition-colors"><TextScramble text="Resume" /></Link>
+            <a href="mailto:varadvbarve@gmail.com" onClick={() => setMobileMenuOpen(false)} className="font-h3 text-h3 text-on-surface hover:text-primary transition-colors"><TextScramble text="Contact" /></a>
             <div className="pt-md border-t border-outline-variant/30">
               <Link to="/resume" onClick={() => setMobileMenuOpen(false)} className="inline-flex items-center justify-center px-lg py-md bg-primary text-[#0f172a] rounded-DEFAULT font-mono-label text-mono-label">
                 Download CV
