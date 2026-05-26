@@ -180,3 +180,11 @@ html.light-mode textarea::placeholder {
 html, html * {
   transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
 }
+
+/* circular theme transition via startViewTransition */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+

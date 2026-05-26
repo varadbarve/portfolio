@@ -9,7 +9,7 @@ interface DockItemProps {
   to?: string;
   isExternal?: boolean;
   isActive?: boolean;
-  onClick?: () => void;
+  onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void;
   isMobile: boolean;
   className?: string;
 }
@@ -104,7 +104,7 @@ function DockItem({
 
   if (onClick) {
     return (
-      <button onClick={onClick} className={wrapperClass}>
+      <button onClick={(e) => onClick(e)} className={wrapperClass}>
         {innerContent}
       </button>
     );
@@ -216,7 +216,44 @@ export default function Dock() {
           mouseX={mouseX}
           icon={isDark ? "light_mode" : "dark_mode"}
           label={isDark ? "Light Mode" : "Dark Mode"}
-          onClick={() => setIsDark(!isDark)}
+          onClick={(e) => {
+            const nextDark = !isDark;
+            const doc = document as any;
+
+            if (!doc.startViewTransition) {
+              setIsDark(nextDark);
+              return;
+            }
+
+            const x = e.clientX;
+            const y = e.clientY;
+
+            const endRadius = Math.hypot(
+              Math.max(x, window.innerWidth - x),
+              Math.max(y, window.innerHeight - y)
+            );
+
+            const transition = doc.startViewTransition(() => {
+              setIsDark(nextDark);
+            });
+
+            transition.ready.then(() => {
+              const clipPath = [
+                `circle(0px at ${x}px ${y}px)`,
+                `circle(${endRadius}px at ${x}px ${y}px)`,
+              ];
+              document.documentElement.animate(
+                {
+                  clipPath: clipPath,
+                },
+                {
+                  duration: 650,
+                  easing: "cubic-bezier(0.16, 1, 0.3, 1)",
+                  pseudoElement: "::view-transition-new(root)",
+                }
+              );
+            });
+          }}
           isMobile={isMobile}
         />
       </motion.div>
