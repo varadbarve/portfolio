@@ -1,49 +1,71 @@
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
-import { useRef } from "react";
+import { useRef, useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 
 interface DockItemProps {
   mouseX: any;
   icon: string;
   label: string;
-  to: string;
+  to?: string;
   isExternal?: boolean;
   isActive?: boolean;
+  onClick?: () => void;
+  isMobile: boolean;
+  className?: string;
 }
 
-function DockItem({ mouseX, icon, label, to, isExternal = false, isActive = false }: DockItemProps) {
+function DockItem({
+  mouseX,
+  icon,
+  label,
+  to,
+  isExternal = false,
+  isActive = false,
+  onClick,
+  isMobile,
+  className = "",
+}: DockItemProps) {
   const ref = useRef<HTMLDivElement>(null);
 
   // Measure distance from mouse to the center of this item
   const distance = useTransform(mouseX, (val: number) => {
     const bounds = ref.current?.getBoundingClientRect() ?? { x: 0, width: 0 };
-    // Center x of the item
     const centerX = bounds.x + bounds.width / 2;
     return val - centerX;
   });
 
   // Grow width and height based on proximity (within 150px)
-  // Normal size: 48px, Peak size: 76px
-  const sizeTransform = useTransform(distance, [-150, 0, 150], [48, 76, 48], { clamp: true });
+  const defaultSize = isMobile ? 42 : 48;
+  const peakSize = isMobile ? 62 : 78;
+  
+  const sizeTransform = useTransform(distance, [-150, 0, 150], [defaultSize, peakSize, defaultSize], { clamp: true });
   const size = useSpring(sizeTransform, {
-    stiffness: 400,
-    damping: 25,
+    stiffness: 450,
+    damping: 24,
     mass: 0.1,
   });
 
-  // Also scale up icon size inside
-  const iconSizeTransform = useTransform(distance, [-150, 0, 150], [20, 32, 20], { clamp: true });
+  // y-axis offset translation (lifting effect) on hover
+  const yOffsetTransform = useTransform(distance, [-150, 0, 150], [0, -18, 0], { clamp: true });
+  const y = useSpring(yOffsetTransform, {
+    stiffness: 450,
+    damping: 24,
+    mass: 0.1,
+  });
+
+  // Scale up icon font size inside
+  const iconSizeTransform = useTransform(distance, [-150, 0, 150], [18, 30, 18], { clamp: true });
   const iconSize = useSpring(iconSizeTransform, {
-    stiffness: 400,
-    damping: 25,
+    stiffness: 450,
+    damping: 24,
     mass: 0.1,
   });
 
-  const content = (
+  const innerContent = (
     <motion.div
       ref={ref}
-      style={{ width: size, height: size }}
-      className={`relative rounded-full flex items-center justify-center border transition-colors duration-200 shadow-sm ${
+      style={{ width: size, height: size, y }}
+      className={`relative rounded-full flex items-center justify-center border transition-colors duration-200 shadow-lg ${
         isActive
           ? "bg-primary/20 border-primary text-primary"
           : "bg-surface-container/60 hover:bg-surface-container-high/80 border-white/5 text-on-surface-variant hover:text-primary"
@@ -73,22 +95,34 @@ function DockItem({ mouseX, icon, label, to, isExternal = false, isActive = fals
 
       {/* Active Indicator dot */}
       {isActive && (
-        <span className="absolute -bottom-1.5 w-1.5 h-1.5 rounded-full bg-primary" />
+        <span className="absolute -bottom-2 w-1.5 h-1.5 rounded-full bg-primary" />
       )}
     </motion.div>
   );
 
+  const wrapperClass = `group relative ${className}`;
+
+  if (onClick) {
+    return (
+      <button onClick={onClick} className={wrapperClass}>
+        {innerContent}
+      </button>
+    );
+  }
+
+  if (!to) return null;
+
   if (isExternal) {
     return (
-      <a href={to} target="_blank" rel="noopener noreferrer" className="group relative">
-        {content}
+      <a href={to} target="_blank" rel="noopener noreferrer" className={wrapperClass}>
+        {innerContent}
       </a>
     );
   }
 
   return (
-    <Link to={to} className="group relative">
-      {content}
+    <Link to={to} className={wrapperClass}>
+      {innerContent}
     </Link>
   );
 }
@@ -96,22 +130,69 @@ function DockItem({ mouseX, icon, label, to, isExternal = false, isActive = fals
 export default function Dock() {
   const mouseX = useMotionValue(Infinity);
   const location = useLocation();
+  
+  const [isMobile, setIsMobile] = useState(false);
+  const [isTouch, setIsTouch] = useState(false);
+  const [isDark, setIsDark] = useState(() => {
+    const saved = localStorage.getItem("theme");
+    return saved ? saved === "dark" : true;
+  });
+
+  // Sync theme
+  useEffect(() => {
+    const root = document.documentElement;
+    if (isDark) {
+      root.classList.remove("light-mode");
+      localStorage.setItem("theme", "dark");
+    } else {
+      root.classList.add("light-mode");
+      localStorage.setItem("theme", "light");
+    }
+  }, [isDark]);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    handleResize();
+    window.addEventListener("resize", handleResize);
+
+    // Touch device detection
+    setIsTouch(window.matchMedia("(pointer: coarse)").matches);
+
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   const items = [
     { label: "Home", icon: "home", to: "/" },
     { label: "Projects", icon: "terminal", to: "/projects" },
     { label: "Skills", icon: "sdk", to: "/skills" },
     { label: "Resume", icon: "description", to: "/resume" },
-    { label: "Contact", icon: "mail", to: "mailto:varadvbarve@gmail.com", isExternal: true },
-    { label: "GitHub", icon: "github", to: "https://github.com/varadbarve", isExternal: true },
+    {
+      label: "Contact",
+      icon: "mail",
+      to: "mailto:varadvbarve@gmail.com",
+      isExternal: true,
+      className: "hidden sm:block",
+    },
+    {
+      label: "GitHub",
+      icon: "github",
+      to: "https://github.com/varadbarve",
+      isExternal: true,
+      className: "hidden sm:block",
+    },
   ];
 
   return (
     <div className="fixed bottom-6 left-0 right-0 z-50 flex justify-center pointer-events-none">
       <motion.div
-        onMouseMove={(e) => mouseX.set(e.clientX)}
+        onMouseMove={(e) => {
+          // Only track mouse positions on mouse devices, not touch screens
+          if (!isTouch) mouseX.set(e.clientX);
+        }}
         onMouseLeave={() => mouseX.set(Infinity)}
-        className="mx-auto flex h-[68px] items-end gap-sm rounded-2xl glass-panel px-sm pb-xs pt-base border border-white/10 shadow-[0_15px_40px_-15px_rgba(0,0,0,0.5)] pointer-events-auto"
+        className="mx-auto flex h-[68px] items-end gap-xs sm:gap-sm rounded-2xl glass-panel px-sm pb-xs pt-base border border-white/10 shadow-[0_15px_40px_-15px_rgba(0,0,0,0.5)] pointer-events-auto"
       >
         {items.map((item) => (
           <DockItem
@@ -122,8 +203,22 @@ export default function Dock() {
             to={item.to}
             isExternal={item.isExternal}
             isActive={location.pathname === item.to}
+            isMobile={isMobile}
+            className={item.className}
           />
         ))}
+
+        {/* Separator line */}
+        <div className="h-8 w-px bg-white/10 mx-xs sm:mx-base mb-xs self-center" />
+
+        {/* Theme Toggle */}
+        <DockItem
+          mouseX={mouseX}
+          icon={isDark ? "light_mode" : "dark_mode"}
+          label={isDark ? "Light Mode" : "Dark Mode"}
+          onClick={() => setIsDark(!isDark)}
+          isMobile={isMobile}
+        />
       </motion.div>
     </div>
   );

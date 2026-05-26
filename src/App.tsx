@@ -1,9 +1,9 @@
 import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom";
 import { AnimatePresence, motion } from "framer-motion";
 import { lazy, Suspense, useEffect } from "react";
-import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import Dock from "./components/Dock";
+import BrandStamp from "./components/BrandStamp";
 
 // Lazy load pages for performance (#15)
 const Home = lazy(() => import("./pages/Home"));
@@ -286,7 +286,7 @@ export default function App() {
   return (
     <Router>
       <div className="bg-background text-on-background font-body-md text-body-md antialiased min-h-screen flex flex-col selection:bg-primary/30 selection:text-primary-fixed">
-        <Navbar />
+        <BrandStamp />
         <AnimatedRoutes />
         <Footer />
         <Dock />
