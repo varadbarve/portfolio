@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Anton&amp;family=Geist:wght@400;700&amp;family=JetBrains+Mono:wght@400;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 48;
+        }
+        .comic-panel {
+            position: relative;
+            overflow: hidden;
+            background-image: radial-gradient(var(--accent-glow, rgba(0, 225, 171, 0.05)) 1px, transparent 1px);
+            background-size: 8px 8px;
+        }
+        .halftone-header {
+            background-image: radial-gradient(currentColor 1px, transparent 1px);
+            background-size: 4px 4px;
+            opacity: 0.2;
+        }
+        .panel-shake:hover {
+            animation: shake 0.2s cubic-bezier(.36,.07,.19,.97) both;
+            transform: translate3d(0, 0, 0);
+        }
+        @keyframes shake {
+            10%, 90% { transform: translate3d(-1px, 0, 0); }
+            20%, 80% { transform: translate3d(2px, 0, 0); }
+            30%, 50%, 70% { transform: translate3d(-4px, 0, 0); }
+            40%, 60% { transform: translate3d(4px, 0, 0); }
+        }
+        .speech-bubble-tail {
+            clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%, 25% 100%, 0% 120%);
+        }
+
+        /* Theme Variable Overrides */
+        :root {
+            --primary-accent: #00e1ab;
+            --primary-container: #00ffc2;
+            --on-primary-container: #007255;
+            --surface-container: #1e1f2a;
+            --background-color: #12131d;
+            --on-background: #e2e1f1;
+            --accent-glow: rgba(0, 225, 171, 0.05);
+            --border-color: #000000;
+            --hologram-color: #00ffc2;
+        }
+
+        .theme-spiderman {
+            --primary-accent: #E60000;
+            --primary-container: #E60000;
+            --on-primary-container: #ffffff;
+            --surface-container: #002d5a;
+            --background-color: #001f3f;
+            --on-background: #ffffff;
+            --accent-glow: rgba(230, 0, 0, 0.1);
+            --border-color: #ffffff;
+            --hologram-color: #E60000;
+        }
+
+        .theme-batman {
+            --primary-accent: #FDE047;
+            --primary-container: #FDE047;
+            --on-primary-container: #000000;
+            --surface-container: #1a1a1a;
+            --background-color: #0c0d18;
+            --on-background: #FDE047;
+            --accent-glow: rgba(253, 224, 71, 0.05);
+            --border-color: #FDE047;
+            --hologram-color: #FDE047;
+        }
+
+        .theme-invincible {
+            --primary-accent: #3b82f6;
+            --primary-container: #3b82f6;
+            --on-primary-container: #ffffff;
+            --surface-container: #ffffff;
+            --background-color: #facc15;
+            --on-background: #000000;
+            --accent-glow: rgba(59, 130, 246, 0.1);
+            --border-color: #000000;
+            --hologram-color: #3b82f6;
+        }
+
+        body { background-color: var(--background-color) !important; color: var(--on-background) !important; transition: background-color 0.5s ease; }
+        .theme-accent-bg { background-color: var(--primary-accent) !important; }
+        .theme-accent-text { color: var(--primary-accent) !important; }
+        .theme-accent-border { border-color: var(--primary-accent) !important; }
+        .theme-container-bg { background-color: var(--primary-container) !important; }
+        .theme-container-text { color: var(--on-primary-container) !important; }
+        .theme-surface-bg { background-color: var(--surface-container) !important; }
+        
+        .theme-invincible .comic-panel,
+        .theme-invincible section,
+        .theme-invincible header,
+        .theme-invincible footer {
+            border-color: #000 !important;
+        }
+        .theme-invincible .text-on-surface-variant { color: #333 !important; }
+        .theme-invincible .bg-surface-bright { background-color: #eee !important; color: #000 !000 !important; }
+        .theme-invincible .bg-surface-container-high { background-color: #fff !important; }
+        .theme-invincible .bg-surface-container-highest { background-color: #ddd !important; color: #000 !important; }
+        .theme-invincible .bg-surface-container-low { background-color: #fff !important; }
+        .theme-invincible .bg-surface-container-lowest { background-color: #facc15 !important; }
+
+        .assistive-touch-container.expanded .theme-options {
+            opacity: 1;
+            pointer-events: auto;
+            transform: translateY(-20px) scale(1);
+        }
+        .theme-options {
+            opacity: 0;
+            pointer-events: none;
+            transform: translateY(40px) scale(0.8);
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        /* Hero Specific */
+        #hero-canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 5;
+        }
+        .hero-dissolve {
+            will-change: transform, opacity, filter;
+            transition: none; /* Controlled by scroll */
+        }
+        .reveal-content {
+            margin-top: 100vh;
+            position: relative;
+            z-index: 20;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-dim": "#12131d",
+                        "secondary-fixed": "#ffdbcc",
+                        "inverse-primary": "#006c50",
+                        "on-primary-fixed-variant": "#00513c",
+                        "surface": "#12131d",
+                        "on-tertiary-fixed-variant": "#2f4f00",
+                        "on-error": "#690005",
+                        "on-tertiary-fixed": "#102000",
+                        "surface-container-lowest": "#0c0d18",
+                        "on-surface": "#e2e1f1",
+                        "on-secondary-container": "#572000",
+                        "on-secondary-fixed": "#351000",
+                        "outline": "#83958c",
+                        "on-secondary-fixed-variant": "#7a3000",
+                        "surface-container-low": "#1a1b26",
+                        "surface-tint": "#00e1ab",
+                        "primary": "#fbfffa",
+                        "tertiary-fixed-dim": "#8bdc00",
+                        "surface-container-highest": "#333440",
+                        "secondary-fixed-dim": "#ffb693",
+                        "surface-container": "#1e1f2a",
+                        "on-tertiary-container": "#446f00",
+                        "on-surface-variant": "#b9cbc1",
+                        "on-background": "#e2e1f1",
+                        "on-secondary": "#561f00",
+                        "on-primary-fixed": "#002116",
+                        "tertiary-container": "#9ffa00",
+                        "on-primary-container": "#007255",
+                        "surface-container-high": "#282935",
+                        "primary-fixed": "#36ffc4",
+                        "on-tertiary": "#1f3700",
+                        "primary-fixed-dim": "#00e1ab",
+                        "surface-bright": "#383844",
+                        "surface-variant": "#333440",
+                        "error": "#ffb4ab",
+                        "on-primary": "#003828",
+                        "outline-variant": "#3a4a43",
+                        "on-error-container": "#ffdad6",
+                        "error-container": "#93000a",
+                        "inverse-on-surface": "#2f303b",
+                        "primary-container": "#00ffc2",
+                        "tertiary": "#fefff4",
+                        "secondary": "#ffb693",
+                        "background": "#12131d",
+                        "secondary-container": "#fe6b00",
+                        "inverse-surface": "#e2e1f1",
+                        "tertiary-fixed": "#9ffb00"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "unit": "8px",
+                        "panel-gap": "12px",
+                        "margin-mobile": "16px",
+                        "gutter": "24px",
+                        "margin-desktop": "64px"
+                    },
+                    "fontFamily": {
+                        "body-lg": ["Geist"],
+                        "headline-lg-mobile": ["Anton"],
+                        "body-md": ["Geist"],
+                        "label-caps": ["JetBrains Mono"],
+                        "display-xl": ["Anton"],
+                        "code-sm": ["JetBrains Mono"],
+                        "headline-md": ["Anton"],
+                        "headline-lg": ["Anton"]
+                    },
+                    "fontSize": {
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                        "headline-lg-mobile": ["36px", {"lineHeight": "40px", "fontWeight": "400"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "label-caps": ["12px", {"lineHeight": "16px", "fontWeight": "700"}],
+                        "display-xl": ["80px", {"lineHeight": "80px", "letterSpacing": "0.02em", "fontWeight": "400"}],
+                        "code-sm": ["14px", {"lineHeight": "20px", "fontWeight": "500"}],
+                        "headline-md": ["32px", {"lineHeight": "36px", "fontWeight": "400"}],
+                        "headline-lg": ["48px", {"lineHeight": "52px", "letterSpacing": "0.01em", "fontWeight": "400"}]
+                    }
+                },
+            },
+        }
+    </script>
+</head>
+<body class="bg-background text-on-background font-body-md selection:bg-primary-container selection:text-on-primary-container transition-all duration-500 overflow-x-hidden">
+<!-- Fixed Hero Section -->
+<section class="fixed inset-0 w-full h-screen flex flex-col items-center justify-center z-10 hero-dissolve pointer-events-none" id="hero-section">
+<canvas id="hero-canvas"></canvas>
+<div class="relative z-10 text-center px-margin-mobile flex flex-col items-center pointer-events-auto">
+<div class="theme-accent-text font-label-caps text-label-caps tracking-[0.3em] mb-4 opacity-80 uppercase">Cognitive Architecture System</div>
+<h1 class="font-display-xl text-headline-lg-mobile md:text-display-xl uppercase leading-none mb-6">
+            VARAD <span class="theme-accent-text">BARVE</span>
+</h1>
+<div class="h-1 w-24 theme-accent-bg mb-8"></div>
+<p class="font-body-lg text-body-lg max-w-xl text-on-surface-variant mb-12">
+            Multidisciplinary Senior Engineer crafting the nexus between AI pipelines and high-velocity web architectures.
+        </p>
+<div class="flex flex-col sm:flex-row gap-4">
+<button class="theme-container-bg theme-container-text font-label-caps text-label-caps px-10 py-5 border-2 border-black shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none transition-all uppercase" onclick="document.getElementById('reveal-start').scrollIntoView({behavior: 'smooth'})">
+                Initialize_Core
+            </button>
+</div>
+</div>
+</section>
+<!-- Reveal Content Trigger -->
+<div class="h-1 absolute top-screen w-full" id="reveal-start"></div>
+<!-- TopNavBar -->
+<header class="bg-background/80 backdrop-blur-md theme-accent-text full-width top-0 fixed border-b-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] flex justify-between items-center w-full px-margin-mobile md:px-margin-desktop py-4 z-50 opacity-0 translate-y-[-100%] transition-all duration-500" id="main-header">
+<div class="font-label-caps text-label-caps theme-accent-border theme-accent-text border px-2 py-1">
+        SYS_STATUS: ONLINE
+    </div>
+<nav class="hidden md:flex items-center gap-gutter">
+<a class="font-label-caps text-label-caps theme-container-text pb-1 hover:theme-accent-text transition-colors translate-y-[2px] translate-x-[2px] border-b-4 theme-accent-border" href="#hero-section">Systems</a>
+<a class="font-label-caps text-label-caps text-on-surface-variant hover:theme-accent-text transition-colors" href="#arsenal">Stack</a>
+<a class="font-label-caps text-label-caps text-on-surface-variant hover:theme-accent-text transition-colors" href="#pipelines">Activity</a>
+<a class="font-label-caps text-label-caps text-on-surface-variant hover:theme-accent-text transition-colors" href="#contact">Contact</a>
+</nav>
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined theme-accent-text cursor-pointer">terminal</span>
+<img alt="Developer Avatar" class="w-10 h-10 border-2 border-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAgg4TjjSNKWce_VtwvdHjTzcQLWWqTJZ_1YOpxHBuCbRCPJCGt8sn875WB-Wz6Vx4JLAfnio6C7bc7LN8ONrSnP4RcrhKGScm_7hPovalYusBD7r0QvE5pMuqfZq-C7CpzK3dx2QTOonr4OMqGYG6ker7uBz_DYx-9YEAmIdJi8PUQhQPqKPkhoUp_MjEfi4h9fnxzBPjq7rY4D7OSMIEcXRiemohBNi5kK-R_8SfWZNETsqHRpHItW7MBLsvaa_LhlC3XmaxsNtE"/>
+</div>
+</header>
+<main class="reveal-content">
+<div class="max-w-[1400px] mx-auto px-margin-mobile md:px-margin-desktop py-12">
+<!-- Origin Section Refined -->
+<section class="grid grid-cols-1 md:grid-cols-12 gap-gutter mb-24 pt-24">
+<div class="md:col-span-8 comic-panel theme-surface-bg border-4 border-black shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] p-8 md:p-12 panel-shake">
+<div class="absolute top-0 right-0 theme-container-bg theme-container-text px-6 py-2 border-l-4 border-b-4 border-black font-label-caps text-label-caps">
+                    ISSUE #001 // VARAD_BARVE.TECH
+                </div>
+<div class="mb-4 theme-accent-text font-label-caps text-label-caps tracking-widest">ORIGIN STORY // FULL-STACK ARCHITECT</div>
+<h2 class="font-headline-lg text-headline-lg md:text-display-xl uppercase mb-6 leading-none">
+                    DECODING THE <br/>
+<span class="theme-accent-text bg-black px-2">MULTIVERSE</span>
+</h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl mb-8">
+                    Senior Software Engineer specializing in the synthesis of AI pipelines and high-performance web systems. Forging scalable architectures from the void of complex data streams.
+                </p>
+<div class="flex gap-4">
+<button class="bg-surface-bright text-on-surface font-label-caps text-label-caps px-8 py-4 border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none transition-all uppercase">
+                        DOWNLOAD_DOSSIER
+                    </button>
+</div>
+</div>
+<div class="md:col-span-4 flex flex-col gap-gutter">
+<div class="comic-panel theme-accent-bg border-4 border-black shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] aspect-square p-4 panel-shake overflow-hidden">
+<img class="w-full h-full object-cover border-2 border-black grayscale hover:grayscale-0 transition-all" src="https://lh3.googleusercontent.com/aida-public/AB6AXuChHsRyhYhoJcLRVz6FzaQSIHTMP1W_LQw6CR4XzilaoH0iktmaOjKta1fKtV6aOy1uEDVjFpb_qWVlMUaekSyLbyyjr2LjYUVGR8WnNHkZdmg_dOm8mC9psujbpt8RyT59tEsYkkFXv_JkmROQ-RUTKm3SGnfMxi9LMrMI9KbgMrWs7ZD6fMHJUwj23FkY4QtrUaj-MOekkBECdpuTdqze0NYliIPFdF1Py3fuN--jLwEw7JR66LA7lvxIOo22f4q7QFY4Ga7tpwA"/>
+</div>
+<div class="bg-surface-container-high border-4 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] p-6">
+<div class="font-label-caps text-label-caps theme-accent-text mb-2 uppercase tracking-tighter">Current Status</div>
+<div class="font-headline-md text-headline-md leading-none">STABLE_BRANCH: V2.0.4</div>
+</div>
+</div>
+</section>
+<!-- Technology Stack: The Arsenal -->
+<section class="mb-24" id="arsenal">
+<div class="flex items-end gap-4 mb-8">
+<h2 class="font-headline-lg text-headline-lg uppercase leading-none">The Arsenal</h2>
+<div class="h-1 flex-grow bg-black mb-2"></div>
+</div>
+<div class="flex flex-wrap gap-4">
+<div class="theme-container-bg theme-container-text font-code-sm text-code-sm px-6 py-2 border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] flex items-center gap-2 hover:scale-105 transition-transform cursor-default">
+<span class="material-symbols-outlined scale-75">memory</span> PYTHON
+                </div>
+<div class="bg-surface-container-highest text-on-surface font-code-sm text-code-sm px-6 py-2 border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] flex items-center gap-2 hover:theme-accent-border hover:theme-accent-text transition-all cursor-default">
+<span class="material-symbols-outlined scale-75">javascript</span> REACT
+                </div>
+<div class="bg-surface-container-highest text-on-surface font-code-sm text-code-sm px-6 py-2 border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] flex items-center gap-2 hover:theme-accent-border hover:theme-accent-text transition-all cursor-default">
+<span class="material-symbols-outlined scale-75">psychology</span> TENSORFLOW
+                </div>
+<div class="bg-surface-container-highest text-on-surface font-code-sm text-code-sm px-6 py-2 border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] flex items-center gap-2 hover:theme-accent-border hover:theme-accent-text transition-all cursor-default">
+<span class="material-symbols-outlined scale-75">code</span> TYPESCRIPT
+                </div>
+<div class="theme-container-bg theme-container-text font-code-sm text-code-sm px-6 py-2 border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] flex items-center gap-2 hover:scale-105 transition-transform cursor-default">
+<span class="material-symbols-outlined scale-75">terminal</span> NODE.JS
+                </div>
+<div class="bg-surface-container-highest text-on-surface font-code-sm text-code-sm px-6 py-2 border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] flex items-center gap-2 hover:theme-accent-border hover:theme-accent-text transition-all cursor-default">
+<span class="material-symbols-outlined scale-75">layers</span> NEXT.JS
+                </div>
+<div class="bg-surface-container-highest text-on-surface font-code-sm text-code-sm px-6 py-2 border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] flex items-center gap-2 hover:theme-accent-border hover:theme-accent-text transition-all cursor-default">
+<span class="material-symbols-outlined scale-75">biotech</span> PLAYWRIGHT
+                </div>
+<div class="theme-container-bg theme-container-text font-code-sm text-code-sm px-6 py-2 border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] flex items-center gap-2 hover:scale-105 transition-transform cursor-default">
+<span class="material-symbols-outlined scale-75">visibility</span> YOLOv8
+                </div>
+</div>
+</section>
+<!-- Engineering AI Pipelines -->
+<section class="mb-24" id="pipelines">
+<div class="flex items-center gap-4 mb-12">
+<div class="w-12 h-12 theme-accent-bg border-2 border-black rotate-45 flex items-center justify-center">
+<span class="material-symbols-outlined -rotate-45 text-black">rocket_launch</span>
+</div>
+<h2 class="font-headline-lg text-headline-lg uppercase">Engineering AI Pipelines</h2>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+<!-- MediaAssist AI -->
+<div class="comic-panel group theme-surface-bg border-4 border-black shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] transition-transform hover:-translate-y-2 panel-shake">
+<div class="h-48 bg-black overflow-hidden relative border-b-4 border-black">
+<img class="w-full h-full object-cover opacity-60 group-hover:opacity-100 transition-opacity" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCd1QL-gE62IAUWOqNJyVblbznQi_KSgHOUr-022MO4mZvy32fki9sI1C9LaQ5_EyafzYs8d4-lO-3Kjusy_TxHNJuI760RZOntQPPMGbdzq1nQyJtbSzd22JK0gRnbdfu6EGhDiZvBm-7GMhNQmqbGIbY0l-KvZoa_JKhE2NYwvjS5npzfMgtzccX3mQLAsyWZJbHnguH3Mxp7fLwD1HhpuooVrq9BPvWSsLiwWNDvsjhtoWQmiqaXNqqwQZit-ZI8LcGU52ieECE"/>
+<div class="absolute bottom-2 left-2 theme-container-bg theme-container-text px-3 py-1 font-label-caps text-[10px] border border-black uppercase">AI_AGENT</div>
+</div>
+<div class="p-6">
+<h3 class="font-headline-md text-headline-md uppercase mb-2">MediaAssist AI</h3>
+<p class="text-on-surface-variant font-body-md mb-6">Autonomous video processing pipeline leveraging GPT-4o and Whisper for semantic metadata generation.</p>
+<div class="flex justify-between items-center">
+<span class="font-code-sm theme-accent-text">PYTHON / LLM</span>
+<span class="material-symbols-outlined text-on-surface hover:theme-accent-text cursor-pointer">arrow_outward</span>
+</div>
+</div>
+</div>
+<!-- autoscroller -->
+<div class="comic-panel group theme-surface-bg border-4 border-black shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] transition-transform hover:-translate-y-2 panel-shake">
+<div class="h-48 bg-black overflow-hidden relative border-b-4 border-black">
+<img class="w-full h-full object-cover opacity-60 group-hover:opacity-100 transition-opacity" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCUatlJGkW3_MKKdeVtFTwd5I6L5esknuuECowadh-g1OmP1eB_SAJ94W-icE3ZPeXaFG7SIMsG0dTnTUvN1EVZymHBjBekMbhNcb4fT0U_DRy12nuwvp4EnpcsCr_S4mQLi2_seikiUXP5VIkKvwhrif5uuholubZoz-dEKoomq7JOUlrO6m-gxyJ8K1BNubAYpfa_2QpQgYZVT2-nidPjpQWYcVC8JNGpIq5rjnKzFRQ_vpgFC0EDHZia-NwWX0j_ujTwlXc32ho"/>
+<div class="absolute bottom-2 left-2 theme-container-bg theme-container-text px-3 py-1 font-label-caps text-[10px] border border-black uppercase">AUTOMATION</div>
+</div>
+<div class="p-6">
+<h3 class="font-headline-md text-headline-md uppercase mb-2">Autoscroller</h3>
+<p class="text-on-surface-variant font-body-md mb-6">High-frequency browser automation suite for dynamic content extraction and testing stability.</p>
+<div class="flex justify-between items-center">
+<span class="font-code-sm theme-accent-text">PLAYWRIGHT / NODE</span>
+<span class="material-symbols-outlined text-on-surface hover:theme-accent-text cursor-pointer">arrow_outward</span>
+</div>
+</div>
+</div>
+<!-- WA Direct -->
+<div class="comic-panel group theme-surface-bg border-4 border-black shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] transition-transform hover:-translate-y-2 panel-shake">
+<div class="h-48 bg-black overflow-hidden relative border-b-4 border-black">
+<img class="w-full h-full object-cover opacity-60 group-hover:opacity-100 transition-opacity" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAH34Ahhjy8tdmfnf82926Udo3vtgKBgGttNFYvDCFCnphuUb1-bs_O31NQ8PoEedOmXwvdKRghGxdhj7RFnPIyPA-somoLfyXbRUGk2MPm7uzTLl57-V8ykt_csNhKibPMKsrfkiGpEW-SHVkyrb6LJ77wvfH594xYBy4C1lyJ7lOLApI_nlimykV3HPAnXQyItIIhEfikpAvofCHipkbEYJgeHJJXysHRsgSbxbLhWiyllAH2bNgfJV-XjlYxTx178AdUM9BljPU"/>
+<div class="absolute bottom-2 left-2 theme-container-bg theme-container-text px-3 py-1 font-label-caps text-[10px] border border-black uppercase">UTILITY</div>
+</div>
+<div class="p-6">
+<h3 class="font-headline-md text-headline-md uppercase mb-2">WA Direct</h3>
+<p class="text-on-surface-variant font-body-md mb-6">Streamlined communication gateway for instant direct messaging protocols without contact storage.</p>
+<div class="flex justify-between items-center">
+<span class="font-code-sm theme-accent-text">NEXT.JS / REACT</span>
+<span class="material-symbols-outlined text-on-surface hover:theme-accent-text cursor-pointer">arrow_outward</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Contribution Activity: Commit Logs -->
+<section class="mb-24 grid grid-cols-1 lg:grid-cols-12 gap-gutter items-center">
+<div class="lg:col-span-4">
+<div class="bg-black theme-container-text p-6 border-4 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] speech-bubble-tail mb-8 panel-shake">
+<h3 class="font-headline-md text-headline-md uppercase mb-2 leading-none theme-accent-text">COMMIT_LOGS</h3>
+<p class="font-code-sm text-code-sm">Ongoing stream of cognitive artifacts and system iterations. Tracking velocity in the GitHub dimension.</p>
+</div>
+</div>
+<div class="lg:col-span-8 theme-surface-bg border-4 border-black p-8 shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]">
+<div class="flex justify-between items-center mb-6">
+<span class="font-label-caps text-label-caps text-on-surface-variant">YEAR: 2024</span>
+<div class="flex gap-2">
+<div class="w-3 h-3 bg-surface-container-highest"></div>
+<div class="w-3 h-3 theme-accent-bg opacity-30"></div>
+<div class="w-3 h-3 theme-accent-bg opacity-60"></div>
+<div class="w-3 h-3 theme-accent-bg opacity-80"></div>
+<div class="w-3 h-3 theme-accent-bg"></div>
+</div>
+</div>
+<div class="grid grid-flow-col grid-rows-7 gap-1" id="heatmap">
+<!-- Javascript populates -->
+</div>
+<div class="mt-4 flex justify-between font-code-sm text-code-sm text-on-surface-variant">
+<span>JAN</span><span>MAR</span><span>MAY</span><span>JUL</span><span>SEP</span><span>NOV</span>
+</div>
+</div>
+</section>
+<!-- Mission Debrief: Contact Form -->
+<section class="mb-24" id="contact">
+<div class="bg-surface-container-low border-4 border-black p-8 md:p-16 shadow-[12px_12px_0px_0px_rgba(0,0,0,1)] relative overflow-hidden panel-shake">
+<div class="absolute top-0 left-0 w-full h-4 halftone-header theme-accent-bg"></div>
+<div class="max-w-2xl mx-auto">
+<h2 class="font-headline-lg text-headline-lg uppercase text-center mb-4">Mission Debrief</h2>
+<p class="text-center font-body-lg text-body-lg mb-12 text-on-surface-variant">Requesting secure channel for collaboration or system consultation. Transmission encrypted.</p>
+<form class="space-y-6">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<div>
+<label class="block font-label-caps text-label-caps theme-accent-text mb-2">IDENTIFIER</label>
+<input class="w-full theme-surface-bg border-2 border-black p-4 font-code-sm text-code-sm focus:outline-none focus:theme-accent-border focus:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all" placeholder="Full Name / Handle" type="text"/>
+</div>
+<div>
+<label class="block font-label-caps text-label-caps theme-accent-text mb-2">COMMS_LINK</label>
+<input class="w-full theme-surface-bg border-2 border-black p-4 font-code-sm text-code-sm focus:outline-none focus:theme-accent-border focus:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all" placeholder="email@multiverse.com" type="email"/>
+</div>
+</div>
+<div>
+<label class="block font-label-caps text-label-caps theme-accent-text mb-2">INTEL_REPORT</label>
+<textarea class="w-full theme-surface-bg border-2 border-black p-4 font-code-sm text-code-sm focus:outline-none focus:theme-accent-border focus:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all" placeholder="Your message here..." rows="4"></textarea>
+</div>
+<button class="w-full theme-container-bg theme-container-text font-headline-md text-headline-md py-6 border-2 border-black shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] hover:translate-x-1 hover:translate-y-1 hover:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all uppercase" type="submit">
+                            Send_Signal
+                        </button>
+</form>
+</div>
+</div>
+</section>
+</div>
+</main>
+<footer class="w-full py-12 px-margin-mobile md:px-margin-desktop flex flex-col md:flex-row justify-between items-center gap-gutter bg-surface-container-lowest text-on-surface border-t-2 border-black relative z-30">
+<div class="font-label-caps text-label-caps theme-accent-text">
+        © 2026 VARAD_BARVE // CORE_ENGINEERING_STABLE
+    </div>
+<div class="flex gap-gutter">
+<a class="font-label-caps text-label-caps text-on-surface-variant hover:theme-accent-text underline transition-all" href="#">Documentation</a>
+<a class="font-label-caps text-label-caps text-on-surface-variant hover:theme-accent-text underline transition-all" href="#">System_Logs</a>
+<a class="font-label-caps text-label-caps text-on-surface-variant hover:theme-accent-text underline transition-all" href="#">Privacy_Protocol</a>
+</div>
+</footer>
+<!-- Floating Assistive Theme Switcher -->
+<div class="fixed bottom-8 right-8 z-[100] assistive-touch-container" id="themeSwitcher">
+<div class="theme-options absolute bottom-full right-0 flex flex-col items-center gap-4 pb-6">
+<button class="w-14 h-14 rounded-full bg-[#0c0d18] border-2 border-[#FDE047] flex items-center justify-center shadow-2xl hover:scale-110 transition-transform cursor-pointer" onclick="setTheme('batman')" title="Batman Mode">
+<span class="material-symbols-outlined text-[#FDE047] text-2xl">mask</span>
+</button>
+<button class="w-14 h-14 rounded-full bg-[#001f3f] border-2 border-[#E60000] flex items-center justify-center shadow-2xl hover:scale-110 transition-transform cursor-pointer" onclick="setTheme('spiderman')" title="Spiderman Mode">
+<span class="material-symbols-outlined text-[#E60000] text-2xl">grain</span>
+</button>
+<button class="w-14 h-14 rounded-full bg-[#facc15] border-2 border-[#3b82f6] flex items-center justify-center shadow-2xl hover:scale-110 transition-transform cursor-pointer" onclick="setTheme('invincible')" title="Invincible Mode">
+<span class="material-symbols-outlined text-[#3b82f6] text-2xl">rocket_launch</span>
+</button>
+<button class="w-12 h-12 rounded-full bg-white border-2 border-black flex items-center justify-center shadow-2xl hover:scale-110 transition-transform cursor-pointer" onclick="setTheme('default')" title="Reset Theme">
+<span class="material-symbols-outlined text-black text-xl">refresh</span>
+</button>
+</div>
+<div class="w-16 h-16 bg-gray-800/60 backdrop-blur-md rounded-full border border-gray-400/30 flex items-center justify-center cursor-pointer hover:bg-gray-700/80 transition-all active:scale-90 shadow-2xl" id="assistiveMain">
+<span class="material-symbols-outlined text-white text-3xl">palette</span>
+</div>
+</div>
+<script>
+    // Three.js Hologram Setup
+    let scene, camera, renderer, wireframe;
+    const canvas = document.getElementById('hero-canvas');
+    let mouseX = 0, mouseY = 0;
+
+    function initHologram() {
+        scene = new THREE.Scene();
+        camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        renderer = new THREE.WebGLRenderer({ canvas: canvas, alpha: true, antialias: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+
+        const geometry = new THREE.IcosahedronGeometry(10, 1);
+        const material = new THREE.MeshBasicMaterial({ 
+            color: getComputedStyle(document.documentElement).getPropertyValue('--hologram-color').trim() || "#00ffc2", 
+            wireframe: true,
+            transparent: true,
+            opacity: 0.8
+        });
+        wireframe = new THREE.Mesh(geometry, material);
+        scene.add(wireframe);
+
+        camera.position.z = 25;
+
+        window.addEventListener('mousemove', (e) => {
+            mouseX = (e.clientX - window.innerWidth / 2) / 100;
+            mouseY = (e.clientY - window.innerHeight / 2) / 100;
+        });
+
+        animate();
+    }
+
+    function animate() {
+        requestAnimationFrame(animate);
+        wireframe.rotation.x += 0.005 + (mouseY * 0.02);
+        wireframe.rotation.y += 0.005 + (mouseX * 0.02);
+        renderer.render(scene, camera);
+    }
+
+    window.addEventListener('resize', () => {
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+    });
+
+    // Scroll Effects
+    window.addEventListener('scroll', () => {
+        const scrolled = window.scrollY;
+        const vh = window.innerHeight;
+        const hero = document.getElementById('hero-section');
+        const header = document.getElementById('main-header');
+        
+        // Dissolve Math
+        const progress = Math.min(scrolled / (vh * 0.8), 1);
+        const scale = 1 + (progress * 0.2);
+        const blur = progress * 20;
+        const opacity = 1 - progress;
+
+        hero.style.opacity = opacity;
+        hero.style.transform = `scale(${scale})`;
+        hero.style.filter = `blur(${blur}px)`;
+
+        if (progress >= 1) {
+            hero.style.pointerEvents = 'none';
+        } else {
+            hero.style.pointerEvents = 'auto';
+        }
+
+        // Header Reveal
+        if (scrolled > vh * 0.5) {
+            header.style.opacity = '1';
+            header.style.transform = 'translateY(0)';
+        } else {
+            header.style.opacity = '0';
+            header.style.transform = 'translateY(-100%)';
+        }
+    });
+
+    const themeSwitcher = document.getElementById('themeSwitcher');
+    const assistiveMain = document.getElementById('assistiveMain');
+
+    assistiveMain.addEventListener('click', (e) => {
+        e.stopPropagation();
+        themeSwitcher.classList.toggle('expanded');
+    });
+
+    document.addEventListener('click', () => {
+        themeSwitcher.classList.remove('expanded');
+    });
+
+    function setTheme(themeName) {
+        document.body.classList.remove('theme-batman', 'theme-spiderman', 'theme-invincible');
+        if (themeName !== 'default') {
+            document.body.classList.add(`theme-${themeName}`);
+        }
+        
+        // Update Wireframe color based on theme
+        setTimeout(() => {
+            let themeColor;
+            switch(themeName) {
+                case 'batman':
+                    themeColor = '#FFD700'; // Tactical Yellow
+                    break;
+                case 'spiderman':
+                    themeColor = '#E60000'; // Heroic Red
+                    break;
+                case 'invincible':
+                    themeColor = '#3b82f6'; // Neo-brutalism Blue accent
+                    break;
+                default:
+                    themeColor = '#00ffc2'; // Default Cyberpunk Teal
+            }
+            
+            if (wireframe) {
+                wireframe.material.color.set(themeColor);
+                // Also update CSS variable for consistent glow across any SVG filters or styles
+                document.documentElement.style.setProperty('--hologram-color', themeColor);
+            }
+        }, 50);
+
+        updateHeatmap();
+    }
+
+    function updateHeatmap() {
+        const container = document.getElementById('heatmap');
+        if (!container) return;
+        container.innerHTML = '';
+        
+        for (let i = 0; i < 364; i++) {
+            const opacity = [0.1, 0.3, 0.6, 0.8, 1][Math.floor(Math.random() * 5)];
+            const div = document.createElement('div');
+            div.className = 'w-full h-3 theme-accent-bg border border-black/10 transition-colors duration-500';
+            div.style.opacity = opacity;
+            container.appendChild(div);
+        }
+    }
+
+    // Initialize
+    initHologram();
+    updateHeatmap();
+</script>
+</body></html>

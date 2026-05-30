@@ -63,7 +63,16 @@ export default {
         "h2": ["Inter", "sans-serif"],
         "mono-label": ["Space Grotesk", "monospace"],
         "h1": ["Inter", "sans-serif"],
-        "body-lg": ["Inter", "sans-serif"]
+        "body-lg": ["Inter", "sans-serif"],
+        // Superhero theme fonts
+        "geist": ["Geist", "sans-serif"],
+        "anton": ["Anton", "sans-serif"],
+        "jetbrains": ["'JetBrains Mono'", "monospace"],
+        "display-xl": ["Anton", "sans-serif"],
+        "headline-lg": ["Anton", "sans-serif"],
+        "headline-md": ["Anton", "sans-serif"],
+        "label-caps": ["'JetBrains Mono'", "monospace"],
+        "code-sm": ["'JetBrains Mono'", "monospace"],
       },
       fontSize: {
         "body-lg": ["18px", { "lineHeight": "1.6", "fontWeight": "400" }],

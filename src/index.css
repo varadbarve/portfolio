@@ -188,3 +188,130 @@ html, html * {
   mix-blend-mode: normal;
 }
 
+/* ===== Theme Variables & Settings ===== */
+:root {
+  --accent-glow: rgba(78, 222, 163, 0.05);
+  --hologram-color: #4edea3;
+}
+
+.theme-spiderman {
+  --c-primary: #E60000;
+  --c-background: #001f3f;
+  --c-on-background: #ffffff;
+  --c-surface: #001f3f;
+  --c-surface-dim: #001830;
+  --c-surface-bright: #003870;
+  --c-on-surface: #ffffff;
+  --c-on-surface-variant: #a0c0e0;
+  --c-surface-variant: #002d5a;
+  --c-surface-container: #002d5a;
+  --c-surface-container-low: #002244;
+  --c-surface-container-lowest: #001830;
+  --c-surface-container-high: #003870;
+  --c-surface-container-highest: #004385;
+  --c-outline: #E60000;
+  --c-outline-variant: #ff4d4d;
+  --c-selection-bg: rgba(230, 0, 0, 0.3);
+  --c-glass-bg: rgba(0, 45, 90, 0.5);
+  --c-glass-border: rgba(230, 0, 0, 0.3);
+  --c-chip-bg: rgba(255, 255, 255, 0.1);
+  --accent-glow: rgba(230, 0, 0, 0.1);
+  --hologram-color: #E60000;
+}
+
+.theme-batman {
+  --c-primary: #FDE047;
+  --c-background: #0c0d18;
+  --c-on-background: #FDE047;
+  --c-surface: #0c0d18;
+  --c-surface-dim: #070810;
+  --c-surface-bright: #222222;
+  --c-on-surface: #ffffff;
+  --c-on-surface-variant: #a0a0a0;
+  --c-surface-variant: #1a1a1a;
+  --c-surface-container: #1a1a1a;
+  --c-surface-container-low: #121212;
+  --c-surface-container-lowest: #080808;
+  --c-surface-container-high: #222222;
+  --c-surface-container-highest: #2d2d2d;
+  --c-outline: #FDE047;
+  --c-outline-variant: #888800;
+  --c-selection-bg: rgba(253, 224, 71, 0.3);
+  --c-glass-bg: rgba(26, 26, 26, 0.6);
+  --c-glass-border: rgba(253, 224, 71, 0.3);
+  --c-chip-bg: rgba(253, 224, 71, 0.1);
+  --accent-glow: rgba(253, 224, 71, 0.05);
+  --hologram-color: #FDE047;
+}
+
+.theme-invincible {
+  --c-primary: #3b82f6;
+  --c-background: #facc15;
+  --c-on-background: #000000;
+  --c-surface: #facc15;
+  --c-surface-dim: #d9ab04;
+  --c-surface-bright: #ffffff;
+  --c-on-surface: #000000;
+  --c-on-surface-variant: #333333;
+  --c-surface-variant: #ffffff;
+  --c-surface-container: #ffffff;
+  --c-surface-container-low: #f9f9f9;
+  --c-surface-container-lowest: #e5e5e5;
+  --c-surface-container-high: #eaeaea;
+  --c-surface-container-highest: #dddddd;
+  --c-outline: #000000;
+  --c-outline-variant: #000000;
+  --c-selection-bg: rgba(59, 130, 246, 0.3);
+  --c-glass-bg: rgba(255, 255, 255, 0.95);
+  --c-glass-border: rgba(0, 0, 0, 0.2);
+  --c-chip-bg: rgba(0, 0, 0, 0.05);
+  --accent-glow: rgba(59, 130, 246, 0.1);
+  --hologram-color: #3b82f6;
+}
+
+/* Comic / Brutalist Helpers */
+.comic-panel {
+  position: relative;
+  overflow: hidden;
+  background-image: radial-gradient(var(--accent-glow) 1px, transparent 1px);
+  background-size: 8px 8px;
+}
+
+.halftone-header {
+  background-image: radial-gradient(currentColor 1px, transparent 1px);
+  background-size: 4px 4px;
+  opacity: 0.2;
+}
+
+.panel-shake:hover {
+  animation: shake 0.2s cubic-bezier(.36,.07,.19,.97) both;
+  transform: translate3d(0, 0, 0);
+}
+
+@keyframes shake {
+  10%, 90% { transform: translate3d(-1px, 0, 0); }
+  20%, 80% { transform: translate3d(2px, 0, 0); }
+  30%, 50%, 70% { transform: translate3d(-4px, 0, 0); }
+  40%, 60% { transform: translate3d(4px, 0, 0); }
+}
+
+.speech-bubble-tail {
+  clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%, 25% 100%, 0% 120%);
+}
+
+.theme-accent-bg { background-color: var(--c-primary) !important; }
+.theme-accent-text { color: var(--c-primary) !important; }
+.theme-accent-border { border-color: var(--c-primary) !important; }
+.theme-container-bg { background-color: var(--c-primary) !important; }
+.theme-container-text { color: var(--c-background) !important; }
+.theme-surface-bg { background-color: var(--c-surface-container) !important; }
+
+/* Brutalist borders that change for Invincible theme */
+.theme-invincible .comic-panel,
+.theme-invincible section,
+.theme-invincible header,
+.theme-invincible footer {
+  border-color: #000000 !important;
+}
+
+

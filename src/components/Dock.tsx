@@ -1,6 +1,6 @@
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import { useRef, useState, useEffect } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 interface DockItemProps {
   mouseX: any;
@@ -129,7 +129,6 @@ function DockItem({
 
 export default function Dock() {
   const mouseX = useMotionValue(Infinity);
-  const location = useLocation();
   
   const [isMobile, setIsMobile] = useState(false);
   const [isTouch, setIsTouch] = useState(false);
@@ -137,6 +136,8 @@ export default function Dock() {
     const saved = localStorage.getItem("theme");
     return saved ? saved === "dark" : true;
   });
+
+  const [activeSection, setActiveSection] = useState("hero-section");
 
   // Sync theme
   useEffect(() => {
@@ -163,11 +164,43 @@ export default function Dock() {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
+  // Scroll Spy Logic
+  useEffect(() => {
+    const sections = ["hero-section", "projects-section", "skills-section", "resume-section"];
+    
+    const handleScrollSpy = () => {
+      const scrollPos = window.scrollY + window.innerHeight / 3;
+      for (const section of sections) {
+        const el = document.getElementById(section);
+        if (el) {
+          const top = el.offsetTop;
+          const height = el.offsetHeight;
+          if (scrollPos >= top && scrollPos < top + height) {
+            setActiveSection(section);
+            break;
+          }
+        }
+      }
+    };
+
+    window.addEventListener("scroll", handleScrollSpy);
+    handleScrollSpy(); // Run once on mount
+
+    return () => window.removeEventListener("scroll", handleScrollSpy);
+  }, []);
+
+  const handleScroll = (id: string) => {
+    const el = document.getElementById(id);
+    if (el) {
+      el.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
   const items = [
-    { label: "Home", icon: "home", to: "/" },
-    { label: "Projects", icon: "terminal", to: "/projects" },
-    { label: "Skills", icon: "sdk", to: "/skills" },
-    { label: "Resume", icon: "description", to: "/resume" },
+    { label: "Home", icon: "home", sectionId: "hero-section" },
+    { label: "Projects", icon: "terminal", sectionId: "projects-section" },
+    { label: "Skills", icon: "sdk", sectionId: "skills-section" },
+    { label: "Resume", icon: "description", sectionId: "resume-section" },
     {
       label: "Contact",
       icon: "mail",
@@ -188,7 +221,6 @@ export default function Dock() {
     <div className="fixed bottom-6 left-0 right-0 z-50 flex justify-center pointer-events-none">
       <motion.div
         onMouseMove={(e) => {
-          // Only track mouse positions on mouse devices, not touch screens
           if (!isTouch) mouseX.set(e.clientX);
         }}
         onMouseLeave={() => mouseX.set(Infinity)}
@@ -202,7 +234,8 @@ export default function Dock() {
             label={item.label}
             to={item.to}
             isExternal={item.isExternal}
-            isActive={location.pathname === item.to}
+            isActive={item.sectionId ? activeSection === item.sectionId : false}
+            onClick={item.sectionId ? () => handleScroll(item.sectionId) : undefined}
             isMobile={isMobile}
             className={item.className}
           />

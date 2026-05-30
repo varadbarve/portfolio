@@ -7,9 +7,6 @@ import BrandStamp from "./components/BrandStamp";
 
 // Lazy load pages for performance (#15)
 const Home = lazy(() => import("./pages/Home"));
-const Projects = lazy(() => import("./pages/Projects"));
-const Skills = lazy(() => import("./pages/Skills"));
-const Resume = lazy(() => import("./pages/Resume"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 
 const pageVariants = {
@@ -271,9 +268,9 @@ function AnimatedRoutes() {
         <Suspense fallback={<PageLoader pathname={location.pathname} />}>
           <Routes location={location}>
             <Route path="/" element={<Home />} />
-            <Route path="/projects" element={<Projects />} />
-            <Route path="/skills" element={<Skills />} />
-            <Route path="/resume" element={<Resume />} />
+            <Route path="/projects" element={<Home />} />
+            <Route path="/skills" element={<Home />} />
+            <Route path="/resume" element={<Home />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </Suspense>
