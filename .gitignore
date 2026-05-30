@@ -52,3 +52,24 @@ coverage
 .vercel
 .netlify
 .next
+
+# Vite temporary files
+vite.config.ts.timestamp-*
+vite.config.js.timestamp-*
+vite.config.mjs.timestamp-*
+vite.config.cjs.timestamp-*
+
+# Temporary & build outputs
+/temp
+/tmp
+/out
+/build
+
+# OS files additions
+desktop.ini
+.AppleDouble
+.LSOverride
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db

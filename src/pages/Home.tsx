@@ -3,6 +3,8 @@ import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion"
 import HologramCanvas from "../components/HologramCanvas";
 import ThemeSwitcher from "../components/ThemeSwitcher";
 import AnimatedCounter from "../components/AnimatedCounter";
+import ScrollReveal from "../components/ScrollReveal";
+import useSmoothScroll from "../hooks/useSmoothScroll";
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -49,6 +51,8 @@ export default function Home() {
   const [ghChartCache] = useState<Set<string>>(() => new Set());
 
   const heroRef = useRef<HTMLDivElement>(null);
+  const scrollProgressRef = useRef<HTMLDivElement>(null);
+  const smoothScroll = useSmoothScroll();
   const { scrollY } = useScroll();
 
   // Dissolve effect for Hero Section on scroll
@@ -56,6 +60,26 @@ export default function Home() {
   const heroScale = useTransform(scrollY, [0, 500], [1, 1.15]);
   const heroBlurVal = useTransform(scrollY, [0, 500], [0, 15]);
   const heroBlur = useTransform(heroBlurVal, (v) => `blur(${v}px)`);
+
+  // Multi-layer parallax transforms for hero text elements
+  const heroTitleY = useTransform(scrollY, [0, 600], [0, -80]);
+  const heroSubtitleY = useTransform(scrollY, [0, 600], [0, -50]);
+  const heroCtaY = useTransform(scrollY, [0, 600], [0, -25]);
+  const heroLabelY = useTransform(scrollY, [0, 600], [0, -100]);
+
+  // Scroll progress bar animation
+  useEffect(() => {
+    let raf: number;
+    const updateProgress = () => {
+      if (scrollProgressRef.current && smoothScroll.current) {
+        const progress = smoothScroll.current.progress;
+        scrollProgressRef.current.style.height = `${progress * 100}%`;
+      }
+      raf = requestAnimationFrame(updateProgress);
+    };
+    raf = requestAnimationFrame(updateProgress);
+    return () => cancelAnimationFrame(raf);
+  }, [smoothScroll]);
 
   // Detect scroll pos to show top nav header
   useEffect(() => {
@@ -106,7 +130,13 @@ export default function Home() {
     } else {
       const el = document.getElementById(id);
       if (el) {
-        el.scrollIntoView({ behavior: "smooth" });
+        let top = 0;
+        let current: HTMLElement | null = el;
+        while (current) {
+          top += current.offsetTop;
+          current = current.offsetParent as HTMLElement | null;
+        }
+        window.scrollTo({ top: Math.max(0, top - 100), behavior: "smooth" });
       }
     }
   };
@@ -184,10 +214,13 @@ export default function Home() {
       {/* Floating Assistive Theme Switcher */}
       <ThemeSwitcher />
 
+      {/* Scroll Progress Bar */}
+      <div ref={scrollProgressRef} className="scroll-progress-bar" />
+
       {/* Top Slide-in Brutalist Header */}
       <header
-        className={`bg-background/90 backdrop-blur-md fixed top-4 left-1/2 -translate-x-1/2 w-[calc(100%-2rem)] md:w-[calc(100%-4rem)] max-w-[1400px] border-4 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] rounded-2xl flex justify-between items-center px-6 py-3 z-50 transition-all duration-500 ${
-          isHeaderVisible ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-24 pointer-events-none"
+        className={`bg-background/90 backdrop-blur-md fixed top-6 left-1/2 -translate-x-1/2 w-[calc(100%-3rem)] md:w-[calc(100%-6rem)] max-w-[1200px] border-4 border-black shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] rounded-2xl flex justify-between items-center px-6 py-3 z-50 transition-all duration-500 ${
+          isHeaderVisible ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-32 pointer-events-none"
         }`}
       >
         <div className="font-label-caps text-label-caps theme-accent-border theme-accent-text border-2 px-3 py-1 bg-black/10">
@@ -249,17 +282,17 @@ export default function Home() {
       >
         <HologramCanvas />
         <div className="relative z-10 text-center px-margin-mobile flex flex-col items-center pointer-events-auto">
-          <div className="theme-accent-text font-label-caps text-label-caps tracking-[0.3em] mb-4 opacity-80 uppercase text-xs md:text-sm select-none">
+          <motion.div style={{ y: heroLabelY }} className="theme-accent-text font-label-caps text-label-caps tracking-[0.3em] mb-4 opacity-80 uppercase text-xs md:text-sm select-none">
             Cognitive Architecture System
-          </div>
-          <h1 className="font-display-xl text-headline-lg-mobile md:text-display-xl uppercase leading-none mb-6 text-on-background select-none">
+          </motion.div>
+          <motion.h1 style={{ y: heroTitleY }} className="font-display-xl text-headline-lg-mobile md:text-display-xl uppercase leading-none mb-6 text-on-background select-none">
             VARAD <span className="theme-accent-text">BARVE</span>
-          </h1>
-          <div className="h-1.5 w-32 theme-accent-bg mb-8 border border-black shadow-[2px_2px_0px_rgba(0,0,0,0.5)]"></div>
-          <p className="font-body-lg text-body-lg max-w-xl text-on-surface-variant mb-12 px-4 leading-relaxed">
+          </motion.h1>
+          <motion.div style={{ y: heroSubtitleY }} className="h-1.5 w-32 theme-accent-bg mb-8 border border-black shadow-[2px_2px_0px_rgba(0,0,0,0.5)]"></motion.div>
+          <motion.p style={{ y: heroSubtitleY }} className="font-body-lg text-body-lg max-w-xl text-on-surface-variant mb-12 px-4 leading-relaxed">
             Multidisciplinary Senior Engineer crafting the nexus between AI pipelines and high-velocity web architectures.
-          </p>
-          <div>
+          </motion.p>
+          <motion.div style={{ y: heroCtaY }}>
             <button
               onClick={() => {
                 window.dispatchEvent(new CustomEvent("initialize-core"));
@@ -269,7 +302,7 @@ export default function Home() {
             >
               Initialize_Core
             </button>
-          </div>
+          </motion.div>
         </div>
       </motion.section>
 
@@ -281,6 +314,7 @@ export default function Home() {
         <div className="max-w-[1400px] mx-auto px-margin-mobile md:px-margin-desktop py-12 space-y-24">
           
           {/* Section: Origin Story & Bio */}
+          <ScrollReveal offset={80} parallaxSpeed={0.3}>
           <section className="grid grid-cols-1 md:grid-cols-12 gap-gutter pt-12">
             <div className="md:col-span-8 comic-panel theme-surface-bg border-4 border-black shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] p-8 md:p-12 panel-shake">
               <div className="absolute top-0 right-0 theme-container-bg theme-container-text px-6 py-2 border-l-4 border-b-4 border-black font-label-caps text-label-caps font-bold">
@@ -323,9 +357,11 @@ export default function Home() {
               </div>
             </div>
           </section>
+          </ScrollReveal>
 
           {/* Section: The Arsenal / Projects */}
-          <section id="projects-section" className="space-y-12 scroll-mt-[100px]">
+          <ScrollReveal id="projects-section" className="scroll-mt-[100px]" offset={60} delay={100}>
+            <section className="space-y-12">
             <div className="flex items-end gap-4">
               <h2 className="font-headline-lg text-headline-lg uppercase leading-none text-on-surface">
                 The Arsenal
@@ -428,9 +464,11 @@ export default function Home() {
               </AnimatePresence>
             </motion.div>
           </section>
+          </ScrollReveal>
 
           {/* Section: Technical Proficiency / Skills */}
-          <section id="skills-section" className="space-y-12 scroll-mt-[100px]">
+          <ScrollReveal id="skills-section" className="scroll-mt-[100px]" offset={60} delay={100}>
+            <section className="space-y-12">
             <div className="flex items-end gap-4">
               <h2 className="font-headline-lg text-headline-lg uppercase leading-none text-on-surface">
                 Technical Proficiency
@@ -595,9 +633,11 @@ export default function Home() {
               </div>
             </div>
           </section>
+          </ScrollReveal>
 
           {/* Section: Timeline / Experience / Education */}
-          <section id="resume-section" className="space-y-12 scroll-mt-[100px]">
+          <ScrollReveal id="resume-section" className="scroll-mt-[100px]" offset={60} delay={100}>
+            <section className="space-y-12">
             <div className="flex items-end gap-4">
               <h2 className="font-headline-lg text-headline-lg uppercase leading-none text-on-surface">
                 Dossier Timeline
@@ -722,9 +762,11 @@ export default function Home() {
               </div>
             </div>
           </section>
+          </ScrollReveal>
 
           {/* Section: Commit Logs (GitHub Contribution Graph) */}
-          <section className="grid grid-cols-1 lg:grid-cols-12 gap-gutter items-center">
+          <ScrollReveal offset={60} delay={100}>
+            <section className="grid grid-cols-1 lg:grid-cols-12 gap-gutter items-center">
             <div className="lg:col-span-4">
               <div className="bg-black text-white p-6 border-4 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] speech-bubble-tail mb-8 panel-shake">
                 <h3 className="font-headline-md text-headline-md uppercase mb-2 leading-none theme-accent-text">
@@ -773,9 +815,11 @@ export default function Home() {
               </div>
             </div>
           </section>
+          </ScrollReveal>
 
           {/* Section: Contact Form */}
-          <section id="contact-section" className="pb-16 scroll-mt-[100px]">
+          <ScrollReveal id="contact-section" className="scroll-mt-[100px]" offset={60} delay={100}>
+            <section className="pb-16">
             <div className="bg-surface-container-low border-4 border-black p-8 md:p-16 shadow-[12px_12px_0px_0px_rgba(0,0,0,1)] relative overflow-hidden panel-shake">
               <div className="absolute top-0 left-0 w-full h-4 halftone-header theme-accent-bg border-b-2 border-black"></div>
               <div className="max-w-2xl mx-auto mt-4">
@@ -831,6 +875,7 @@ export default function Home() {
               </div>
             </div>
           </section>
+          </ScrollReveal>
 
         </div>
       </main>

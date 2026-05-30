@@ -194,9 +194,13 @@ export default function Dock() {
 
         const el = document.getElementById(section);
         if (el) {
-          const rect = el.getBoundingClientRect();
-          const top = rect.top + window.scrollY;
-          const height = rect.height;
+          let top = 0;
+          let current: HTMLElement | null = el;
+          while (current) {
+            top += current.offsetTop;
+            current = current.offsetParent as HTMLElement | null;
+          }
+          const height = el.offsetHeight;
           if (scrollPos >= top && scrollPos < top + height) {
             setActiveSection(section);
             break;
@@ -217,7 +221,13 @@ export default function Dock() {
     } else {
       const el = document.getElementById(id);
       if (el) {
-        el.scrollIntoView({ behavior: "smooth" });
+        let top = 0;
+        let current: HTMLElement | null = el;
+        while (current) {
+          top += current.offsetTop;
+          current = current.offsetParent as HTMLElement | null;
+        }
+        window.scrollTo({ top: Math.max(0, top - 100), behavior: "smooth" });
       }
     }
   };

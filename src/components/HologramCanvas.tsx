@@ -92,6 +92,11 @@ export default function HologramCanvas() {
     const targetGlitchFactor = 0;
     let isDisintegrated = false;
 
+    // Smooth scroll integration state
+    let scrollRotationBoost = 0;
+    let scrollDepthTarget = 25;
+    let scrollVelocityRipple = 0;
+
     const handleMouseMove = (e: MouseEvent) => {
       mouseX = (e.clientX - window.innerWidth / 2) / 100;
       mouseY = (e.clientY - window.innerHeight / 2) / 100;
@@ -163,12 +168,13 @@ export default function HologramCanvas() {
           const oy = originals[vidx + 1];
           const oz = originals[vidx + 2];
 
-          // High frequency glitch jitter
+          // High frequency glitch jitter + scroll velocity ripple
           let jx = 0, jy = 0, jz = 0;
-          if (glitchFactor > 0) {
-            jx = (Math.random() - 0.5) * glitchFactor * 2.5;
-            jy = (Math.random() - 0.5) * glitchFactor * 2.5;
-            jz = (Math.random() - 0.5) * glitchFactor * 2.5;
+          if (glitchFactor > 0 || scrollVelocityRipple > 0.05) {
+            const jitterMagnitude = glitchFactor * 2.5 + scrollVelocityRipple;
+            jx = (Math.random() - 0.5) * jitterMagnitude;
+            jy = (Math.random() - 0.5) * jitterMagnitude;
+            jz = (Math.random() - 0.5) * jitterMagnitude;
           }
 
           positions[vidx] = ox + explodeX + jx;
@@ -178,9 +184,27 @@ export default function HologramCanvas() {
       }
       positionAttribute.needsUpdate = true;
 
-      // Rotate hologram based on coordinates
-      wireframe.rotation.x += 0.005 + mouseY * 0.02;
-      wireframe.rotation.y += 0.005 + mouseX * 0.02;
+      // --- Scroll-driven effects ---
+      const smoothScroll = (window as any).__smoothScroll;
+      if (smoothScroll) {
+        // Rotation boost: increases as user scrolls through hero zone (0–100vh)
+        const heroProgress = Math.min(smoothScroll.current / window.innerHeight, 1);
+        const targetBoost = heroProgress * 0.04;
+        scrollRotationBoost += (targetBoost - scrollRotationBoost) * 0.05;
+
+        // Depth pull: camera eases from z=25 to z=35 as user scrolls past hero
+        scrollDepthTarget = 25 + heroProgress * 10;
+        camera.position.z += (scrollDepthTarget - camera.position.z) * 0.06;
+
+        // Velocity ripple: subtle vertex displacement proportional to scroll speed
+        const absVelocity = Math.abs(smoothScroll.velocity);
+        const targetRipple = Math.min(absVelocity * 0.15, 2.5);
+        scrollVelocityRipple += (targetRipple - scrollVelocityRipple) * 0.1;
+      }
+
+      // Rotate hologram based on coordinates + scroll boost
+      wireframe.rotation.x += 0.005 + mouseY * 0.02 + scrollRotationBoost;
+      wireframe.rotation.y += 0.005 + mouseX * 0.02 + scrollRotationBoost * 0.7;
 
       renderer.render(scene, camera);
     };
