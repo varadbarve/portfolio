@@ -45,6 +45,8 @@ export default function Home() {
   const [themeColor, setThemeColor] = useState("00e1ab");
   const [isHeaderVisible, setIsHeaderVisible] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
+  const [ghChartLoaded, setGhChartLoaded] = useState(false);
+  const [ghChartCache] = useState<Set<string>>(() => new Set());
 
   const heroRef = useRef<HTMLDivElement>(null);
   const { scrollY } = useScroll();
@@ -68,7 +70,12 @@ export default function Home() {
   useEffect(() => {
     const handleThemeChange = (e: Event) => {
       const customEvent = e as CustomEvent;
-      setThemeColor(customEvent.detail.color.replace("#", ""));
+      const newColor = customEvent.detail.color.replace("#", "");
+      setThemeColor(newColor);
+      // Only show skeleton if this color's chart hasn't been preloaded yet
+      if (!ghChartCache.has(newColor)) {
+        setGhChartLoaded(false);
+      }
     };
     window.addEventListener("themechange", handleThemeChange);
 
@@ -81,6 +88,16 @@ export default function Home() {
     setThemeColor(initialColor);
 
     return () => window.removeEventListener("themechange", handleThemeChange);
+  }, []);
+
+  // Preload all theme chart images on mount so theme switches are instant
+  useEffect(() => {
+    const colors = ["00e1ab", "FDE047", "E60000", "3b82f6"];
+    colors.forEach((color) => {
+      const img = new Image();
+      img.src = `https://ghchart.rshah.org/${color}/varadbarve`;
+      img.onload = () => ghChartCache.add(color);
+    });
   }, []);
 
   const handleScrollTo = (id: string) => {
@@ -729,13 +746,21 @@ export default function Home() {
                   <div className="w-3 h-3 theme-accent-bg border border-black/25"></div>
                 </div>
               </div>
-              <div className="w-full overflow-x-auto">
+              <div className="w-full overflow-x-auto relative">
+                {/* Skeleton placeholder while chart loads */}
+                {!ghChartLoaded && (
+                  <div className="w-full min-w-[680px] h-[120px] rounded bg-surface-container-high/60 animate-pulse flex items-center justify-center">
+                    <span className="font-code-sm text-xs text-on-surface-variant/50 uppercase tracking-wider">Loading contribution data...</span>
+                  </div>
+                )}
                 <img
-                  key={themeColor}
-                  className="w-full min-w-[680px] h-auto rounded grayscale hover:grayscale-0 transition-all duration-300"
+                  className={`w-full min-w-[680px] h-auto rounded grayscale hover:grayscale-0 transition-all duration-500 ${
+                    ghChartLoaded ? "opacity-100" : "opacity-0 absolute inset-0"
+                  }`}
                   src={`https://ghchart.rshah.org/${themeColor}/varadbarve`}
                   alt="Varad Barve GitHub Contributions Chart"
-                  loading="lazy"
+                  onLoad={() => setGhChartLoaded(true)}
+                  onError={() => setGhChartLoaded(true)}
                 />
               </div>
               <div className="mt-4 flex justify-between w-full font-code-sm text-xs text-on-surface-variant font-bold">
