@@ -53,14 +53,13 @@ export default function TextScramble({
   }, [text, speed]);
 
   useEffect(() => {
-    // Reset/sync text if the prop changes
-    setDisplayText(text);
+    startScramble();
     return () => {
       if (intervalRef.current !== null) {
         clearInterval(intervalRef.current);
       }
     };
-  }, [text]);
+  }, [text, startScramble]);
 
   return (
     <Component className={className} onMouseEnter={startScramble}>
