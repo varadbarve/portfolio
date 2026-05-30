@@ -182,11 +182,21 @@ export default function Dock() {
     
     const handleScrollSpy = () => {
       const scrollPos = window.scrollY + window.innerHeight / 3;
+      
+      // Hero section is handled specially since it is fixed at the top of the viewport
+      if (window.scrollY < window.innerHeight * 0.5) {
+        setActiveSection("hero-section");
+        return;
+      }
+
       for (const section of sections) {
+        if (section === "hero-section") continue;
+
         const el = document.getElementById(section);
         if (el) {
-          const top = el.offsetTop;
-          const height = el.offsetHeight;
+          const rect = el.getBoundingClientRect();
+          const top = rect.top + window.scrollY;
+          const height = rect.height;
           if (scrollPos >= top && scrollPos < top + height) {
             setActiveSection(section);
             break;
@@ -202,9 +212,13 @@ export default function Dock() {
   }, []);
 
   const handleScroll = (id: string) => {
-    const el = document.getElementById(id);
-    if (el) {
-      el.scrollIntoView({ behavior: "smooth" });
+    if (id === "hero-section") {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    } else {
+      const el = document.getElementById(id);
+      if (el) {
+        el.scrollIntoView({ behavior: "smooth" });
+      }
     }
   };
 

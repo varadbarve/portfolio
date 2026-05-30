@@ -84,9 +84,13 @@ export default function Home() {
   }, []);
 
   const handleScrollTo = (id: string) => {
-    const el = document.getElementById(id);
-    if (el) {
-      el.scrollIntoView({ behavior: "smooth" });
+    if (id === "hero-section") {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    } else {
+      const el = document.getElementById(id);
+      if (el) {
+        el.scrollIntoView({ behavior: "smooth" });
+      }
     }
   };
 
@@ -304,7 +308,7 @@ export default function Home() {
           </section>
 
           {/* Section: The Arsenal / Projects */}
-          <section id="projects-section" className="space-y-12">
+          <section id="projects-section" className="space-y-12 scroll-mt-[100px]">
             <div className="flex items-end gap-4">
               <h2 className="font-headline-lg text-headline-lg uppercase leading-none text-on-surface">
                 The Arsenal
@@ -409,7 +413,7 @@ export default function Home() {
           </section>
 
           {/* Section: Technical Proficiency / Skills */}
-          <section id="skills-section" className="space-y-12">
+          <section id="skills-section" className="space-y-12 scroll-mt-[100px]">
             <div className="flex items-end gap-4">
               <h2 className="font-headline-lg text-headline-lg uppercase leading-none text-on-surface">
                 Technical Proficiency
@@ -576,7 +580,7 @@ export default function Home() {
           </section>
 
           {/* Section: Timeline / Experience / Education */}
-          <section id="resume-section" className="space-y-12">
+          <section id="resume-section" className="space-y-12 scroll-mt-[100px]">
             <div className="flex items-end gap-4">
               <h2 className="font-headline-lg text-headline-lg uppercase leading-none text-on-surface">
                 Dossier Timeline
@@ -746,7 +750,7 @@ export default function Home() {
           </section>
 
           {/* Section: Contact Form */}
-          <section id="contact-section" className="pb-16">
+          <section id="contact-section" className="pb-16 scroll-mt-[100px]">
             <div className="bg-surface-container-low border-4 border-black p-8 md:p-16 shadow-[12px_12px_0px_0px_rgba(0,0,0,1)] relative overflow-hidden panel-shake">
               <div className="absolute top-0 left-0 w-full h-4 halftone-header theme-accent-bg border-b-2 border-black"></div>
               <div className="max-w-2xl mx-auto mt-4">
