@@ -41,7 +41,12 @@ export default function HologramCanvas() {
       return color || "#00ffc2";
     };
 
-    const geometry = new THREE.IcosahedronGeometry(10, 1);
+    // Use non-indexed geometry so faces do not share vertices.
+    // This allows individual triangular faces to fly apart as separate pieces!
+    const baseGeometry = new THREE.IcosahedronGeometry(10, 1);
+    const geometry = baseGeometry.toNonIndexed();
+    baseGeometry.dispose(); // clean up base geometry
+
     const material = new THREE.MeshBasicMaterial({
       color: getHologramColor(),
       wireframe: true,
@@ -53,36 +58,32 @@ export default function HologramCanvas() {
 
     camera.position.z = 25;
 
-    // Track original positions for explosion and glitch offsets
+    // Track original positions for individual face vectors
     const positionAttribute = geometry.attributes.position;
     const originalPositions = positionAttribute.clone();
+    
+    // Calculate direction vector for each individual face (triangle)
+    const faceDirections: THREE.Vector3[] = [];
+    const originalsArray = originalPositions.array as Float32Array;
+    for (let i = 0; i < originalsArray.length; i += 9) {
+      const x1 = originalsArray[i], y1 = originalsArray[i+1], z1 = originalsArray[i+2];
+      const x2 = originalsArray[i+3], y2 = originalsArray[i+4], z2 = originalsArray[i+5];
+      const x3 = originalsArray[i+6], y3 = originalsArray[i+7], z3 = originalsArray[i+8];
 
-    // Mouse velocity and speed tracking
+      // Find the geometric center of this face
+      const cx = (x1 + x2 + x3) / 3;
+      const cy = (y1 + y2 + y3) / 3;
+      const cz = (z1 + z2 + z3) / 3;
+
+      // Normalise center to get direction vector pointing outwards
+      const len = Math.sqrt(cx*cx + cy*cy + cz*cz) || 1;
+      faceDirections.push(new THREE.Vector3(cx / len, cy / len, cz / len));
+    }
+
+    // Mouse coordinates and edge check config
     let mouseX = 0;
     let mouseY = 0;
-    let lastMouseX = 0;
-    let lastMouseY = 0;
-    let lastTime = Date.now();
-    let mouseSpeed = 0;
-
-    const handleMouseMove = (e: MouseEvent) => {
-      const now = Date.now();
-      const dt = now - lastTime;
-      if (dt > 0) {
-        const dx = e.clientX - lastMouseX;
-        const dy = e.clientY - lastMouseY;
-        const dist = Math.sqrt(dx * dx + dy * dy);
-        mouseSpeed = dist / dt; // pixels per ms
-        
-        lastMouseX = e.clientX;
-        lastMouseY = e.clientY;
-        lastTime = now;
-      }
-
-      mouseX = (e.clientX - window.innerWidth / 2) / 100;
-      mouseY = (e.clientY - window.innerHeight / 2) / 100;
-    };
-    window.addEventListener("mousemove", handleMouseMove);
+    const EDGE_MARGIN = 55; // Margin in pixels from viewport borders
 
     // Animation & Integration states
     let explodeFactor = 0;
@@ -91,26 +92,43 @@ export default function HologramCanvas() {
     const targetGlitchFactor = 0;
     let isDisintegrated = false;
 
+    const handleMouseMove = (e: MouseEvent) => {
+      mouseX = (e.clientX - window.innerWidth / 2) / 100;
+      mouseY = (e.clientY - window.innerHeight / 2) / 100;
+
+      // Check if mouse is near viewport borders
+      const nearLeft = e.clientX < EDGE_MARGIN;
+      const nearRight = e.clientX > window.innerWidth - EDGE_MARGIN;
+      const nearTop = e.clientY < EDGE_MARGIN;
+      const nearBottom = e.clientY > window.innerHeight - EDGE_MARGIN;
+
+      if ((nearLeft || nearRight || nearTop || nearBottom) && !isDisintegrated) {
+        isDisintegrated = true;
+        targetExplodeFactor = 1.0;
+        glitchFactor = 2.0; // exit glitch burst
+      }
+    };
+    window.addEventListener("mousemove", handleMouseMove);
+
+    const handleMouseLeaveWindow = () => {
+      if (!isDisintegrated) {
+        isDisintegrated = true;
+        targetExplodeFactor = 1.0;
+        glitchFactor = 2.0;
+      }
+    };
+    document.addEventListener("mouseleave", handleMouseLeaveWindow);
+
     const handleInitializeCore = () => {
       isDisintegrated = false;
       targetExplodeFactor = 0.0;
-      glitchFactor = 3.5; // Strong glitch jitter effect
+      glitchFactor = 3.5; // strong glitch jitter upon rebuild
     };
     window.addEventListener("initialize-core", handleInitializeCore);
 
     let animationFrameId: number;
     const animate = () => {
       animationFrameId = requestAnimationFrame(animate);
-
-      // Decelerate tracking speed over time
-      mouseSpeed *= 0.95;
-
-      // Spin speed threshold check (disintegrate at max speed)
-      if (mouseSpeed > 4.5 && !isDisintegrated) {
-        isDisintegrated = true;
-        targetExplodeFactor = 1.0;
-        glitchFactor = 1.5; // Burst of exit glitch
-      }
 
       // Interpolate factors
       explodeFactor += (targetExplodeFactor - explodeFactor) * 0.08;
@@ -121,36 +139,42 @@ export default function HologramCanvas() {
         glitchFactor = 0;
       }
 
-      // Update material opacity (fade out if disintegrated, fade back in otherwise)
+      // Update material opacity
       const targetOpacity = isDisintegrated ? 0 : 0.8;
       material.opacity += (targetOpacity - material.opacity) * 0.08;
 
-      // Update geometry positions array with offsets
+      // Update position coordinates face by face
       const positions = positionAttribute.array as Float32Array;
       const originals = originalPositions.array as Float32Array;
 
-      for (let i = 0; i < positions.length; i += 3) {
-        const ox = originals[i];
-        const oy = originals[i + 1];
-        const oz = originals[i + 2];
+      for (let f = 0; f < faceDirections.length; f++) {
+        const dir = faceDirections[f];
+        const idx = f * 9;
 
-        // Radial normal outward direction
-        const dist = Math.sqrt(ox * ox + oy * oy + oz * oz);
-        const nx = ox / (dist || 1);
-        const ny = oy / (dist || 1);
-        const nz = oz / (dist || 1);
+        // Radial explosion vector specific to this face
+        const explodeX = dir.x * explodeFactor * 30;
+        const explodeY = dir.y * explodeFactor * 30;
+        const explodeZ = dir.z * explodeFactor * 30;
 
-        // Apply high-frequency noise jitter for glitched state
-        let jx = 0, jy = 0, jz = 0;
-        if (glitchFactor > 0) {
-          jx = (Math.random() - 0.5) * glitchFactor * 2.5;
-          jy = (Math.random() - 0.5) * glitchFactor * 2.5;
-          jz = (Math.random() - 0.5) * glitchFactor * 2.5;
+        // Apply offsets to all three vertices of this face
+        for (let v = 0; v < 3; v++) {
+          const vidx = idx + v * 3;
+          const ox = originals[vidx];
+          const oy = originals[vidx + 1];
+          const oz = originals[vidx + 2];
+
+          // High frequency glitch jitter
+          let jx = 0, jy = 0, jz = 0;
+          if (glitchFactor > 0) {
+            jx = (Math.random() - 0.5) * glitchFactor * 2.5;
+            jy = (Math.random() - 0.5) * glitchFactor * 2.5;
+            jz = (Math.random() - 0.5) * glitchFactor * 2.5;
+          }
+
+          positions[vidx] = ox + explodeX + jx;
+          positions[vidx + 1] = oy + explodeY + jy;
+          positions[vidx + 2] = oz + explodeZ + jz;
         }
-
-        positions[i] = ox + nx * explodeFactor * 25 + jx;
-        positions[i + 1] = oy + ny * explodeFactor * 25 + jy;
-        positions[i + 2] = oz + nz * explodeFactor * 25 + jz;
       }
       positionAttribute.needsUpdate = true;
 
@@ -180,6 +204,7 @@ export default function HologramCanvas() {
       cancelAnimationFrame(animationFrameId);
       window.removeEventListener("mousemove", handleMouseMove);
       window.removeEventListener("resize", handleResize);
+      window.removeEventListener("mouseleave", handleMouseLeaveWindow);
       window.removeEventListener("initialize-core", handleInitializeCore);
       observer.disconnect();
       geometry.dispose();
