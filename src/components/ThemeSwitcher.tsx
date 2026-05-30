@@ -39,7 +39,7 @@ export default function ThemeSwitcher() {
   }, []);
 
   return (
-    <div className="fixed bottom-8 right-8 z-[100] flex flex-col items-center">
+    <div className="fixed bottom-28 right-6 md:bottom-8 md:right-8 z-[100] flex flex-col items-center">
       {/* Floating Options */}
       <div
         className={`flex flex-col items-center gap-4 pb-6 transition-all duration-300 ease-out origin-bottom ${

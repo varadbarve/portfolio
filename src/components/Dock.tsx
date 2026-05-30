@@ -138,6 +138,18 @@ export default function Dock() {
   });
 
   const [activeSection, setActiveSection] = useState("hero-section");
+  const [activeSuperheroTheme, setActiveSuperheroTheme] = useState(() => {
+    return localStorage.getItem("superhero-theme") || "default";
+  });
+
+  useEffect(() => {
+    const handleThemeChange = (e: Event) => {
+      const customEvent = e as CustomEvent;
+      setActiveSuperheroTheme(customEvent.detail.theme);
+    };
+    window.addEventListener("themechange", handleThemeChange);
+    return () => window.removeEventListener("themechange", handleThemeChange);
+  }, []);
 
   // Sync theme
   useEffect(() => {
@@ -241,54 +253,58 @@ export default function Dock() {
           />
         ))}
 
-        {/* Separator line */}
-        <div className="h-8 w-px bg-white/10 mx-xs sm:mx-base mb-xs self-center" />
+        {activeSuperheroTheme === "default" && (
+          <>
+            {/* Separator line */}
+            <div className="h-8 w-px bg-white/10 mx-xs sm:mx-base mb-xs self-center" />
 
-        {/* Theme Toggle */}
-        <DockItem
-          mouseX={mouseX}
-          icon={isDark ? "light_mode" : "dark_mode"}
-          label={isDark ? "Light Mode" : "Dark Mode"}
-          onClick={(e) => {
-            const nextDark = !isDark;
-            const doc = document as any;
+            {/* Theme Toggle */}
+            <DockItem
+              mouseX={mouseX}
+              icon={isDark ? "light_mode" : "dark_mode"}
+              label={isDark ? "Light Mode" : "Dark Mode"}
+              onClick={(e) => {
+                const nextDark = !isDark;
+                const doc = document as any;
 
-            if (!doc.startViewTransition) {
-              setIsDark(nextDark);
-              return;
-            }
-
-            const x = e.clientX;
-            const y = e.clientY;
-
-            const endRadius = Math.hypot(
-              Math.max(x, window.innerWidth - x),
-              Math.max(y, window.innerHeight - y)
-            );
-
-            const transition = doc.startViewTransition(() => {
-              setIsDark(nextDark);
-            });
-
-            transition.ready.then(() => {
-              const clipPath = [
-                `circle(0px at ${x}px ${y}px)`,
-                `circle(${endRadius}px at ${x}px ${y}px)`,
-              ];
-              document.documentElement.animate(
-                {
-                  clipPath: clipPath,
-                },
-                {
-                  duration: 650,
-                  easing: "cubic-bezier(0.16, 1, 0.3, 1)",
-                  pseudoElement: "::view-transition-new(root)",
+                if (!doc.startViewTransition) {
+                  setIsDark(nextDark);
+                  return;
                 }
-              );
-            });
-          }}
-          isMobile={isMobile}
-        />
+
+                const x = e.clientX;
+                const y = e.clientY;
+
+                const endRadius = Math.hypot(
+                  Math.max(x, window.innerWidth - x),
+                  Math.max(y, window.innerHeight - y)
+                );
+
+                const transition = doc.startViewTransition(() => {
+                  setIsDark(nextDark);
+                });
+
+                transition.ready.then(() => {
+                  const clipPath = [
+                    `circle(0px at ${x}px ${y}px)`,
+                    `circle(${endRadius}px at ${x}px ${y}px)`,
+                  ];
+                  document.documentElement.animate(
+                    {
+                      clipPath: clipPath,
+                    },
+                    {
+                      duration: 650,
+                      easing: "cubic-bezier(0.16, 1, 0.3, 1)",
+                      pseudoElement: "::view-transition-new(root)",
+                    }
+                  );
+                });
+              }}
+              isMobile={isMobile}
+            />
+          </>
+        )}
       </motion.div>
     </div>
   );
