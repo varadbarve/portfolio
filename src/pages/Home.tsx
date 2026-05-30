@@ -169,8 +169,8 @@ export default function Home() {
 
       {/* Top Slide-in Brutalist Header */}
       <header
-        className={`bg-background/90 backdrop-blur-md fixed top-0 left-0 right-0 border-b-4 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] flex justify-between items-center w-full px-margin-mobile md:px-margin-desktop py-4 z-50 transition-all duration-500 ${
-          isHeaderVisible ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-full pointer-events-none"
+        className={`bg-background/90 backdrop-blur-md fixed top-4 left-1/2 -translate-x-1/2 w-[calc(100%-2rem)] md:w-[calc(100%-4rem)] max-w-[1400px] border-4 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] rounded-2xl flex justify-between items-center px-6 py-3 z-50 transition-all duration-500 ${
+          isHeaderVisible ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-24 pointer-events-none"
         }`}
       >
         <div className="font-label-caps text-label-caps theme-accent-border theme-accent-text border-2 px-3 py-1 bg-black/10">

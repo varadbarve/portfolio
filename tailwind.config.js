@@ -91,7 +91,9 @@ export default {
         "container-max": "1120px",
         "xl": "80px",
         "gutter": "24px",
-        "md": "24px"
+        "md": "24px",
+        "margin-mobile": "16px",
+        "margin-desktop": "64px"
       }
     },
   },
