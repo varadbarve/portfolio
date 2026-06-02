@@ -39,14 +39,6 @@ export default function Projects() {
       actionIcon: "public"
     },
     {
-      icon: "smart_display",
-      title: "autoscroller Engine",
-      desc: "A smart automation bot for YouTube Shorts and Instagram Reels. Features video-end detection and a real-time analytics dashboard for a hands-free viewing experience.",
-      tags: ["Node.js", "Playwright", "CSS"],
-      githubLink: "https://github.com/varadbarve/autoscroller",
-      actionIcon: "auto_mode"
-    },
-    {
       icon: "qr_code_2",
       title: "WhatsApp Direct",
       desc: "A high-performance web utility to send WhatsApp messages without saving contacts. Features QR code generation, message prefilling, and smart input parsing.",
@@ -54,6 +46,14 @@ export default function Projects() {
       deployLink: "https://whtsppdrct.netlify.app/",
       githubLink: "https://github.com/varadbarve/whatsapp_direct",
       actionIcon: "chat"
+    },
+    {
+      icon: "smart_display",
+      title: "autoscroller Engine",
+      desc: "A smart automation bot for YouTube Shorts and Instagram Reels. Features video-end detection and a real-time analytics dashboard for a hands-free viewing experience.",
+      tags: ["Node.js", "Playwright", "CSS"],
+      githubLink: "https://github.com/varadbarve/autoscroller",
+      actionIcon: "auto_mode"
     },
     {
       icon: "robot",

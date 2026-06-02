@@ -71,7 +71,6 @@ export default function Home() {
   const heroTitleY = useTransform(scrollY, [0, 600], [0, -80]);
   const heroSubtitleY = useTransform(scrollY, [0, 600], [0, -50]);
   const heroCtaY = useTransform(scrollY, [0, 600], [0, -25]);
-  const heroLabelY = useTransform(scrollY, [0, 600], [0, -100]);
 
   // Scroll progress bar animation
   useEffect(() => {
@@ -160,14 +159,6 @@ export default function Home() {
       actionIcon: "public"
     },
     {
-      icon: "smart_display",
-      title: "autoscroller Engine",
-      desc: "High-frequency browser automation suite for YouTube Shorts and Instagram Reels. Features smart video-end detection and analytics.",
-      tags: ["Node.js", "Playwright", "CSS"],
-      githubLink: "https://github.com/varadbarve/autoscroller",
-      actionIcon: "auto_mode"
-    },
-    {
       icon: "qr_code_2",
       title: "WhatsApp Direct",
       desc: "Streamlined communication gateway to send direct WhatsApp messages without saving contacts. Includes QR generation and parsing.",
@@ -175,6 +166,14 @@ export default function Home() {
       deployLink: "https://whtsppdrct.netlify.app/",
       githubLink: "https://github.com/varadbarve/whatsapp_direct",
       actionIcon: "chat"
+    },
+    {
+      icon: "smart_display",
+      title: "autoscroller Engine",
+      desc: "High-frequency browser automation suite for YouTube Shorts and Instagram Reels. Features smart video-end detection and analytics.",
+      tags: ["Node.js", "Playwright", "CSS"],
+      githubLink: "https://github.com/varadbarve/autoscroller",
+      actionIcon: "auto_mode"
     },
     {
       icon: "robot",
@@ -276,9 +275,6 @@ export default function Home() {
       >
         <HologramCanvas />
         <div className="relative z-10 text-center px-margin-mobile flex flex-col items-center pointer-events-auto">
-          <motion.div style={{ y: heroLabelY }} className="theme-accent-text font-label-caps text-label-caps tracking-[0.3em] mb-4 opacity-80 uppercase text-xs md:text-sm select-none">
-            Cognitive Architecture System
-          </motion.div>
           <motion.h1 style={{ y: heroTitleY }} className="font-display-xl text-headline-lg-mobile md:text-display-xl uppercase leading-none mb-6 text-on-background select-none">
             VARAD <span className="theme-accent-text">BARVE</span>
           </motion.h1>
@@ -681,16 +677,30 @@ export default function Home() {
                     <div className="space-y-6">
                       <div className="relative pl-6 border-l-2 border-black">
                         <div className="absolute w-3 h-3 theme-accent-bg border-2 border-black rounded-full -left-[8px] top-1"></div>
-                        <h4 className="font-headline-md text-md text-on-surface">Text Classification System</h4>
+                        <h4 className="font-headline-md text-md text-on-surface">MediAssist AI</h4>
                         <p className="font-body-md text-on-surface-variant mt-2 leading-relaxed">
-                          Built a sentiment analysis model using Deep Learning. Achieved 93% accuracy across an 18K reviews dataset, expanding to support multi-category text classification.
+                          Autonomous video and document processing pipeline leveraging GPT-4o and Whisper for patient clinical metadata generation.
                         </p>
                       </div>
                       <div className="relative pl-6 border-l-2 border-black">
                         <div className="absolute w-3 h-3 theme-accent-bg border-2 border-black rounded-full -left-[8px] top-1"></div>
-                        <h4 className="font-headline-md text-md text-on-surface">Traffic Object Detection</h4>
+                        <h4 className="font-headline-md text-md text-on-surface">WhatsApp Direct</h4>
                         <p className="font-body-md text-on-surface-variant mt-2 leading-relaxed">
-                          Computer vision pipeline utilizing YOLOv8 for vehicle tracking and density estimation. Tested over 10K dataset instances with average accuracy improvements of 7%.
+                          Streamlined communication utility for sending WhatsApp messages directly without saving contacts.
+                        </p>
+                      </div>
+                      <div className="relative pl-6 border-l-2 border-black">
+                        <div className="absolute w-3 h-3 theme-accent-bg border-2 border-black rounded-full -left-[8px] top-1"></div>
+                        <h4 className="font-headline-md text-md text-on-surface">SRM Feedback Bot</h4>
+                        <p className="font-body-md text-on-surface-variant mt-2 leading-relaxed">
+                          Automation script using Playwright to handle complex form submissions and university feedback processes.
+                        </p>
+                      </div>
+                      <div className="relative pl-6 border-l-2 border-black">
+                        <div className="absolute w-3 h-3 theme-accent-bg border-2 border-black rounded-full -left-[8px] top-1"></div>
+                        <h4 className="font-headline-md text-md text-on-surface">autoscroller Engine</h4>
+                        <p className="font-body-md text-on-surface-variant mt-2 leading-relaxed">
+                          High-frequency browser automation suite for YouTube Shorts and Instagram Reels with smart video-end detection.
                         </p>
                       </div>
                     </div>
