@@ -28,7 +28,7 @@ interface SmoothScrollValues {
   velocity: number;
 }
 
-const DAMPING = 0.1; // 0.08 = cinematic, 0.15 = responsive, 0.25 = subtle
+const DAMPING = 0.15; // 0.08 = cinematic, 0.15 = responsive, 0.25 = subtle
 
 export default function useSmoothScroll() {
   const values = useRef<SmoothScrollValues>({

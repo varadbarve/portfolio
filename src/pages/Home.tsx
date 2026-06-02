@@ -311,7 +311,7 @@ export default function Home() {
                   ISSUE #001 // VARAD_BARVE.TECH
                 </div>
                 <div className="mb-4 theme-accent-text font-label-caps text-label-caps tracking-widest text-xs uppercase font-bold">
-                  Origin Story // Full-Stack Architect
+                  Origin Story // Full-Stack Engineer
                 </div>
                 <h2 className="font-headline-lg text-headline-lg md:text-display-xl uppercase mb-6 leading-none text-on-surface">
                   DECODING THE <br />
@@ -505,7 +505,7 @@ export default function Home() {
                       />
                     </div>
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-4 border-t border-black/10 pt-4">
-                      {['TensorFlow', 'YOLOv8', 'Scikit-Learn', 'Mako AI'].map((skill) => (
+                      {['TensorFlow', 'YOLOv8', 'GPT-4o', 'Whisper'].map((skill) => (
                         <div key={skill} className="space-y-1">
                           <span className="block font-label-caps text-xs text-on-surface-variant font-bold">{skill}</span>
                           <span className="block font-code-sm text-[11px] theme-accent-text">Expert</span>

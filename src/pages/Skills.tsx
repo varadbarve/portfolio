@@ -70,7 +70,7 @@ export default function Skills() {
                     <motion.div initial={{ width: 0 }} animate={{ width: "96%" }} transition={{ duration: 1, delay: 0.2 }} className="bg-primary h-2 rounded-full shadow-[0_0_10px_rgba(78,222,163,0.4)]"></motion.div>
                   </div>
                   <div className="grid grid-cols-2 md:grid-cols-4 gap-md border-t border-surface-container-highest pt-md">
-                    {['TensorFlow', 'YOLOv8', 'Scikit-Learn', 'Mako AI'].map((skill) => (
+                    {['TensorFlow', 'YOLOv8', 'GPT-4o', 'Whisper'].map((skill) => (
                       <div key={skill}>
                         <span className="block font-mono-label text-mono-label text-on-surface-variant mb-xs">{skill}</span>
                         <span className="font-caption text-caption text-on-surface">Precision</span>
