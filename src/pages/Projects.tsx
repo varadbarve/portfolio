@@ -43,7 +43,6 @@ export default function Projects() {
       title: "autoscroller Engine",
       desc: "A smart automation bot for YouTube Shorts and Instagram Reels. Features video-end detection and a real-time analytics dashboard for a hands-free viewing experience.",
       tags: ["Node.js", "Playwright", "CSS"],
-      deployLink: "#",
       githubLink: "https://github.com/varadbarve/autoscroller",
       actionIcon: "auto_mode"
     },
@@ -61,7 +60,6 @@ export default function Projects() {
       title: "SRM Feedback Bot",
       desc: "Automation tool designed to streamline student feedback processes at SRM University. Uses Playwright to handle complex form submissions automatically.",
       tags: ["Python", "Playwright", "Automation"],
-      deployLink: "#",
       githubLink: "https://github.com/varadbarve/Feedback-Bot",
       actionIcon: "feedback"
     },
@@ -70,7 +68,6 @@ export default function Projects() {
       title: "Traffic Detection",
       desc: "Real-time vehicle detection and tracking system using YOLOv8. Optimized for various weather conditions and high-density traffic scenarios.",
       tags: ["YOLOv8", "Computer Vision", "Python"],
-      deployLink: "#",
       githubLink: "https://github.com/varadbarve/Traffic_Object_Detection_System",
       actionIcon: "analytics"
     }
@@ -194,14 +191,18 @@ export default function Projects() {
                       ))}
                     </div>
                     <div className="pt-sm border-t border-outline-variant/30 flex justify-between items-center mt-auto">
-                      <a
-                        href={proj.deployLink}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="font-mono-label text-[12px] text-primary hover:text-primary-fixed flex items-center gap-xs group"
-                      >
-                        Live Deployment <span className="material-symbols-outlined text-sm group-hover:translate-x-1 transition-transform">arrow_forward</span>
-                      </a>
+                      {proj.deployLink ? (
+                        <a
+                          href={proj.deployLink}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="font-mono-label text-[12px] text-primary hover:text-primary-fixed flex items-center gap-xs group"
+                        >
+                          Live Deployment <span className="material-symbols-outlined text-sm group-hover:translate-x-1 transition-transform">arrow_forward</span>
+                        </a>
+                      ) : (
+                        <div />
+                      )}
                       <motion.span 
                         whileHover={{ scale: 1.2, rotate: 15 }}
                         className="material-symbols-outlined text-on-surface-variant hover:text-on-surface cursor-pointer text-[20px]"

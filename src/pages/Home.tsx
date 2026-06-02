@@ -44,7 +44,13 @@ const highlightText = (text: string, query: string) => {
 };
 
 export default function Home() {
-  const [themeColor, setThemeColor] = useState("00e1ab");
+  const [themeColor, setThemeColor] = useState(() => {
+    const saved = localStorage.getItem("superhero-theme");
+    if (saved === "batman") return "FDE047";
+    if (saved === "spiderman") return "E60000";
+    if (saved === "invincible") return "3b82f6";
+    return "00e1ab";
+  });
   const [isHeaderVisible, setIsHeaderVisible] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [ghChartLoaded, setGhChartLoaded] = useState(false);
@@ -103,16 +109,8 @@ export default function Home() {
     };
     window.addEventListener("themechange", handleThemeChange);
 
-    // Initial load check
-    const saved = localStorage.getItem("superhero-theme");
-    let initialColor = "00e1ab";
-    if (saved === "batman") initialColor = "FDE047";
-    else if (saved === "spiderman") initialColor = "E60000";
-    else if (saved === "invincible") initialColor = "3b82f6";
-    setThemeColor(initialColor);
-
     return () => window.removeEventListener("themechange", handleThemeChange);
-  }, []);
+  }, [ghChartCache]);
 
   // Preload all theme chart images on mount so theme switches are instant
   useEffect(() => {
@@ -122,7 +120,7 @@ export default function Home() {
       img.src = `https://ghchart.rshah.org/${color}/varadbarve`;
       img.onload = () => ghChartCache.add(color);
     });
-  }, []);
+  }, [ghChartCache]);
 
   const handleScrollTo = (id: string) => {
     if (id === "hero-section") {
@@ -166,7 +164,6 @@ export default function Home() {
       title: "autoscroller Engine",
       desc: "High-frequency browser automation suite for YouTube Shorts and Instagram Reels. Features smart video-end detection and analytics.",
       tags: ["Node.js", "Playwright", "CSS"],
-      deployLink: "#",
       githubLink: "https://github.com/varadbarve/autoscroller",
       actionIcon: "auto_mode"
     },
@@ -178,14 +175,6 @@ export default function Home() {
       deployLink: "https://whtsppdrct.netlify.app/",
       githubLink: "https://github.com/varadbarve/whatsapp_direct",
       actionIcon: "chat"
-    },
-    {
-      icon: "smart_display",
-      title: "autoscroller Engine",
-      desc: "High-frequency browser automation suite for YouTube Shorts and Instagram Reels. Features smart video-end detection and analytics.",
-      tags: ["Node.js", "Playwright", "CSS"],
-      githubLink: "https://github.com/varadbarve/autoscroller",
-      actionIcon: "auto_mode"
     },
     {
       icon: "robot",
@@ -451,14 +440,18 @@ export default function Home() {
                         </div>
 
                         <div className="pt-4 border-t border-black/10 flex justify-between items-center mt-auto">
-                          <a
-                            href={proj.deployLink}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="font-code-sm text-xs theme-accent-text hover:underline flex items-center gap-1 font-bold group"
-                          >
-                            Live Deployment <span className="material-symbols-outlined text-sm group-hover:translate-x-1 transition-transform">arrow_outward</span>
-                          </a>
+                          {proj.deployLink ? (
+                            <a
+                              href={proj.deployLink}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="font-code-sm text-xs theme-accent-text hover:underline flex items-center gap-1 font-bold group"
+                            >
+                              Live Deployment <span className="material-symbols-outlined text-sm group-hover:translate-x-1 transition-transform">arrow_outward</span>
+                            </a>
+                          ) : (
+                            <div />
+                          )}
                           <span className="material-symbols-outlined text-on-surface-variant text-lg">
                             {proj.actionIcon}
                           </span>

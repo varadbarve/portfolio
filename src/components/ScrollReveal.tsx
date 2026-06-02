@@ -59,7 +59,12 @@ export default function ScrollReveal({
     if (!el) return;
 
     const tick = () => {
-      const smoothScroll = (window as any).__smoothScroll;
+      const smoothScroll = (window as Window & {
+        __smoothScroll?: {
+          current: number;
+          velocity: number;
+        };
+      }).__smoothScroll;
       if (smoothScroll && el) {
         const rect = el.getBoundingClientRect();
         const viewportCenter = window.innerHeight / 2;

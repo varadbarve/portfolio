@@ -9,34 +9,32 @@ export default function ThemeSwitcher() {
     return (saved as Theme) || "default";
   });
 
-  const setTheme = (theme: Theme) => {
+  const changeTheme = (theme: Theme) => {
     setActiveTheme(theme);
     localStorage.setItem("superhero-theme", theme);
+  };
 
+  // Sync state on load and theme changes
+  useEffect(() => {
     // Remove other theme classes
     document.body.classList.remove("theme-batman", "theme-spiderman", "theme-invincible");
 
     // Add selected theme class
-    if (theme !== "default") {
-      document.body.classList.add(`theme-${theme}`);
+    if (activeTheme !== "default") {
+      document.body.classList.add(`theme-${activeTheme}`);
     }
 
     // Set theme custom property for secondary integrations
     let themeColor = "#00ffc2";
-    if (theme === "batman") themeColor = "#FDE047";
-    else if (theme === "spiderman") themeColor = "#E60000";
-    else if (theme === "invincible") themeColor = "#3b82f6";
+    if (activeTheme === "batman") themeColor = "#FDE047";
+    else if (activeTheme === "spiderman") themeColor = "#E60000";
+    else if (activeTheme === "invincible") themeColor = "#3b82f6";
     
     document.documentElement.style.setProperty("--hologram-color", themeColor);
 
     // Fire custom event so other components (like GitHub Contribution Heatmap URL) can update
-    window.dispatchEvent(new CustomEvent("themechange", { detail: { theme, color: themeColor } }));
-  };
-
-  // Sync state on load
-  useEffect(() => {
-    setTheme(activeTheme);
-  }, []);
+    window.dispatchEvent(new CustomEvent("themechange", { detail: { theme: activeTheme, color: themeColor } }));
+  }, [activeTheme]);
 
   return (
     <div className="fixed bottom-24 right-4 md:bottom-8 md:right-8 z-[100] flex flex-row-reverse md:flex-col items-center">
@@ -51,7 +49,7 @@ export default function ThemeSwitcher() {
         <button
           className="w-11 h-11 md:w-14 md:h-14 rounded-full bg-[#0c0d18] border-2 border-[#FDE047] flex items-center justify-center shadow-2xl hover:scale-110 active:scale-95 transition-all cursor-pointer"
           onClick={() => {
-            setTheme("batman");
+            changeTheme("batman");
             setIsOpen(false);
           }}
           title="Batman Mode"
@@ -61,7 +59,7 @@ export default function ThemeSwitcher() {
         <button
           className="w-11 h-11 md:w-14 md:h-14 rounded-full bg-[#001f3f] border-2 border-[#E60000] flex items-center justify-center shadow-2xl hover:scale-110 active:scale-95 transition-all cursor-pointer"
           onClick={() => {
-            setTheme("spiderman");
+            changeTheme("spiderman");
             setIsOpen(false);
           }}
           title="Spiderman Mode"
@@ -71,7 +69,7 @@ export default function ThemeSwitcher() {
         <button
           className="w-11 h-11 md:w-14 md:h-14 rounded-full bg-[#facc15] border-2 border-[#3b82f6] flex items-center justify-center shadow-2xl hover:scale-110 active:scale-95 transition-all cursor-pointer"
           onClick={() => {
-            setTheme("invincible");
+            changeTheme("invincible");
             setIsOpen(false);
           }}
           title="Invincible Mode"
@@ -81,7 +79,7 @@ export default function ThemeSwitcher() {
         <button
           className="w-9 h-9 md:w-12 md:h-12 rounded-full bg-white border-2 border-black flex items-center justify-center shadow-2xl hover:scale-110 active:scale-95 transition-all cursor-pointer"
           onClick={() => {
-            setTheme("default");
+            changeTheme("default");
             setIsOpen(false);
           }}
           title="Reset Theme"

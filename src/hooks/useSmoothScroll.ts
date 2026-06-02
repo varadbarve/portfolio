@@ -78,12 +78,12 @@ export default function useSmoothScroll() {
     rafId.current = requestAnimationFrame(tick);
 
     // Expose on window so non-React code (HologramCanvas) can access it
-    (window as any).__smoothScroll = values.current;
+    (window as Window & { __smoothScroll?: SmoothScrollValues }).__smoothScroll = values.current;
 
     return () => {
       window.removeEventListener("scroll", onScroll);
       cancelAnimationFrame(rafId.current);
-      delete (window as any).__smoothScroll;
+      delete (window as Window & { __smoothScroll?: SmoothScrollValues }).__smoothScroll;
     };
   }, [getMaxScroll]);
 

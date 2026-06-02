@@ -1,9 +1,9 @@
-import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
+import { motion, useMotionValue, useSpring, useTransform, MotionValue } from "framer-motion";
 import { useRef, useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
 interface DockItemProps {
-  mouseX: any;
+  mouseX: MotionValue<number>;
   icon: string;
   label: string;
   to?: string;
@@ -130,8 +130,8 @@ function DockItem({
 export default function Dock() {
   const mouseX = useMotionValue(Infinity);
   
-  const [isMobile, setIsMobile] = useState(false);
-  const [isTouch, setIsTouch] = useState(false);
+  const [isMobile, setIsMobile] = useState(() => typeof window !== "undefined" ? window.innerWidth < 768 : false);
+  const [isTouch] = useState(() => typeof window !== "undefined" ? window.matchMedia("(pointer: coarse)").matches : false);
   const [isDark, setIsDark] = useState(() => {
     const saved = localStorage.getItem("theme");
     return saved ? saved === "dark" : true;
@@ -167,11 +167,7 @@ export default function Dock() {
     const handleResize = () => {
       setIsMobile(window.innerWidth < 768);
     };
-    handleResize();
     window.addEventListener("resize", handleResize);
-
-    // Touch device detection
-    setIsTouch(window.matchMedia("(pointer: coarse)").matches);
 
     return () => window.removeEventListener("resize", handleResize);
   }, []);
@@ -289,7 +285,11 @@ export default function Dock() {
               label={isDark ? "Light Mode" : "Dark Mode"}
               onClick={(e) => {
                 const nextDark = !isDark;
-                const doc = document as any;
+                const doc = document as Document & {
+                  startViewTransition?: (callback: () => void) => {
+                    ready: Promise<void>;
+                  };
+                };
 
                 if (!doc.startViewTransition) {
                   setIsDark(nextDark);

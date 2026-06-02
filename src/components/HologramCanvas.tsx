@@ -185,7 +185,12 @@ export default function HologramCanvas() {
       positionAttribute.needsUpdate = true;
 
       // --- Scroll-driven effects ---
-      const smoothScroll = (window as any).__smoothScroll;
+      const smoothScroll = (window as Window & {
+        __smoothScroll?: {
+          current: number;
+          velocity: number;
+        };
+      }).__smoothScroll;
       if (smoothScroll) {
         // Rotation boost: increases as user scrolls through hero zone (0–100vh)
         const heroProgress = Math.min(smoothScroll.current / window.innerHeight, 1);
