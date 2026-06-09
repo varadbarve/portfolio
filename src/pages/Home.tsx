@@ -280,7 +280,7 @@ export default function Home() {
           </motion.h1>
           <motion.div style={{ y: heroSubtitleY }} className="h-1.5 w-32 theme-accent-bg mb-8 border border-black shadow-[2px_2px_0px_rgba(0,0,0,0.5)]"></motion.div>
           <motion.p style={{ y: heroSubtitleY }} className="font-body-lg text-body-lg max-w-xl text-on-surface-variant mb-12 px-4 leading-relaxed">
-            Multidisciplinary Senior Engineer crafting the nexus between AI pipelines and high-velocity web architectures.
+            Multidisciplinary Engineer crafting the nexus between AI pipelines and high velocity web architectures.
           </motion.p>
           <motion.div style={{ y: heroCtaY }}>
             <button
