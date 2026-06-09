@@ -318,7 +318,7 @@ export default function Home() {
                   <span className="theme-accent-text bg-black px-2 inline-block mt-2">MULTIVERSE</span>
                 </h2>
                 <p className="font-body-lg text-body-lg text-on-surface-variant max-w-2xl mb-8 leading-relaxed">
-                  Senior Software Engineer specializing in the synthesis of AI pipelines and high-performance web systems. Forging scalable architectures from the void of complex data streams, bridging intelligent neural nets with rapid, responsive user interfaces.
+                  Engineer specializing in the synthesis of AI pipelines and high-performance web systems. Forging scalable architectures from the void of complex data streams, bridging intelligent neural nets with rapid and responsive user interfaces.
                 </p>
                 <div className="flex gap-4">
                   <button
